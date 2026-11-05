@@ -1,0 +1,17 @@
+model combat_sessions {
+  id           Int      @id @default(autoincrement())
+  user_id      String   @unique
+  character_id Int      @unique
+  party_id     Int?
+  status       String   @default("IN_PROGRESS") @db.VarChar(20)
+  battle_state Json
+  created_at   DateTime @default(now()) @db.DateTime(0)
+  updated_at   DateTime @updatedAt @db.DateTime(0)
+
+  character characters @relation(fields: [character_id], references: [id], onDelete: Cascade)
+  user      users      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([character_id])
+  @@index([party_id])
+}

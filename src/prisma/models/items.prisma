@@ -1,0 +1,36 @@
+model items {
+  id                Int         @id @default(autoincrement())
+  name              String?     @db.VarChar(30)
+  type              ItemType
+  rarity            Rarity      @default(NORMAL)
+  weapon_type       WeaponType  @default(SWORD)
+  size              Int?        @default(1)
+  is_stackable      Boolean?    @default(false)
+  max_stack         Int?        @default(1)
+  max_upgrade_level Int?        @default(0)
+  description       String?     @db.Text
+  price             Int?
+  created_at        DateTime?   @default(now()) @db.DateTime(0)
+  updated_at        DateTime?   @updatedAt @db.DateTime(0)
+  deleted           Boolean?    @default(false)
+  is_buyable        Boolean?    @default(false)
+  item_bonus        item_bonus?
+
+  is_consumable Boolean @default(false)
+  is_material   Boolean @default(false)
+
+  is_nsfw       Boolean @default(false)
+
+  // Unified items relation
+  character_items character_items[]
+  character_item_bonus_times character_item_bonus_time[]
+
+  // Other system relations
+  lootgroups_items   lootgroups_items[]
+  sublocations_items sublocations_items[]
+  skills_in_items    skills_in_items[]
+
+  recipe_outputs              crafting_recipes[]            @relation("CraftedOutputItem")
+  crafting_recipe_ingredients crafting_recipe_ingredients[]
+  quest_targets               quests[]                      @relation("QuestTargetItem")
+}

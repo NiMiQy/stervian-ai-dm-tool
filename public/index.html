@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#121114" />
+    <title>Stervian — AI Dungeon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lusitana:wght@400;700&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/styles.css" />
+    <link rel="stylesheet" href="./style/ux-enhancements.css" />
+  </head>
+  <body>
+    <section class="login-screen" id="loginScreen">
+      <div class="login-backdrop"><span class="moon">☾</span><span class="mountain mountain-one"></span><span class="mountain mountain-two"></span></div>
+      <form class="login-card" id="loginForm">
+        <a class="login-brand" href="#">STERVIAN <span>AI DUNGEON</span></a>
+        <div class="login-copy"><p class="eyebrow">WELCOME, TRAVELER</p><h1>Return to the story.</h1><p>Your choices wait beyond the gate.</p></div>
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" placeholder="Enter your username" required />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+        <p class="login-error" id="loginError" role="alert"></p>
+        <button class="login-submit" type="submit">Enter Stervian <span>→</span></button>
+        <div class="demo-credentials"><span>DEMO ACCOUNT</span><b>user: admin</b><b>password: 123</b></div>
+      </form>
+    </section>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#">STERVIAN <span>AI DUNGEON</span></a>
+        <div class="chapter"><span>CHAPTER I</span><strong>The Ember Road</strong></div>
+        <div class="top-actions"><button class="icon-button" aria-label="Game settings">⚙</button><button class="profile" id="logoutButton" title="Log out"><span>Q</span> Quinn <i>⌄</i></button></div>
+      </header>
+
+      <aside class="sidebar">
+        <section class="character-summary">
+          <div class="avatar">Q</div>
+          <div><p class="eyebrow">Level 3 · Ranger</p><h2>Quinn Ashwood</h2><p class="muted">Human · Neutral Good</p></div>
+        </section>
+        <section class="vitals" aria-label="Character vitals">
+          <div><label><span>HP</span><b id="hpText">28 / 34</b></label><div class="meter hp"><i id="hpMeter" style="width:82%"></i></div></div>
+          <div><label><span>ENERGY</span><b>68 / 80</b></label><div class="meter energy"><i style="width:85%"></i></div></div>
+          <div><label><span>HUNGER</span><b>76 / 120</b></label><div class="meter hunger"><i style="width:63%"></i></div></div>
+        </section>
+        <nav class="nav-tabs" aria-label="Game sections">
+          <button class="active" data-panel="character"><span>♙</span> Character</button>
+          <button data-panel="inventory"><span>▣</span> Inventory <em>8</em></button>
+          <button data-panel="journal"><span>◫</span> Journal</button>
+          <button data-panel="world"><span>◉</span> World</button>
+        </nav>
+        <div class="sidebar-bottom"><span>◈ 1,240</span><button id="saveButton">Save game</button></div>
+      </aside>
+
+      <main class="game-stage">
+        <section class="scene-header">
+          <div><p class="eyebrow">THE KINGDOM OF VELMERE · DUSK</p><h1>Warden's Crossing</h1><p>A rain-darkened road winds toward the old watchtower.</p></div>
+          <button class="map-button">⌖ Open map</button>
+        </section>
+
+        <section class="story-feed" id="storyFeed" aria-live="polite">
+          <article class="narration"><span class="entry-mark">✦</span><p>The last light is thinning over Warden's Crossing. Beyond the broken mile-marker, the watchtower rises from the mist, its lantern burning an impossible blue.</p></article>
+          <article class="npc-line"><div class="npc-avatar">M</div><div><p class="speaker">MARA VENN <span>Scout</span></p><p>"There. That light wasn't there yesterday." Mara rests one hand on the hilt of her knife. "We can investigate, or find shelter before the storm reaches us."</p></div></article>
+          <article class="system-line">New memory recorded: <b>The blue lantern at Warden's Crossing.</b></article>
+        </section>
+
+        <section class="quick-actions" aria-label="Suggested actions">
+          <button data-action="Approach the watchtower carefully.">Approach the tower <kbd>1</kbd></button>
+          <button data-action="Ask Mara what she knows about the blue lantern.">Question Mara <kbd>2</kbd></button>
+          <button data-action="Look for shelter along the road.">Find shelter <kbd>3</kbd></button>
+        </section>
+        <form class="action-composer" id="actionForm">
+          <label for="actionInput">What do you do?</label>
+          <div><textarea id="actionInput" rows="2" placeholder="Describe an action, speak to someone, or change the scene…"></textarea><button type="submit">Send <span>↵</span></button></div>
+          <p>Mockup mode — responses are simulated locally.</p>
+        </form>
+      </main>
+
+      <aside class="detail-panel">
+        <div class="panel-tabs"><button class="active" data-detail="scene">Scene</button><button data-detail="party">Party</button><button data-detail="memory">Memory</button></div>
+        <div class="detail-content" id="sceneDetail">
+          <p class="eyebrow">CURRENT LOCATION</p><h2>Warden's Crossing</h2>
+          <div class="scene-art"><span>✦</span><div class="tower"></div></div>
+          <p class="description">An abandoned imperial waystation where the north road fades into the Blackwood. The old tower is said to keep a light for those who never returned.</p>
+          <div class="nearby"><p class="eyebrow">NEARBY</p><button class="npc-card"><span class="npc-avatar">M</span><span><b>Mara Venn</b><small>Scout · Friendly</small></span><i>›</i></button><button class="npc-card"><span class="npc-avatar unknown">?</span><span><b>Unseen presence</b><small>Watchtower · Unknown</small></span><i>›</i></button></div>
+        </div>
+        <div class="detail-content hidden" id="partyDetail"><p class="eyebrow">ADVENTURING PARTY</p><h2>Two on the road</h2><div class="party-member"><span class="avatar">Q</span><b>Quinn Ashwood<small>Ranger · You</small></b><strong>28 HP</strong></div><div class="party-member"><span class="npc-avatar">M</span><b>Mara Venn<small>Scout · Ally</small></b><strong>21 HP</strong></div></div>
+        <div class="detail-content hidden" id="memoryDetail"><p class="eyebrow">STORY MEMORY</p><h2>Things you know</h2><ul class="memory-list"><li>The blue lantern at Warden's Crossing.</li><li>Mara fears the road after sundown.</li><li>A missing courier carried a sealed letter north.</li></ul></div>
+      </aside>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="./js/app.js"></script>
+  </body>
+</html>

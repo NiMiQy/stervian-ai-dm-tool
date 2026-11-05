@@ -1,0 +1,50 @@
+INSERT INTO lifeskills (name, description) VALUES
+('Gathering', 'Collect raw materials from nature like herbs and wood.'),
+('Fishing', 'Catch fish from rivers, lakes, and oceans.'),
+('Hunting', 'Track and hunt wild animals for resources.'),
+('Cooking', 'Prepare food to provide buffs and recover stats.'),
+('Alchemy', 'Craft potions and magical items.'),
+('Farming', 'Grow crops and raise livestock.'),
+('Trading', 'Buy low, sell high across markets for profit.'),
+('Processing', 'Refine raw materials into usable goods.'),
+('Training', 'Raise and train mounts or pets.');
+
+
+
+const noble = await prisma.npcs.create({
+  data: {
+    location_id: 1, // Replace with a valid location_id
+    level: 10,
+    name: "Lord Eadric",
+    sex: "Male",
+    race: "Human",
+    age: 45,
+    job: "Noble",
+    alignment: "Lawful Evil",
+    is_enemy: false,
+    description: "A cunning and wealthy noble who rules his lands with an iron fist.",
+    personality: "Ambitious, manipulative, and cruel.",
+    appearance: "Tall and gaunt, with piercing blue eyes and a neatly trimmed beard.",
+    weapon: "Elegant rapier",
+    affinity: "Political intrigue",
+    nsfw_description: "Kidnaps beautiful women to turn them into his personal slaves.",
+    npc_stats: {
+      create: {
+        proficiency: 8,
+        intelligence: 12,
+        strength: 6,
+        dexterity: 7,
+        charisma: 16,
+        constitution: 8,
+        wisdom: 10,
+        armor: 12,
+        magic_armor: 8,
+        element_resistant: 6,
+        status_resistant: 7,
+        special_element_resistant: 5,
+        max_hp: 80,
+        current_hp: 80,
+      },
+    },
+  },
+});

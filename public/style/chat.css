@@ -1,0 +1,61 @@
+.story-feed {
+  overscroll-behavior: contain;
+}
+
+.story-transition {
+  margin: 14px 0;
+  color: var(--gold2);
+  font: 500 10px 'DM Mono', monospace;
+  letter-spacing: 0.8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.story-transition::before,
+.story-transition::after {
+  content: ' ✦ ';
+  color: var(--gold);
+}
+
+.narration-content {
+  min-width: 0;
+}
+
+.narration-content p {
+  margin: 0 0 14px;
+}
+
+.narration-content p:last-child {
+  margin-bottom: 0;
+}
+
+.narration-content ul {
+  margin: 0 0 14px;
+  padding-left: 24px;
+}
+
+.narration-content li {
+  padding-left: 5px;
+  margin: 5px 0;
+}
+
+.narration-content ul:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 1001px) {
+  .story-feed {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .story-feed {
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+}

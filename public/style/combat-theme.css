@@ -1,0 +1,53 @@
+body.combat-route {
+  --gs-night: #15171c; --gs-panel: #1c1f26; --gs-panel-raised: #232731;
+  --gs-rule: #2d313b; --gs-rule-strong: #3b404c;
+  --gs-parchment: #e8e1d2; --gs-ash: #9c968a; --gs-ash-quiet: #77726a;
+  --gs-gold: #d4ab5f; --gs-gold-soft: rgba(212, 171, 95, 0.14); --gs-gold-line: rgba(212, 171, 95, 0.45);
+  --gs-ember: #d9785f; --gs-hp: #4fa77d; --gs-energy: #5b8fd6;
+  --gs-font-title: 'Marcellus', Georgia, serif;
+  --gs-font-read: 'Lusitana', Georgia, serif;
+  --gs-font-ui: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --combat-bg: var(--gs-night);
+  --combat-panel: var(--gs-panel);
+  --combat-border: var(--gs-rule);
+  --combat-muted: var(--gs-ash);
+  --combat-gold: var(--gs-gold);
+  --combat-red: var(--gs-ember);
+  background: var(--gs-night);
+  color: var(--gs-parchment);
+  font-family: var(--gs-font-ui);
+}
+body.combat-route :focus-visible { outline: 2px solid var(--gs-gold); outline-offset: 2px; }
+body.combat-route .combat-route-status { background: var(--gs-night); color: var(--gs-ash); font-family: var(--gs-font-ui); }
+
+body.combat-route > .topbar { background: var(--gs-night); border-bottom: 1px solid var(--gs-rule); box-shadow: none; }
+body.combat-route .topbar .brand .brand-mark { color: var(--gs-gold); text-shadow: none; animation: none; }
+body.combat-route .topbar .brand .brand-name { font-family: var(--gs-font-title); color: var(--gs-parchment); letter-spacing: 0.01em; }
+body.combat-route .topbar .brand .brand-name small { font-family: var(--gs-font-read); font-style: italic; text-transform: none; letter-spacing: 0.02em; color: var(--gs-ash); }
+body.combat-route .main-nav { gap: 4px; }
+body.combat-route .main-nav a { position: relative; padding: 8px 14px; border-radius: 6px; font-family: var(--gs-font-ui); font-size: 15px; font-weight: 400; color: var(--gs-ash); background: none; }
+body.combat-route .main-nav a::before, body.combat-route .main-nav a + a::before { content: none; }
+body.combat-route .main-nav a:hover { color: var(--gs-parchment); background: rgba(255, 255, 255, 0.04); }
+body.combat-route .main-nav a.active, body.combat-route .main-nav a[aria-current='page'] { color: var(--gs-parchment); }
+body.combat-route .main-nav a::after { display: none; }
+body.combat-route .main-nav a.active::after, body.combat-route .main-nav a[aria-current='page']::after {
+  display: block; content: ''; position: absolute; left: 14px; right: 14px; bottom: -2px; width: auto; height: 2px; margin: 0; transform: none; border-radius: 2px; background: var(--gs-gold);
+}
+body.combat-route .top-icon { color: var(--gs-ash); }
+body.combat-route .top-icon:hover { color: var(--gs-gold); }
+body.combat-route .top-icon svg { stroke: currentColor; }
+
+body.combat-route .battle-card, body.combat-route .combat-board { background: var(--gs-night); }
+body.combat-route .panel, body.combat-route .action-dock, body.combat-route .battle-command-dock, body.combat-route .battle-submenu {
+  background: var(--gs-panel); border-color: var(--gs-rule); color: var(--gs-parchment);
+}
+body.combat-route .battle-btn.action-card { background: var(--gs-panel-raised); border-color: var(--gs-rule-strong); color: var(--gs-parchment); font-family: var(--gs-font-ui); }
+body.combat-route .battle-btn.action-card:hover:not(:disabled) { border-color: var(--gs-gold-line); background: #2a2f3a; }
+body.combat-route .battle-btn.action-card:disabled { opacity: 0.5; }
+body.combat-route .submenu-header, body.combat-route .log-tabs { border-color: var(--gs-rule); }
+body.combat-route .log-tabs button { font-family: var(--gs-font-ui); color: var(--gs-ash); }
+body.combat-route .log-tabs button.active { color: var(--gs-gold); }
+body.combat-route .log-content { color: var(--gs-parchment); font-family: var(--gs-font-read); }
+body.combat-route .eyebrow { color: var(--gs-gold); font-family: var(--gs-font-ui); letter-spacing: 0.14em; }
+body.combat-route .battle-result-modal .character-sheet, body.combat-route .battle-result-modal [class*='card'] { background: var(--gs-panel); border-color: var(--gs-rule-strong); color: var(--gs-parchment); }
+body.combat-route .battle-result-modal h2 { font-family: var(--gs-font-title); color: var(--gs-parchment); }

@@ -1,0 +1,40 @@
+.story-feed .narration-content,
+.story-feed .narration-content p,
+.story-feed .narration-content li {
+  color: #a9a9b1;
+}
+
+.story-feed .narration-content .story-speech {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.story-feed .narration-content em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.story-feed .npc-speech {
+  padding-left: 10px;
+  border-left: 3px solid #e8913a;
+}
+
+.story-feed .npc-speech .speaker {
+  color: #f0a050 !important;
+}
+
+.story-feed .npc-speech-text {
+  color: #f0a050;
+}
+
+.story-feed .npc-speech-text .story-speech {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.story-feed .npc-speech-text em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ffffff;
+}

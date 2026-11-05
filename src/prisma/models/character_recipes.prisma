@@ -1,0 +1,15 @@
+model character_recipes {
+  character_id  Int
+  recipe_id     Int
+  times_crafted Int              @default(0)
+  
+  created_at   DateTime?  @default(now()) @db.DateTime(0)
+  updated_at   DateTime?  @updatedAt @db.DateTime(0)
+  deleted      Boolean?   @default(false)
+
+  character     characters       @relation(fields: [character_id], references: [id], onDelete: Cascade)
+  recipe        crafting_recipes @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+
+  @@id([character_id, recipe_id])
+  @@index([recipe_id], map: "character_recipes_recipe_id_fkey")
+}

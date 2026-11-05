@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Lusitana:wght@400;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/admin.css">
+  <link rel="stylesheet" href="style/admin-theme.css">
+</head>
+<body>
+  <header>
+    <div>
+      <span class="eyebrow">STERVIAN AI DUNGEON</span>
+      <h1>Admin console</h1>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button id="openGame" class="ghost" type="button">To game.html</button>
+      <button id="logout" class="ghost">Sign out</button>
+    </div>
+  </header>
+  <main>
+    <div id="notice" class="notice"></div>
+    <nav id="tabs"></nav>
+    <section class="toolbar">
+      <div>
+        <h2 id="title"></h2>
+        <p id="count"></p>
+      </div>
+      <div class="toolbarActions">
+        <div id="userFilters" class="userFilters">
+          <label for="userFilter">Search users
+            <input id="userFilter" type="search" placeholder="Username">
+          </label>
+          <label for="userStatus">Status
+            <select id="userStatus">
+              <option value="all">All statuses</option>
+              <option value="active">Active</option>
+              <option value="deleted">Deleted</option>
+            </select>
+          </label>
+          <div class="userPaging">
+            <button id="userPrev" class="ghost" type="button">Previous</button>
+            <span id="userPage"></span>
+            <button id="userNext" class="ghost" type="button">Next</button>
+          </div>
+        </div>
+        <div id="modelFilters" class="modelFilters" hidden></div>
+        <div id="genericPaging" class="userPaging" hidden>
+          <button id="genericPrev" class="ghost" type="button">Previous</button>
+          <span id="genericPage"></span>
+          <button id="genericNext" class="ghost" type="button">Next</button>
+        </div>
+        <button id="genericCreate" class="primary" type="button">+ New record</button>
+        <div id="characterActions" class="characterActions">
+          <button id="create" class="primary" type="button">+ Player</button>
+          <button id="createNpc" class="ghost" type="button">+ NPC/Monster</button>
+        </div>
+      </div>
+    </section>
+    <section id="table"></section>
+    <section id="worldMapEditor" class="worldMapEditor" hidden>
+      <div class="worldMapToolbar">
+        <label for="worldMapPinLocation">Choose a location, then click the map to place or move its pin</label>
+        <select id="worldMapPinLocation"></select>
+        <button id="worldMapRemovePin" class="danger" type="button" disabled>Remove selected pin</button>
+      </div>
+      <div class="worldMapLayout">
+        <div class="worldMapView">
+          <div class="worldMapZoomControls" aria-label="World map zoom controls">
+            <button id="worldMapZoomOut" class="ghost" type="button" aria-label="Zoom out">−</button>
+            <span id="worldMapZoomLevel">100%</span>
+            <button id="worldMapZoomIn" class="ghost" type="button" aria-label="Zoom in">+</button>
+            <button id="worldMapZoomReset" class="ghost" type="button">Reset</button>
+            <span class="worldMapZoomHint">Scroll to zoom · drag to pan</span>
+          </div>
+          <div id="worldMapStage" class="worldMapStage">
+            <div id="worldMapTransform" class="worldMapTransform">
+              <img src="./resources/world_map/stervian_world_map.png" alt="Stervian world map" draggable="false">
+              <svg id="worldMapRouteLines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+            </div>
+            <div id="worldMapPins" class="worldMapPins"></div>
+          </div>
+        </div>
+        <aside class="worldMapRoutePanel">
+          <h2>Connected routes</h2>
+          <p class="muted">Connect two pinned locations. Players follow connected legs and pay each leg’s resource costs.</p>
+          <label for="worldMapRouteFrom">From</label>
+          <select id="worldMapRouteFrom"></select>
+          <label for="worldMapRouteTo">To</label>
+          <select id="worldMapRouteTo"></select>
+          <button id="worldMapConnect" class="primary" type="button">Connect locations</button>
+          <div id="worldMapRouteList" class="worldMapRouteList"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  
+  <dialog id="editor">
+    <form method="dialog" id="editorForm">
+      <div class="modalHead">
+        <div class="modalHeadTitle">
+          <span class="eyebrow">RECORD EDITOR</span>
+          <h2 id="formTitle"></h2>
+          <span id="formBadge"></span>
+        </div>
+        <button id="editorClose" type="button" class="close" title="Close" aria-label="Close" formnovalidate>×</button>
+      </div>
+      <div id="modalTabs" class="modalNav" hidden></div>
+      <div id="fields" class="modalBody"></div>
+      <div class="actions">
+        <button id="editorCancel" type="button" class="ghost" formnovalidate>Cancel</button>
+        <button id="save" type="submit" value="default" class="primary">Create</button>
+      </div>
+    </form>
+  </dialog>
+  
+  <script src="./js/admin-ui.js"></script>
+  <script src="./js/admin.js"></script>
+</body>
+</html>

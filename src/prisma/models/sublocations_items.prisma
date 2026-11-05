@@ -1,0 +1,15 @@
+model sublocations_items {
+  id             Int  @id @default(autoincrement())
+  sublocation_id Int?
+  item_id        Int?
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  sublocation sublocations? @relation(fields: [sublocation_id], references: [id])
+  item        items?        @relation(fields: [item_id], references: [id])
+
+  @@unique([sublocation_id, item_id])
+  @@index([sublocation_id, item_id], map: "sublocations_items_sublocation_item_id_fkey")
+}

@@ -1,0 +1,13 @@
+model players {
+  character_id        Int       @id
+  current_point_spend Int?      @default(45)
+  verified            Boolean?  @default(false)
+  is_nsfw             Boolean?  @default(false)
+  gold                Int?      @default(1000)
+  created_at          DateTime? @default(now()) @db.DateTime(0)
+  updated_at          DateTime? @updatedAt @db.DateTime(0)
+  deleted             Boolean?  @default(false)
+
+  character                characters                 @relation(fields: [character_id], references: [id])
+  player_npc_relationships player_npc_relationships[] @relation("PlayerCharacterRelations")
+}

@@ -1,0 +1,49 @@
+.settings-menu-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.settings-menu {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 150px;
+  padding: 6px;
+  border: 1px solid rgba(214, 196, 158, 0.35);
+  border-radius: 8px;
+  background: rgba(18, 19, 25, 0.98);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.settings-menu[hidden] {
+  display: none;
+}
+
+.settings-menu-item {
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #f3f1ef;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-menu-item:hover,
+.settings-menu-item:focus-visible {
+  outline: none;
+  background: rgba(232, 201, 137, 0.14);
+  color: #e8c989;
+}
+
+.profile-display {
+  cursor: default;
+}
+
+.profile-display:hover {
+  border-color: #35363d;
+}

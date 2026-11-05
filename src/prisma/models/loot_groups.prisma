@@ -1,0 +1,17 @@
+model loot_groups {
+  id          Int     @id @default(autoincrement())
+  name        String? @db.VarChar(60)
+  description String? @db.VarChar(60)
+
+  loot_group_rarity  LootGroupRarity @default(COMMON)
+  min_gold    Int?    @default(0)
+  max_gold    Int?    @default(0)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  items                  lootgroups_items[]
+  npcmonsters_lootgroups npcmonsters_lootgroups[]
+  locations_lootgroups   locations_lootgroups[]
+}

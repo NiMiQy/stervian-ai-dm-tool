@@ -1,0 +1,22 @@
+model character_memories {
+  id           Int        @id @default(autoincrement())
+  character_id Int
+  target_character_id  Int?
+
+  memory_type  MemoryType @default(SHORT_TERM)
+  content      String     @db.Text
+  is_secret               Boolean?    @default(false)
+  
+  is_nsfw      Boolean? @default(false)
+
+  add_from       MemoryAddByType @default(AI_SUMMARIZE)
+
+  created_at   DateTime?  @default(now()) @db.DateTime(0)
+  updated_at   DateTime?  @updatedAt @db.DateTime(0)
+  deleted      Boolean?   @default(false)
+  
+  character            characters  @relation("CharacterOwnerMemories", fields: [character_id], references: [id])
+  target_character     characters? @relation("CharacterTargetMemories", fields: [target_character_id], references: [id])
+  @@index([character_id])
+  @@index([character_id, target_character_id])
+}

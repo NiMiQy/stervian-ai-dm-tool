@@ -1,0 +1,31 @@
+model locations {
+  id           Int     @id @default(autoincrement())
+  region_id    Int
+  name         String  @db.VarChar(60)
+  description  String? @db.Text
+  subgeography String? @db.Text
+  subpolitics  String? @db.Text
+  subculture   String? @db.Text
+  map_x        Float?
+  map_y        Float?
+
+  is_safe_zone                      Boolean?                            @default(false)
+  location_type                     LocationType                        @default(VILLAGE)
+  created_at                        DateTime?                           @default(now()) @db.DateTime(0)
+  updated_at                        DateTime?                           @updatedAt @db.DateTime(0)
+  deleted                           Boolean?                            @default(false)
+  characters                        characters[]                        @relation("CharacterCurrentLocation")
+  respawn_characters                characters[]                        @relation("CharacterRespawnLocation")
+  sublocations                      sublocations[]
+  npcs_in_locations_or_sublocations npcs_in_locations_or_sublocations[]
+  npc_known_locations               npc_known_locations[]
+  routes_from                       location_routes[]                    @relation("LocationRouteA")
+  routes_to                         location_routes[]                    @relation("LocationRouteB")
+  locations_lootgroups              locations_lootgroups[]
+  weather                           location_weathers?
+  ambiences                         ambiences[]
+  ambience_states                   location_ambience_states[]
+  region                            regions                             @relation(fields: [region_id], references: [id])
+
+  @@index([region_id], map: "locations_region_id_fkey")
+}

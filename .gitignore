@@ -1,0 +1,15 @@
+node_modules/
+src/generated/prisma-fixed/
+
+# Environment files hold real credentials; only the example is committed
+.env
+.env.*
+!.env.example
+
+# Runtime logs (player stories, AI prompts and responses)
+logs/harness/
+logs/response/
+logs/systempromptlogs/
+
+# Machine-specific Codex settings (local Windows paths)
+.codex/config.toml

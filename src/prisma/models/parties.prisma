@@ -1,0 +1,55 @@
+model parties {
+  id                  Int       @id @default(autoincrement())
+  name                String?   @db.VarChar(60)
+  leader_character_id Int
+  max_size            Int       @default(4)
+  status              String    @default("ACTIVE") @db.VarChar(20)
+  created_at          DateTime? @default(now()) @db.DateTime(0)
+  updated_at          DateTime? @updatedAt @db.DateTime(0)
+  deleted             Boolean?  @default(false)
+
+  leader  characters      @relation("PartyLeader", fields: [leader_character_id], references: [id], onDelete: Cascade)
+  members party_members[]
+  invites party_invites[]
+
+  @@index([leader_character_id], map: "parties_leader_character_id_idx")
+}
+
+model party_members {
+  id                 Int              @id @default(autoincrement())
+  party_id           Int
+  character_id       Int
+  role               PartyMemberRole? @default(MEMBER)
+  slot_order         Int              @default(1)
+  tactics_role       String           @default("BALANCED") @db.VarChar(20)
+  relationship_score Int              @default(0)
+  is_active          Boolean          @default(true)
+  joined_at          DateTime?        @default(now()) @db.DateTime(0)
+  updated_at         DateTime?        @updatedAt @db.DateTime(0)
+  deleted            Boolean?         @default(false)
+
+  party     parties    @relation(fields: [party_id], references: [id], onDelete: Cascade)
+  character characters @relation("CharacterPartyMemberships", fields: [character_id], references: [id], onDelete: Cascade)
+
+  @@unique([party_id, character_id], map: "party_members_party_character_unique")
+  @@index([party_id], map: "party_members_party_id_idx")
+  @@index([character_id], map: "party_members_character_id_idx")
+}
+
+model party_invites {
+  id                   Int       @id @default(autoincrement())
+  party_id             Int
+  inviter_character_id Int
+  invitee_character_id Int
+  status               String    @default("PENDING") @db.VarChar(20)
+  created_at           DateTime? @default(now()) @db.DateTime(0)
+  updated_at           DateTime? @updatedAt @db.DateTime(0)
+  deleted              Boolean?  @default(false)
+
+  party   parties    @relation(fields: [party_id], references: [id], onDelete: Cascade)
+  inviter characters @relation("SentPartyInvites", fields: [inviter_character_id], references: [id], onDelete: Cascade)
+  invitee characters @relation("ReceivedPartyInvites", fields: [invitee_character_id], references: [id], onDelete: Cascade)
+
+  @@index([party_id], map: "party_invites_party_id_idx")
+  @@index([invitee_character_id], map: "party_invites_invitee_character_id_idx")
+}

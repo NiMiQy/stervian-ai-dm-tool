@@ -1,0 +1,207 @@
+/* ── Nearby NPCs ───────────────────────────────────── */
+.npcs-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.npcs-modal.is-open { display: flex; }
+
+.npcs-modal .modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.npcs-card {
+  position: relative;
+  z-index: 1;
+  width: min(620px, 100%);
+  max-height: min(720px, calc(100vh - 48px));
+  overflow: auto;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: #061013;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85), 0 0 1px 1px rgba(222, 192, 110, 0.2);
+}
+
+.npcs-list {
+  display: grid;
+  gap: 10px;
+  padding: 20px 24px 24px;
+}
+
+.nearby-npc-card {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid #243238;
+  border-radius: var(--radius-md);
+  background: #0a171b;
+}
+
+.nearby-npc-info { min-width: 0; }
+.nearby-npc-name {
+  display: block;
+  color: #fff;
+  font-family: var(--font-lusitana);
+  font-size: 18px;
+}
+
+.nearby-npc-meta,
+.nearby-npc-appearance {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.nearby-npc-appearance { color: #bdc8c9; }
+
+.nearby-npc-actions { flex: 0 0 auto; }
+.nearby-npc-invite {
+  padding: 8px 12px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: rgba(222, 192, 110, 0.08);
+  color: var(--gold2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.nearby-npc-invite:hover,
+.nearby-npc-invite:focus-visible {
+  background: var(--gold);
+  color: #061013;
+}
+
+.npcs-card.quests-card { width: min(1100px, 100%); }
+.quests-columns {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+.quests-column {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.quests-column + .quests-column {
+  padding-left: 20px;
+  border-left: 1px solid #243238;
+}
+
+@media (max-width: 860px) {
+  .quests-columns { grid-template-columns: 1fr; }
+  .quests-column + .quests-column { padding-left: 0; border-left: 0; }
+}
+
+@media (max-width: 560px) {
+  .npcs-modal { padding: 12px; }
+  .nearby-npc-card { align-items: flex-start; flex-direction: column; }
+  .nearby-npc-actions,
+  .nearby-npc-invite { width: 100%; }
+}
+
+.action-composer > .npc-chat-chips-bar {
+  margin-top: 4px;
+  margin-bottom: 6px;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.action-composer > .npc-chat-chips-bar[hidden] {
+  display: none !important;
+}
+
+.npc-chips-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: var(--muted, #8e9fa3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.npc-chat-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.npc-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1px solid #28373e;
+  border-radius: 12px;
+  background: #091519;
+  color: #9cb1b5;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.npc-chip:hover {
+  border-color: var(--gold, #dec06e);
+  background: rgba(222, 192, 110, 0.12);
+  color: #fff;
+}
+
+.npc-chip.is-active {
+  border-color: #3e5661;
+  background: #142227;
+  color: #d1dfe2;
+  font-weight: 500;
+}
+
+.npc-chip.is-active.is-npc-target {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(222, 192, 110, 0.3), rgba(180, 140, 40, 0.2));
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), inset 0 0 4px rgba(255, 215, 0, 0.2);
+}
+
+.npc-chip.is-active.is-npc-target::before {
+  content: '●';
+  font-size: 8px;
+  color: #ffd700;
+  margin-right: 4px;
+  text-shadow: 0 0 6px #ffd700;
+}
+
+.npc-chip-name {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+

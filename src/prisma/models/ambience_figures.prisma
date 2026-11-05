@@ -1,0 +1,12 @@
+model ambience_figures {
+  id          Int       @id @default(autoincrement())
+  ambience_id Int
+  label       String    @db.VarChar(120)
+  weight      Int       @default(1)
+  created_at  DateTime? @default(now()) @db.DateTime(0)
+  updated_at  DateTime? @updatedAt @db.DateTime(0)
+
+  ambience ambiences @relation(fields: [ambience_id], references: [id], onDelete: Cascade)
+
+  @@index([ambience_id])
+}

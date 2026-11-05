@@ -1,0 +1,24 @@
+model player_npc_relationships {
+  id                  Int @id @default(autoincrement())
+  player_character_id Int
+  npc_character_id    Int
+
+  is_player_name_revealed    Boolean?  @default(false)
+  known_as_name              String?   @db.VarChar(60)
+  nickname                   String?   @db.VarChar(60)
+
+  affinity Int?                        @default(0)
+  status   NpcPlayerRelationshipStatus @default(STRANGER)
+
+  interaction_notes String?   @db.Text
+  created_at        DateTime? @default(now()) @db.DateTime(0)
+  updated_at        DateTime? @updatedAt @db.DateTime(0)
+  deleted           Boolean?  @default(false)
+
+  player_character players @relation("PlayerCharacterRelations", fields: [player_character_id], references: [character_id], onDelete: Cascade)
+  npc_character    npcs    @relation("NpcTargetRelations", fields: [npc_character_id], references: [character_id], onDelete: Cascade)
+
+  @@unique([player_character_id, npc_character_id], map: "player_npc_rel_unique")
+  @@index([player_character_id])
+  @@index([npc_character_id])
+}

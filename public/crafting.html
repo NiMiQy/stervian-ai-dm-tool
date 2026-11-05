@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crafting · Stervian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lusitana:wght@400;700&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/styles.css" />
+    <link rel="stylesheet" href="./style/inventory.css" />
+    <link rel="stylesheet" href="./style/game-ui-overrides.css" />
+    <link rel="stylesheet" href="./style/combat.css" />
+    <link rel="stylesheet" href="./style/game-theme.css" />
+    <link rel="stylesheet" href="./style/settings-menu.css" />
+    <link rel="stylesheet" href="./style/ux-enhancements.css" />
+    <link rel="stylesheet" href="./style/game-screen.css" />
+    <style>@media (max-width:700px) { .main-nav { gap:4px; } .main-nav a { font-size:11px; } }</style>
+    <style>
+      .crafting-page { grid-column:1 / -1; grid-row:2; overflow:auto; display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:24px; padding:32px; min-height:0; }
+      .crafting-panel,.crafting-sidebar { background:var(--gs-panel); border:1px solid var(--gs-rule); border-radius: var(--gs-radius); padding:24px; }
+      .crafting-tabs { display:flex; gap:8px; margin-bottom:20px; }
+      .crafting-tab,.crafting-action { border:1px solid var(--gs-gold-line); background:var(--gs-panel-raised); color:var(--gs-ash); border-radius: var(--gs-radius); padding:9px 14px; cursor:pointer; font:500 12px var(--gs-font-ui); }
+      .crafting-tab[aria-selected=true] { background:var(--gs-gold-soft); border-color:var(--gs-gold); color:var(--gs-gold); }
+      .crafting-action { background:var(--gs-gold); border-color:var(--gs-gold); color:var(--gs-night); font-weight:600; }
+      .crafting-tab { background:transparent; border-color:var(--gs-rule-strong); color:var(--gs-ash); }
+      .crafting-panel h1 { font:30px/1.15 var(--gs-font-title); margin:3px 0 8px; color:var(--gs-parchment); }
+      .crafting-list { display:grid; gap:12px; }
+      .crafting-card { border:1px solid var(--gs-rule); border-radius:6px; padding:16px; background:var(--gs-panel-raised); }
+      .crafting-card header { display:flex; justify-content:space-between; gap:16px; align-items:start; }
+      .crafting-card h3 { margin:0 0 5px; font:700 18px var(--gs-font-title); color:var(--gs-gold); }
+      .crafting-card p { margin:4px 0; color:var(--gs-ash); font-size:13px; }
+      .crafting-materials { display:flex; flex-wrap:wrap; gap:7px; margin:12px 0; }
+      .crafting-material { border:1px solid var(--gs-rule); border-radius: var(--gs-radius); padding:5px 8px; font:11px var(--gs-font-ui); color:var(--gs-ash); }
+      .crafting-material.is-missing { color:var(--gs-ember); border-color:var(--gs-ember); }
+      .crafting-empty { color:var(--gs-ash-quiet); padding:24px 0; }
+      .crafting-sidebar h2 { font:700 19px var(--gs-font-title); color:var(--gs-gold); margin-top:0; }
+      .crafting-sidebar button { width:100%; margin:5px 0; text-align:left; }
+      .crafting-status { min-height:22px; color:var(--gs-gold); }
+      .upgrade-progress { display:inline-block; width:90px; height:6px; margin-right:8px; vertical-align:middle; border-radius: var(--gs-radius); background:var(--gs-rule); overflow:hidden; }
+      .upgrade-progress i { display:block; width:0; height:100%; background:var(--gs-gold); transition:width .05s linear; }
+      @media (max-width:800px) { .crafting-page { grid-template-columns:1fr; padding:16px; } }
+      .crafting-intro { max-width:720px; line-height:1.55; }
+      .crafting-card.is-ready { border-color:var(--gs-gold-line); }
+      .crafting-card.is-unavailable { opacity:.82; }
+      .crafting-card .crafting-output { color:var(--gs-gold); font:500 12px var(--gs-font-ui); white-space:nowrap; }
+      .crafting-card .crafting-requirements { display:grid; gap:5px; margin:12px 0; }
+      .crafting-card .crafting-requirements p { margin:0; font-size:12px; }
+      .crafting-card .crafting-reason { color:var(--gs-ember); font-size:12px; }
+      .crafting-card .crafting-action:disabled { cursor:not-allowed; opacity:.5; }
+      .crafting-tab.is-active { border-color:var(--gs-gold); color:var(--gs-gold); }
+      .crafting-sidebar-note { line-height:1.5; font-size:12px; }
+      .crafting-tab-groups { display:grid; gap:10px; margin-bottom:20px; }
+      .crafting-tab-group { display:flex; align-items:center; gap:12px; }
+      .crafting-group-label { min-width:84px; color:var(--gs-ash-quiet); font:500 11px var(--gs-font-ui); letter-spacing:.1em; text-transform:uppercase; }
+      .crafting-tab-group .crafting-tabs { margin-bottom:0; }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell is-visible">
+      <header class="topbar">
+        <a class="brand" href="./game.html" aria-label="Stervian — Chapter I: A fallen son home"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">Stervian<small>CHAPTER I: “A FALLEN SON”</small></span></a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a id="topWorldButton" href="./game.html#storyFeed">Explore</a>
+          <a id="topPartyButton" href="./game.html#partyPage">Party <span id="partyNavBadge" class="party-nav-badge hidden">0</span></a>
+          <a id="topInventoryButton" href="./game.html#inventoryPage">Inventory</a>
+          <a id="topJournalButton" href="./game.html#worldTravel" title="World traveling is under development">World</a>
+          <a class="active" id="topCraftingButton" href="./crafting.html" aria-current="page">Crafting</a>
+          <a id="topShopButton" href="./shop.html">Shop</a>
+        </nav>
+        <div class="profile-tools">
+          <button class="top-icon is-quiet" type="button" title="Messages" aria-label="Messages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM4 6l8 7 8-7" /></svg></button>
+          <button class="top-icon is-quiet" type="button" title="Notifications" aria-label="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4" /></svg></button>
+          <div class="settings-menu-wrap"><button class="top-icon settings-icon" id="settingsMenuButton" type="button" title="Settings" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0-5 1.2 2.1 2.4.5 2-1.2 2.1 2.1-1.2 2 .5 2.5L21 12l-2.1 1.2-.5 2.4 1.2 2-2.1-2.1-2 1.2-2.5-.5L12 23l-1.2-2.1-2.4-.5-2 1.2-2 1.2-2.1-2.1 1.2-2-.5-2.5L3 12l2.1-1.2.5-2.4-1.2-2 2.1-2.1 2 1.2 2.5-.5L12 3Z" /></svg></button><div class="settings-menu" id="settingsMenu" role="menu" hidden><button class="settings-menu-item" id="logoutButton" type="button" role="menuitem">logout</button></div></div>
+        </div>
+      </header>
+      <main class="crafting-page"><section class="crafting-panel"><p class="eyebrow">WORKSHOP</p><h1>Crafting</h1><p class="muted crafting-intro" id="craftingIntro">Choose a recipe, check the materials you own, then craft. Material counts include your backpack and vault. Crafting spends energy and can fail when a recipe has a success chance below 100%.</p><div class="crafting-tab-groups"><div class="crafting-tab-group"><span class="crafting-group-label">Lifeskills</span><div class="crafting-tabs" role="tablist" aria-label="Lifeskills"><button class="crafting-tab" role="tab" aria-selected="true" data-tab="craft">Crafting</button><button class="crafting-tab" role="tab" aria-selected="false" data-tab="cooking">Cooking</button><button class="crafting-tab" role="tab" aria-selected="false" data-tab="alchemy">Alchemy</button><button class="crafting-tab" role="tab" aria-selected="false" data-tab="processing">Processing</button></div></div><div class="crafting-tab-group"><span class="crafting-group-label">Upgrading</span><div class="crafting-tabs" role="tablist" aria-label="Upgrading"><button class="crafting-tab" role="tab" aria-selected="false" data-tab="upgrade">Upgrade</button><button class="crafting-tab" role="tab" aria-selected="false" data-tab="affix">Affixes</button></div></div></div><div id="craftingFilters" role="search" aria-label="Recipe filters" style="display:none;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:12px"></div><p class="crafting-status" id="craftingStatus" role="status" aria-live="polite">Loading workshop…</p><div id="craftingList" class="crafting-list" aria-live="polite"><p class="crafting-empty">Loading recipes and equipment…</p></div></section><aside class="crafting-sidebar"><p class="eyebrow" id="craftingSidebarEyebrow">RECIPE CATEGORIES</p><h2 id="craftingCategoryTitle">Recipes</h2><p class="muted crafting-sidebar-note" id="craftingSidebarNote">Select a category to focus the recipe list. The number beside each category is the recipes currently available from the server.</p><div id="craftingCategories"></div><p class="muted" id="craftingResources"></p></aside></main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script type="module" src="./js/crafting.js"></script>
+  </body>
+</html>

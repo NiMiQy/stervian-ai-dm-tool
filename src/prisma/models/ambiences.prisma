@@ -1,0 +1,23 @@
+model ambiences {
+  id             Int          @id @default(autoincrement())
+  location_id    Int
+  sublocation_id Int?
+  title          String       @db.VarChar(120)
+  time_slot      TimeSlot     @default(ANY)
+  weather        WeatherType?
+  crowd_level    CrowdLevel   @default(SOME)
+  description    String       @db.Text
+  weight         Int          @default(1)
+  min_figures    Int          @default(1)
+  max_figures    Int          @default(3)
+  is_active      Boolean      @default(true)
+  created_at     DateTime?    @default(now()) @db.DateTime(0)
+  updated_at     DateTime?    @updatedAt @db.DateTime(0)
+  deleted        Boolean?     @default(false)
+
+  location    locations          @relation(fields: [location_id], references: [id], onDelete: Cascade)
+  sublocation sublocations?      @relation(fields: [sublocation_id], references: [id], onDelete: Cascade)
+  figures     ambience_figures[]
+
+  @@index([location_id, sublocation_id, time_slot])
+}

@@ -1,0 +1,26 @@
+model effects {
+  id             Int                @id @default(autoincrement())
+  name           String?            @db.VarChar(30)
+  effect_type    EffectType?        @default(NONE)
+  effect_trigger EffectTriggerRule? @default(NONE)
+  description    String?            @db.Text
+  duration       Int?               @default(0)
+
+  lost_hp_per_turn Int?     @default(0)
+  is_stackable     Boolean? @default(false)
+  max_stack_count  Int?     @default(0)
+  is_extendable    Boolean? @default(false)
+  extend_duration  Int?     @default(0)
+  is_dispellable   Boolean? @default(false)
+  is_debuff        Boolean? @default(false)
+  applied_value    Int?     @default(0)
+  proc_chance      Int?     @default(0)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  character     character_effects[]
+  item_bonus    itembonus_effects[]
+  skill_effects skill_effects[]
+}

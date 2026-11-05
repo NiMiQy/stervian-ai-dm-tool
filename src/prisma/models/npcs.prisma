@@ -1,0 +1,21 @@
+model npcs {
+  character_id   Int      @id
+  is_attackable  Boolean? @default(true)
+  is_speakable   Boolean? @default(false)
+  is_recruitable Boolean? @default(false)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  character                         characters                          @relation(fields: [character_id], references: [id])
+  npc_monsters                      npc_monsters?
+  npcs_in_locations_or_sublocations npcs_in_locations_or_sublocations[]
+
+  npc_relationships_as_source npc_relationships[]        @relation("SourceNpcRelations")
+  npc_relationships_as_target npc_relationships[]        @relation("TargetNpcRelations")
+  npc_known_locations         npc_known_locations[]      @relation("CharacterKnownLocations")
+  player_npc_relationships    player_npc_relationships[] @relation("NpcTargetRelations")
+  source_quests               quests[]                   @relation("QuestSourceNpc")
+  target_quests               quests[]                   @relation("QuestTargetNpc")
+}

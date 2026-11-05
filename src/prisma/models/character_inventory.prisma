@@ -1,0 +1,9 @@
+model character_inventory {
+  id           Int        @id @default(autoincrement())
+  character_id Int        @unique
+  max_slots    Int?       @default(40)
+  created_at   DateTime?  @default(now()) @db.DateTime(0)
+  updated_at   DateTime?  @updatedAt @db.DateTime(0)
+  deleted      Boolean?   @default(false)
+  characters   characters @relation(fields: [character_id], references: [id])
+}

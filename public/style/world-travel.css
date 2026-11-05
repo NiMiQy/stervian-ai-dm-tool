@@ -1,0 +1,26 @@
+/* World travel: readable journey cost breakdown */
+#worldTravelRouteSummary { display: grid; gap: 6px; min-width: 0; color: var(--gs-ash); font-size: 13px; line-height: 1.45; }
+#worldTravelRouteSummary .travel-cost-route { margin: 0; color: var(--gs-parchment); font-size: 14px; }
+#worldTravelRouteSummary .travel-cost-route b { font-family: var(--gs-font-title); font-weight: 400; }
+#worldTravelRouteSummary .travel-cost-heading { margin: 2px 0 0; color: var(--gs-ash); font-size: 12px; }
+#worldTravelRouteSummary .travel-cost-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+#worldTravelRouteSummary .travel-cost-item { display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 10px; border: 1px solid var(--gs-rule-strong); border-radius: var(--gs-radius); background: var(--gs-panel-raised); }
+#worldTravelRouteSummary .travel-cost-name { color: var(--gs-parchment); }
+#worldTravelRouteSummary .travel-cost-amount { color: var(--gs-gold); font-weight: 600; }
+#worldTravelRouteSummary .travel-cost-after { color: var(--gs-ash-quiet); font-size: 11px; }
+#worldTravelRouteSummary .travel-cost-item.is-short { border-color: rgba(217, 120, 95, 0.55); }
+#worldTravelRouteSummary .travel-cost-item.is-short .travel-cost-amount,
+#worldTravelRouteSummary .travel-cost-item.is-short .travel-cost-after { color: var(--gs-ember); }
+#worldTravelRouteSummary .travel-cost-warning { margin: 0; color: var(--gs-ember); font-size: 12px; }
+
+/* World map: area monster tooltip */
+.world-travel-pin.is-unreachable { opacity: .5; }
+.world-area-tooltip { position: absolute; z-index: 5; width: max-content; min-width: 170px; max-width: 240px; max-height: 260px; overflow-y: auto; transform: translate(-50%, calc(-100% - 44px)); padding: 8px 10px; border: 1px solid var(--gs-rule-strong); border-radius: var(--gs-radius); background: rgba(6, 13, 16, .94); color: var(--gs-parchment); font-size: 12px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .55); pointer-events: auto; }
+.world-area-tooltip-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.world-area-tooltip-title { font-family: var(--gs-font-title); font-weight: 400; font-size: 13px; }
+.world-area-tooltip-close { padding: 0 4px; border: 0; background: transparent; color: var(--gs-ash); font-size: 15px; line-height: 1; cursor: pointer; }
+.world-area-tooltip-close:hover { color: var(--gs-gold); }
+.world-area-tooltip-level { margin: 4px 0 0; color: var(--gs-gold); font-weight: 600; }
+.world-area-tooltip-heading { margin: 6px 0 2px; color: var(--gs-ash); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.world-area-tooltip-list { margin: 0; padding-left: 16px; }
+.world-area-tooltip-empty { margin: 6px 0 0; color: var(--gs-ash-quiet); }

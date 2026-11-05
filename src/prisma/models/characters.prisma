@@ -1,0 +1,61 @@
+model characters {
+  id                  Int           @id @default(autoincrement())
+  user_id             String?       @unique
+  character_type      CharacterType @default(PLAYER)
+  level               Int?          @default(1)
+  name                String?       @db.VarChar(20)
+  race                String?       @db.VarChar(10)
+  age                 Int?
+  job                 String?       @db.VarChar(100)
+  sex                 CharacterSex? @default(MALE)
+  alignment           String?       @db.VarChar(20)
+  appearance          String?       @db.Text
+  description         String?       @db.Text
+  location_id         Int?
+  sublocation_id      Int?
+  current_exp         Int?          @default(0)
+  respawn_location_id Int?          @default(1)
+
+  is_updated_by_user Boolean? @default(false)
+
+  image_data           Bytes?
+
+  created_at            DateTime?               @default(now()) @db.DateTime(0)
+  updated_at            DateTime?               @updatedAt @db.DateTime(0)
+  deleted               Boolean?                @default(false)
+  character_inventory   character_inventory?
+  character_lifeskills  character_lifeskills[]
+  character_owner_memories character_memories[] @relation("CharacterOwnerMemories")
+  character_target_memories character_memories[] @relation("CharacterTargetMemories")
+  character_spellpoints character_spellpoints[]
+  character_stat        character_stats?
+  skills                character_skills[]
+  effects               character_effects[]
+  vault                 character_vaults?
+  character_items       character_items[]
+  owned_sublocations   sublocations[]     @relation("SublocationOwner")
+
+  location               locations?       @relation("CharacterCurrentLocation", fields: [location_id], references: [id])
+  respawn_location       locations?       @relation("CharacterRespawnLocation", fields: [respawn_location_id], references: [id])
+  sublocation            sublocations?    @relation(fields: [sublocation_id], references: [id])
+  user                   users?           @relation(fields: [user_id], references: [user_id])
+  npc                    npcs?
+  player                 players?
+  story                  stories[]
+  combat_session         combat_sessions?
+  led_parties            parties[]        @relation("PartyLeader")
+  party_memberships      party_members[]  @relation("CharacterPartyMemberships")
+  sent_party_invites     party_invites[]  @relation("SentPartyInvites")
+  received_party_invites party_invites[]  @relation("ReceivedPartyInvites")
+  character_recipes character_recipes[]
+  character_item_bonus_times character_item_bonus_time[]
+  character_quests  character_quests[]
+  player_dialogue_sessions dialogue_sessions[] @relation("PlayerDialogueSessions")
+  target_dialogue_sessions dialogue_sessions[] @relation("TargetNpcDialogueSessions")
+  dialogue_participations  dialogue_participants[] @relation("ParticipantCharacters")
+  dialogue_messages        dialogue_messages[] @relation("SpeakerMessages")
+  owned_scenes             character_scenes[] @relation("SceneOwnerCharacter")
+  npc_scenes               character_scenes[] @relation("SceneNpcCharacter")
+
+  @@index([location_id], map: "characters_location_id_fkey")
+}

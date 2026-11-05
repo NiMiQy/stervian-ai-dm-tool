@@ -1,0 +1,24 @@
+model skill_effects {
+  skill_id  Int
+  effect_id Int
+
+  duration Int? @default(1)
+
+  healing_current_hp Int? @default(0)
+
+  is_stun_cure   Boolean? @default(false)
+  is_daze_cure   Boolean? @default(false)
+  is_weak_cure   Boolean? @default(false)
+  is_blind_cure  Boolean? @default(false)
+  is_poison_cure Boolean? @default(false)
+  is_cure_all    Boolean? @default(false)
+
+  skills skills?  @relation(fields: [skill_id], references: [id])
+  effect effects? @relation(fields: [effect_id], references: [id])
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  @@id([skill_id, effect_id])
+}

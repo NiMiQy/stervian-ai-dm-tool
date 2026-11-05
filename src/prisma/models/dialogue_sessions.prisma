@@ -1,0 +1,52 @@
+model dialogue_sessions {
+  id             Int                   @id @default(autoincrement())
+  player_id      Int
+  session_type   DialogueSessionType   @default(DIRECT)
+  status         DialogueSessionStatus @default(ACTIVE)
+  location_id    Int?
+  sublocation_id Int?
+  target_npc_id  Int?
+  last_active_at DateTime              @default(now()) @db.DateTime(0)
+  created_at     DateTime?             @default(now()) @db.DateTime(0)
+  updated_at     DateTime?             @updatedAt @db.DateTime(0)
+
+  player         characters            @relation("PlayerDialogueSessions", fields: [player_id], references: [id], onDelete: Cascade)
+  target_npc     characters?           @relation("TargetNpcDialogueSessions", fields: [target_npc_id], references: [id], onDelete: SetNull)
+  participants   dialogue_participants[]
+  messages       dialogue_messages[]
+
+  @@index([player_id, status])
+  @@index([target_npc_id])
+  @@index([location_id, sublocation_id])
+}
+
+model dialogue_participants {
+  id           Int               @id @default(autoincrement())
+  session_id   Int
+  character_id Int?
+  name         String            @db.VarChar(100)
+  role         String            @default("NPC") @db.VarChar(50)
+  joined_at    DateTime?         @default(now()) @db.DateTime(0)
+
+  session      dialogue_sessions @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  character    characters?       @relation("ParticipantCharacters", fields: [character_id], references: [id], onDelete: SetNull)
+
+  @@index([session_id])
+  @@index([character_id])
+}
+
+model dialogue_messages {
+  id             Int                 @id @default(autoincrement())
+  session_id     Int
+  speaker_name   String              @db.VarChar(100)
+  speaker_id     Int?
+  message_type   DialogueMessageType @default(SPEECH)
+  content        String              @db.LongText
+  created_at     DateTime?           @default(now()) @db.DateTime(0)
+
+  session        dialogue_sessions   @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  speaker        characters?         @relation("SpeakerMessages", fields: [speaker_id], references: [id], onDelete: SetNull)
+
+  @@index([session_id])
+  @@index([speaker_id])
+}

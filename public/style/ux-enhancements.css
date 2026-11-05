@@ -1,0 +1,1114 @@
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes goldGlow {
+  0%, 100% { text-shadow: 0 0 12px rgba(232, 201, 137, 0.4); }
+  50% { text-shadow: 0 0 22px rgba(232, 201, 137, 0.7), 0 0 40px rgba(232, 201, 137, 0.2); }
+}
+
+@keyframes meterShimmer {
+  0% { left: -60%; }
+  100% { left: 160%; }
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes entryAppear {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes storyMarkPulse {
+  0%, 100% { color: var(--gold); text-shadow: 0 0 6px rgba(232, 201, 137, 0.3); }
+  50% { color: var(--gold2); text-shadow: 0 0 14px rgba(232, 201, 137, 0.6); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(232, 201, 137, 0.3); }
+  50% { border-color: rgba(232, 201, 137, 0.6); }
+}
+
+@keyframes toastEnter {
+  0% { transform: translate(-50%, 30px); opacity: 0; }
+  60% { transform: translate(-50%, -4px); opacity: 1; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes toastExit {
+  from { transform: translate(-50%, 0); opacity: 1; }
+  to { transform: translate(-50%, 30px); opacity: 0; }
+}
+
+@keyframes spinnerRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 201, 137, 0); }
+  50% { box-shadow: 0 0 18px 2px rgba(232, 201, 137, 0.15); }
+}
+
+@keyframes lowHpPulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: inset 0 0 8px rgba(239, 68, 68, 0.35); }
+}
+
+@keyframes npcSlideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes playerSlideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes particleDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.15; }
+  100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+.login-screen {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.login-card {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.moon {
+  animation: floatSoft 6s ease-in-out infinite, goldGlow 4s ease-in-out infinite;
+}
+
+.mountain {
+  animation: fadeIn 1.2s ease-out 0.3s both;
+}
+
+.mountain-two {
+  animation-delay: 0.5s;
+}
+
+.login-submit {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.login-submit:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+.login-submit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: none;
+  pointer-events: none;
+}
+
+.login-submit:hover::after {
+  animation: shimmer 0.6s ease-out;
+}
+
+.auth-switch button {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-switch button:active {
+  transform: scale(0.96);
+}
+
+.auth-switch button.active {
+  box-shadow: 0 0 12px rgba(222, 192, 110, 0.2);
+}
+
+.app-shell.is-visible {
+  animation: fadeIn 0.35s ease-out;
+}
+
+.topbar {
+  animation: fadeSlideDown 0.35s ease-out;
+}
+
+.sidebar {
+  animation: fadeIn 0.4s ease-out 0.1s both;
+}
+
+.game-stage {
+  animation: fadeIn 0.4s ease-out 0.15s both;
+}
+
+.brand-mark {
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(15deg) scale(1.08);
+  text-shadow: 0 0 20px rgba(232, 201, 137, 0.6);
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gold, #e8c989);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.main-nav a:hover::after {
+  width: 80%;
+}
+
+.main-nav a.active::after {
+  width: 100%;
+  background: #f2eee8;
+}
+
+.top-icon {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top-icon:hover {
+  transform: scale(1.12);
+}
+
+.top-icon:active {
+  transform: scale(0.92);
+}
+
+.top-icon svg {
+  transition: transform 0.2s ease;
+}
+
+.top-icon:hover svg {
+  transform: scale(1.05);
+}
+
+.settings-icon:hover svg {
+  transform: rotate(30deg) scale(1.05);
+}
+
+.settings-menu {
+  animation: fadeSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top right;
+}
+
+.settings-menu-item {
+  transition: all 0.15s ease;
+}
+
+.settings-menu-item:active {
+  transform: scale(0.97);
+}
+
+.character-summary .avatar {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.character-summary .avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(232, 201, 137, 0.4);
+}
+
+.meter i {
+  position: relative;
+  overflow: hidden;
+}
+
+.meter i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  animation: meterShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.nav-tabs button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.nav-tabs button:active {
+  transform: scale(0.96);
+}
+
+.nav-tabs button span {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.nav-tabs button:hover span {
+  transform: scale(1.15);
+}
+
+.sidebar-bottom button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-bottom button:active {
+  transform: scale(0.95);
+}
+
+.sidebar-bottom button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232, 201, 137, 0.12), transparent);
+  pointer-events: none;
+}
+
+.sidebar-bottom button:hover::after {
+  animation: shimmer 0.7s ease-out;
+}
+
+.scene-header {
+  animation: fadeSlideUp 0.4s ease-out 0.2s both;
+}
+
+.scene-header h1 {
+  animation: fadeSlideUp 0.5s ease-out 0.3s both;
+}
+
+.story-feed .narration,
+.story-feed .npc-line,
+.story-feed .player-line,
+.story-feed .story-transition {
+  animation: entryAppear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.story-feed .npc-line:not(.player-line) {
+  animation: npcSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.story-feed .player-line {
+  animation: playerSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.entry-mark {
+  animation: storyMarkPulse 3s ease-in-out infinite;
+}
+
+.story-transition {
+  position: relative;
+}
+
+.story-transition::before,
+.story-transition::after {
+  animation: storyMarkPulse 3s ease-in-out infinite;
+}
+
+.action-composer {
+  animation: fadeSlideUp 0.4s ease-out 0.3s both;
+}
+
+.action-composer > div {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action-composer > div:focus-within {
+  transform: translateY(-2px);
+}
+
+.deepseek-action-button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.deepseek-action-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.deepseek-action-button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+}
+
+.deepseek-action-button .deepseek-badge {
+  transition: all 0.2s ease;
+}
+
+.deepseek-action-button:hover .deepseek-badge {
+  background: rgba(167, 125, 245, 0.35);
+}
+
+.quick-choice-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quick-choice-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.map-button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-button:hover {
+  transform: translateY(-1px);
+}
+
+.map-button:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.modal-backdrop {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.character-creation-card {
+  animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.character-sheet {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vault-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.npcs-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.battle-card {
+  animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.item-action-card {
+  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.move-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shop-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-check-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gathering-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.farming-card {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.memories-sheet {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+}
+
+.modal-close:active {
+  transform: scale(0.9);
+}
+
+.creation-submit {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.creation-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.creation-submit:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+.creation-submit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  pointer-events: none;
+}
+
+.creation-submit:hover:not(:disabled)::after {
+  animation: shimmer 0.6s ease-out;
+}
+
+.creation-field input,
+.creation-field textarea,
+.creation-field select {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.creation-field input:focus,
+.creation-field textarea:focus,
+.creation-field select:focus {
+  transform: translateY(-1px);
+}
+
+.creation-grid {
+  animation: fadeSlideUp 0.5s ease-out 0.2s both;
+}
+
+.sheet-resources i {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheet-resources i::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: meterShimmer 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.stat-grid button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-grid button:hover:not(:disabled) {
+  transform: scale(1.04);
+  z-index: 1;
+}
+
+.stat-grid button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.combat-summary div {
+  transition: all 0.2s ease;
+}
+
+.combat-summary div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.equipment-slot {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.equipment-slot:hover:not(.empty) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 8px rgba(232, 201, 137, 0.15);
+}
+
+.equipment-slot.equipped {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.inventory-item {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inventory-item:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 8px rgba(232, 201, 137, 0.15);
+  z-index: 2;
+}
+
+.inventory-item:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.item-image {
+  transition: transform 0.2s ease;
+}
+
+.inventory-item:hover .item-image {
+  transform: scale(1.1);
+}
+
+.toast.show {
+  animation: toastEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vault-grid button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vault-grid button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.vault-grid button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.nearby-npc-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nearby-npc-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(232, 201, 137, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.nearby-npc-invite {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nearby-npc-invite:active {
+  transform: scale(0.95);
+}
+
+.sublocation-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sublocation-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sublocation-card button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sublocation-card button:active {
+  transform: scale(0.95);
+}
+
+.world-travel-pin {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.world-travel-pin:hover:not(:disabled) {
+  transform: translate(-50%, -100%) scale(1.2);
+  filter: drop-shadow(0 2px 6px rgba(200, 51, 44, 0.5));
+  z-index: 10;
+}
+
+.world-travel-pin:active:not(:disabled) {
+  transform: translate(-50%, -100%) scale(0.95);
+}
+
+.world-travel-pin.is-selected {
+  animation: floatSoft 2s ease-in-out infinite;
+}
+
+.shop-item-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shop-item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.shop-item-buy-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shop-item-buy-btn:active:not(:disabled) {
+  transform: scale(0.93);
+}
+
+.battle-menu button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.battle-menu button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.battle-menu button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.96);
+}
+
+.battle-menu button:first-child {
+  position: relative;
+  overflow: hidden;
+}
+
+.battle-menu button:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  pointer-events: none;
+}
+
+.battle-menu button:first-child:hover:not(:disabled)::after {
+  animation: shimmer 0.6s ease-out;
+}
+
+.battle-player {
+  animation: floatSoft 3s ease-in-out infinite;
+}
+
+.battle-enemy {
+  animation: floatSoft 3.5s ease-in-out infinite 0.5s;
+}
+
+.battle-health i span {
+  position: relative;
+  overflow: hidden;
+}
+
+.battle-health i span::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: meterShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.gathering-status-pill.is-active {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+
+.gathering-timer-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.gathering-timer-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: meterShimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.gathering-group-card {
+  transition: all 0.2s ease;
+}
+
+.gathering-group-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.gathering-item-chip {
+  transition: all 0.15s ease;
+}
+
+.gathering-item-chip:hover {
+  transform: scale(1.05);
+}
+
+.farming-status-pill.is-active {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+
+.farming-timer-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.farming-timer-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: meterShimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.farming-recipe-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.farming-recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.farming-recipe-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.party-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.party-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.party-member-card {
+  transition: all 0.2s ease;
+}
+
+.party-member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.party-invite-item {
+  animation: fadeSlideUp 0.3s ease-out both;
+}
+
+.npc-chip {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.npc-chip:active {
+  transform: scale(0.93);
+}
+
+.npc-chip:hover {
+  transform: translateY(-1px);
+}
+
+.action-btn-confirm {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action-btn-confirm:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.action-btn-confirm:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+}
+
+.action-btn-confirm::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  pointer-events: none;
+}
+
+.action-btn-confirm:hover:not(:disabled)::after {
+  animation: shimmer 0.6s ease-out;
+}
+
+.action-btn-cancel {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action-btn-cancel:active {
+  transform: scale(0.96);
+}
+
+.entry-action-btn {
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.entry-action-btn:active {
+  transform: scale(0.9);
+}
+
+.entry-edit-box {
+  animation: fadeSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.entry-btn-save {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.entry-btn-save:active {
+  transform: scale(0.95);
+}
+
+button,
+.equipment-slot,
+.inventory-item,
+.sublocation-card,
+.shop-item-card,
+.nearby-npc-card,
+.farming-recipe-card,
+.npc-chip {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  button:active,
+  .equipment-slot:active,
+  .inventory-item:active,
+  .sublocation-card:active,
+  .shop-item-card:active,
+  .nearby-npc-card:active,
+  .farming-recipe-card:active,
+  .npc-chip:active {
+    opacity: 0.85;
+  }
+}
+
+.gold-summary {
+  transition: all 0.2s ease;
+}
+
+.gold-summary:hover {
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+.gold-summary b {
+  transition: text-shadow 0.3s ease;
+}
+
+.gold-summary:hover b {
+  text-shadow: 0 0 10px rgba(232, 201, 137, 0.5);
+}
+
+.point-spend-box {
+  transition: all 0.3s ease;
+}
+
+.point-spend-box:hover {
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+.lifeskill-bar i {
+  position: relative;
+  overflow: hidden;
+}
+
+.lifeskill-bar i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: meterShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.resistance-grid div {
+  transition: all 0.15s ease;
+}
+
+.resistance-grid div:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.gathering-exp-fill,
+.farming-exp-fill {
+  overflow: hidden;
+}
+
+.gathering-exp-fill::after,
+.farming-exp-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: meterShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.spell-square {
+  transition: all 0.15s ease;
+}
+
+.spell-square:hover {
+  transform: scale(1.2);
+}
+
+.spell-square.is-available {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.history-clear-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.history-clear-btn:active {
+  transform: scale(0.95);
+}
+
+.context-check-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-check-btn:active {
+  transform: scale(0.95);
+}
+
+.memories-button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.memories-button:active {
+  transform: scale(0.95);
+}
+
+.npc-line .npc-avatar {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.npc-line:hover .npc-avatar {
+  transform: scale(1.03);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.story-history-empty {
+  animation: fadeSlideUp 0.5s ease-out both;
+}
+
+.story-history-empty::before {
+  animation: storyMarkPulse 3s ease-in-out infinite;
+}
+
+.game-stage::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 280px;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: rgba(232, 201, 137, 0.2);
+  box-shadow:
+    calc(20vw) calc(15vh) 0 0.5px rgba(232, 201, 137, 0.08),
+    calc(45vw) calc(8vh) 0 0.5px rgba(232, 201, 137, 0.06),
+    calc(65vw) calc(25vh) 0 0.5px rgba(232, 201, 137, 0.05),
+    calc(30vw) calc(60vh) 0 0.5px rgba(232, 201, 137, 0.04),
+    calc(80vw) calc(45vh) 0 0.5px rgba(232, 201, 137, 0.07),
+    calc(10vw) calc(80vh) 0 0.5px rgba(232, 201, 137, 0.05),
+    calc(55vw) calc(70vh) 0 0.5px rgba(232, 201, 137, 0.06),
+    calc(75vw) calc(90vh) 0 0.5px rgba(232, 201, 137, 0.04);
+  pointer-events: none;
+  z-index: 0;
+  animation: subtlePulse 8s ease-in-out infinite;
+}
+
+@media (max-width: 700px) {
+  .game-stage::before {
+    left: 0;
+  }
+
+  .action-composer > div:focus-within {
+    transform: none;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px var(--bg, #111217), 0 0 0 4px rgba(232, 201, 137, 0.3);
+  }
+
+  .inventory-item:hover {
+    transform: none;
+  }
+
+  .sublocation-card:hover {
+    transform: none;
+  }
+
+  .shop-item-card:hover {
+    transform: none;
+  }
+
+  .nearby-npc-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

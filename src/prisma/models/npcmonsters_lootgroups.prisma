@@ -1,0 +1,15 @@
+model npcmonsters_lootgroups {
+  id             Int  @id @default(autoincrement())
+  npc_monster_id Int?
+  loot_group_id  Int?
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  loot_groups  loot_groups?  @relation(fields: [loot_group_id], references: [id])
+  npc_monsters npc_monsters? @relation(fields: [npc_monster_id], references: [character_id])
+
+  @@index([loot_group_id], map: "npcmonster_lootgroups_loot_group_id_fkey")
+  @@index([npc_monster_id], map: "npcmonster_lootgroups_npc_monster_id_fkey")
+}

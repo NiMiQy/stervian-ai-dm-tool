@@ -1,0 +1,456 @@
+/* ============================================================================
+   STERVIAN PARTY & COMPANION SYSTEM STYLES
+   ============================================================================ */
+
+.party-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #bd3838;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.party-nav-badge.hidden {
+  display: none !important;
+}
+
+.detail-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+.detail-tab-content.hidden {
+  display: none !important;
+}
+
+/* Party content uses its own vertical flow in the full-page layout. */
+.party-page .detail-content.party-tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  overflow-y: auto;
+}
+
+.party-tab-header {
+  min-width: 0;
+}
+
+.party-subtitle {
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+.party-field-label {
+  color: #c8bdad;
+  font-size: 11px;
+}
+
+.party-invites-heading {
+  color: #d8ae68;
+}
+
+.party-active-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.party-active-section.hidden {
+  display: none !important;
+}
+
+.party-member-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.party-member-count {
+  color: #a395a5;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.party-leave-btn {
+  padding: 4px 8px;
+  font-size: 10px;
+}
+
+/* Party Forms & Actions */
+.party-form-box {
+  background: #19161d;
+  border: 1px solid #3d343e;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.party-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.party-input-row input {
+  flex: 1;
+  min-width: 0;
+  background: #110e14;
+  border: 1px solid #4a3e4c;
+  color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.party-input-row input:focus {
+  border-color: #d8ae68;
+  outline: none;
+}
+
+.party-btn {
+  background: #2a2430;
+  border: 1px solid #58495c;
+  color: #e2d7c5;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.party-btn:hover:not(:disabled) {
+  background: #392f42;
+  border-color: #d8ae68;
+  color: #fff;
+}
+
+.party-btn-primary {
+  background: #463428;
+  border-color: #d8ae68;
+  color: #f7e2bd;
+}
+
+.party-btn-primary:hover:not(:disabled) {
+  background: #5d4432;
+  color: #fff;
+}
+
+.party-btn-danger {
+  background: #361a1d;
+  border-color: #8c3b42;
+  color: #fca5a5;
+}
+
+.party-btn-danger:hover:not(:disabled) {
+  background: #4e2227;
+  color: #fff;
+}
+
+.party-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Invites list */
+.party-invites-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.party-invite-item {
+  background: #231c28;
+  border: 1px solid #5d4963;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.party-invite-header {
+  font-size: 12px;
+  color: #d8ae68;
+}
+
+.party-invite-header b {
+  color: #fff;
+}
+
+.party-invite-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Member Cards */
+.party-members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.party-member-card {
+  background: #1d1822;
+  border: 1px solid #3c323f;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+
+.party-member-card:hover {
+  border-color: #554559;
+}
+
+.party-member-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.party-member-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: #2b2230;
+  border: 1px solid #57485b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #d8ae68;
+  flex-shrink: 0;
+}
+
+.party-member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.party-member-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.party-member-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e5dac9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.party-role-tag {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.party-role-tag.leader {
+  background: #463422;
+  color: #f7d287;
+  border: 1px solid #8e6c38;
+}
+
+.party-role-tag.companion {
+  background: #24353d;
+  color: #8ed6f7;
+  border: 1px solid #3d687a;
+}
+
+.party-role-tag.member {
+  background: #252838;
+  color: #a8b6f7;
+  border: 1px solid #43496e;
+}
+
+.party-member-meta {
+  font-size: 11px;
+  color: #9c919d;
+}
+
+.party-member-equipment {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #b8aebb;
+  white-space: normal;
+}
+
+/* Companion Tactics Row */
+.party-companion-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #2d2532;
+  font-size: 11px;
+}
+
+.party-companion-settings select {
+  min-width: 0;
+  background: #120e16;
+  border: 1px solid #4e4052;
+  color: #f3e6d2;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.party-loyalty-score {
+  color: #d8ae68;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Scene Tab NPCs */
+.scene-npc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.scene-npc-card {
+  background: #1d1822;
+  border: 1px solid #3c323f;
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.scene-npc-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scene-npc-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e5dac9;
+}
+
+.scene-npc-subtitle {
+  font-size: 10px;
+  color: #9c919d;
+}
+
+.scene-npc-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-recruit {
+  background: #25392e;
+  border: 1px solid #4a8060;
+  color: #8ce1af;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-recruit:hover:not(:disabled) {
+  background: #2e4d3c;
+  color: #fff;
+  border-color: #61b882;
+}
+
+.btn-recruit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .party-input-row {
+    flex-direction: column;
+  }
+
+  .party-input-row .party-btn {
+    width: 100%;
+  }
+
+  .party-member-toolbar {
+    align-items: flex-start;
+  }
+}
+
+/* Party Member Action Lock Styles */
+.action-composer textarea.is-party-locked {
+  background: rgba(25, 22, 29, 0.6) !important;
+  color: #8c8291 !important;
+  cursor: not-allowed !important;
+  border-color: #3d343e !important;
+  font-style: italic;
+}
+
+.deepseek-action-button.party-member-locked {
+  background: linear-gradient(135deg, #2b2533 0%, #1a1622 100%) !important;
+  border-color: #473a52 !important;
+  color: #a89bb0 !important;
+  cursor: not-allowed !important;
+  opacity: 0.85;
+}
+
+.deepseek-action-button.party-member-locked:hover {
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.party-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(189, 56, 56, 0.25);
+  border: 1px solid rgba(189, 56, 56, 0.5);
+  color: #e08282;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

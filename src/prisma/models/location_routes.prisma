@@ -1,0 +1,17 @@
+model location_routes {
+  id             Int        @id @default(autoincrement())
+  location_a_id  Int
+  location_b_id  Int
+  energy_cost    Int        @default(5)
+  food_cost      Int        @default(5)
+  water_cost     Int        @default(5)
+  created_at     DateTime?  @default(now()) @db.DateTime(0)
+  updated_at     DateTime?  @updatedAt @db.DateTime(0)
+  deleted        Boolean?   @default(false)
+  location_a     locations  @relation("LocationRouteA", fields: [location_a_id], references: [id], onDelete: Cascade)
+  location_b     locations  @relation("LocationRouteB", fields: [location_b_id], references: [id], onDelete: Cascade)
+
+  @@unique([location_a_id, location_b_id], map: "location_routes_pair_unique")
+  @@index([location_a_id, deleted], map: "location_routes_a_deleted_idx")
+  @@index([location_b_id, deleted], map: "location_routes_b_deleted_idx")
+}

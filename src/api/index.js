@@ -1,0 +1,40 @@
+import express from 'express';
+import adminRouter from './admin.js';
+import authRouter from './auth.js';
+import battlesRouter from './battles.js';
+import campfireRouter from './campfire.js';
+import charactersRouter from './characters/index.js';
+import craftingRouter from './crafting.js';
+import farmingRouter from './farming.js';
+import gatheringRouter from './gathering.js';
+import fishingRouter from './fishing.js';
+import healthRouter from './health.js';
+import inventoryRouter from './inventory.js';
+import npcsRouter from './npcs.js';
+import questsRouter from './quests.js';
+import partyRouter from './party.js';
+import storiesRouter from './stories.js';
+import usersRouter from './users.js';
+import worldRouter from './world.js';
+
+const router = express.Router();
+
+router.use('/auth', authRouter);
+router.use('/characters', charactersRouter);
+router.use('/', craftingRouter);
+router.use('/', farmingRouter);
+router.use('/', gatheringRouter);
+router.use('/', fishingRouter);
+router.use('/', campfireRouter);
+router.use('/battles', battlesRouter);
+router.use('/', inventoryRouter);
+router.use('/health', healthRouter);
+router.use('/admin', adminRouter);
+router.use('/party', partyRouter);
+router.use('/npcs', npcsRouter);
+router.use('/quests', questsRouter);
+router.use('/stories', storiesRouter);
+router.use('/users', usersRouter);
+router.use('/world', worldRouter);
+
+export default router;

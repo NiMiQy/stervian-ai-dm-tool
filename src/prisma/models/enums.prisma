@@ -1,0 +1,312 @@
+enum Rarity {
+  NORMAL
+  UNCOMMON
+  RARE
+  UNIQUE
+  MYSTIC
+  LEGENDARY
+  ANCIENT
+}
+
+enum ItemType {
+  HELMET
+  ARMOR
+  SHOES
+  GLOVES
+  EARRING
+  RING
+  NECKLACE
+  BELT
+  MAIN_HAND
+  TWO_HAND
+  QUEST_ITEMS
+  MISCS
+  FOOD
+  FISH
+  POTION
+  SKILL_SCROLL
+}
+
+enum WeaponType {
+  NONE
+  ANY_WEAPON
+  SWORD
+  BOW
+  STAFF
+  QUARTERSTAFF
+  AXE
+  SPEAR
+  CLUB
+  GREATSWORD
+  SHORTSWORD
+  KNIFE
+  SHIELD
+}
+
+enum CharacterType {
+  PLAYER
+  NPC
+}
+
+enum SkillMenuType {
+  ATTACK
+  MAGIC_ATTACK
+  DEFEND
+  SPELL
+}
+
+enum ItemTriggerType {
+  NONE
+  ON_START_OF_TURN
+  ON_END_OF_TURN
+  AT_TURN_NUMBER
+  EVERY_TURN
+}
+
+enum SkillTargetRule {
+  SELF_ONLY
+  ALL_PARTY_MEMBERS
+  ON_SELECTED_ALLY
+  ON_SELECTED_ENEMY
+  ALL_ENEMIES
+  TO_ALL
+}
+
+enum EffectType {
+  NONE
+  BUFF
+  CURE
+  HEALING
+  RECOVERY
+  STUN
+  DAZE
+  WEAK
+  BLIND
+  POISON
+  HUNGRY
+  STARVING
+  STARVATION
+  THIRSTY
+  DEHYDRATED
+  SEVERE_DEHYDRATION
+  TAUNT
+}
+
+enum EffectTriggerRule {
+  NONE
+  SELF_ONLY
+  ALL_PARTY_MEMBERS
+  ON_SELECTED_ALLY
+  ON_SELECTED_ENEMY
+  ALL_ENEMIES
+  TO_ALL
+}
+
+enum CureEffectType {
+  NONE
+  STUN
+  DAZE
+  WEAK
+  BLIND
+  POISON
+}
+
+enum LocationType {
+  VILLAGE
+  TOWN
+  CAPITAL
+  FORTRESS
+  STRONGHOLD
+  DANGER_FIELD
+  HUNTING_FIELD
+  DUNGEON
+}
+
+enum SubLocationType {
+  DEFAULT
+  SECRET_HIDEOUT
+  HOUSE
+  CASTLE
+  MANSION
+  GUILD_OFFICE
+  ALLEY
+  SQUARE
+  INN
+  SHOP
+}
+
+enum SkillDamageType {
+  PHYSICAL 
+  MAGICAL
+  HYBRID
+}
+
+enum Tier {
+  TIER_1
+  TIER_2
+  TIER_3
+  TIER_4
+}
+
+enum ItemLocation {
+  NONE
+  BACKPACK
+  VAULT
+  EQUIPPED
+}
+
+enum EquipSlot {
+  NONE
+  HELMET
+  ARMOR
+  GLOVES
+  SHOES
+  LEFT_HAND
+  RIGHT_HAND
+  LEFT_EARRING
+  RIGHT_EARRING
+  LEFT_RING
+  RIGHT_RING
+  NECKLACE
+  BELT
+}
+
+enum PartyMemberRole {
+  LEADER
+  MEMBER
+  CAPTIVE
+}
+
+enum NpcPlayerRelationshipStatus {
+  HOSTILE
+  DISGUSTED
+  HATEFUL
+  WARY
+  DISLIKE
+  STRANGER
+  NEUTRAL
+  FRIENDLY
+  CONFIDANT
+  DEVOTED
+}
+
+enum NpcRelationshipType {
+  RIVAL
+  ENEMY
+  FAMILY
+  FRIEND
+  MASTER_DISCIPLE
+  MASTER_SERVANT
+  STRANGER
+  ACQUAINTANCE
+  SUPERIOR_SUBORDINATE
+  BUSINESS_PARTNER
+  CLOSE_FRIEND
+  VASSAL
+  NTR
+  SLAVE
+}
+
+enum NpcLocationKnowledge {
+  LOCAL_LANDMARK
+  SECRET_PASSAGE
+  DANGER_ZONE
+  FREQUENT_HAUNT
+}
+
+enum CharacterSex {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MemoryType {
+  SHORT_TERM
+  LONG_TERM
+  SEMANTIC  // facts and knowledge memory
+  EPISODIC //event memory
+  SECRET
+}
+
+enum QuestStatus {
+  AVAILABLE
+  ACTIVE
+  COMPLETED
+  FAILED
+}
+
+enum QuestType {
+  COLLECT
+  ELIMINATE
+  CAPTURE
+}
+
+enum DialogueSessionType {
+  DIRECT
+  GROUP
+  AMBIENT
+}
+
+enum DialogueSessionStatus {
+  ACTIVE
+  PAUSED
+  CLOSED
+}
+
+enum DialogueMessageType {
+  SPEECH
+  ACTION
+  NARRATION
+}
+
+enum LootGroupRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  LEGENDARY
+  BOSS
+}
+
+enum ConsumeBonusMode {
+  NONE
+  TEMPORARY
+  PERMANENT_ONCE
+}
+
+enum WeatherType {
+  CLEAR
+  SUNNY
+  RAIN
+  HEAVYRAIN
+  STORM
+  FOG
+  SANDSTORM
+  SNOW
+}
+
+enum TimeSlot {
+  MORNING
+  AFTERNOON
+  EVENING
+  NIGHT
+  ANY
+}
+
+enum CrowdLevel {
+  EMPTY
+  FEW
+  SOME
+  BUSY
+  PACKED
+}
+
+enum SceneStage {
+  on_going
+  abandoned
+  solved
+}
+
+enum MemoryAddByType {
+  AI_SUMMARIZE
+  ADMIN_SUMMARIZE_SCENES
+}

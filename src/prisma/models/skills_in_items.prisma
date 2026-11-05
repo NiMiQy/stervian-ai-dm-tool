@@ -1,0 +1,11 @@
+model skills_in_items {
+  item_id    Int
+  skill_id   Int
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+  item       items     @relation(fields: [item_id], references: [id])
+  skill      skills    @relation(fields: [skill_id], references: [id])
+
+  @@id([item_id, skill_id])
+}

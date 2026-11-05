@@ -1,0 +1,67 @@
+.equipment-slot.equipped {
+  position: relative;
+  min-height: 68px;
+  padding-left: 53px;
+  cursor: pointer;
+}
+.equipment-image {
+  position: absolute;
+  top: 50%;
+  left: 9px;
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(145deg, #0d1f25, #061013);
+  font-size: 20px;
+}
+.equipment-tooltip {
+  position: absolute;
+  z-index: 5;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  width: 230px;
+  padding: 10px 12px;
+  transform: translateX(-50%) translateY(4px);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-md);
+  background: rgba(6, 16, 19, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 8px rgba(222, 192, 110, 0.2);
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.equipment-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: var(--gold);
+  transform: translateX(-50%);
+}
+.equipment-tooltip b {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--gold2);
+  font-family: var(--font-lusitana);
+  font-size: 14px;
+}
+.equipment-tooltip span {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.55;
+}
+.equipment-slot.equipped:hover .equipment-tooltip,
+.equipment-slot.equipped:focus .equipment-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

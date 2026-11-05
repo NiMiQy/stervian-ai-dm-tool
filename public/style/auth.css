@@ -1,0 +1,62 @@
+.auth-switch {
+  display: flex;
+  gap: 6px;
+  margin: 25px 0 18px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #010b0e;
+}
+
+.auth-switch button {
+  flex: 1;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: 8px;
+  color: var(--muted);
+  font-family: var(--font-roboto-slab);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-switch button:hover {
+  color: var(--text);
+}
+
+.auth-switch button.active {
+  background: rgba(222, 192, 110, 0.15);
+  color: var(--gold);
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.auth-form .login-copy {
+  margin: 0 0 22px;
+}
+
+.auth-form .login-copy h1 {
+  font-family: var(--font-lusitana);
+  font-size: 26px;
+  color: #ffffff;
+}
+
+.auth-form .login-error {
+  margin-bottom: 0;
+  color: #ff666e;
+}
+
+.auth-success {
+  min-height: 18px;
+  margin: 9px 0 0;
+  color: var(--green);
+  font-size: 12px;
+}

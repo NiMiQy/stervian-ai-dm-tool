@@ -1,0 +1,14 @@
+model character_lifeskills {
+  character_id  Int
+  lifeskill_id  Int
+  current_level Int?       @default(1)
+  current_exp   Int?       @default(0)
+  deleted       Boolean    @default(false)
+  created_at    DateTime?  @default(now()) @db.DateTime(0)
+  updated_at    DateTime?  @updatedAt @db.DateTime(0)
+  character     characters @relation(fields: [character_id], references: [id])
+  lifeskill     lifeskills @relation(fields: [lifeskill_id], references: [id])
+
+  @@id([character_id, lifeskill_id])
+  @@index([lifeskill_id], map: "character_lifeskills_lifeskill_id_fkey")
+}

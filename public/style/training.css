@@ -1,0 +1,29 @@
+/* Training dummy panel (combat.html) */
+body.combat-route.is-training .lower-panels { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+@media (min-width: 901px) {
+  body.combat-route.is-training .combat-board { grid-template-rows: minmax(0, 1fr) minmax(158px, auto) 250px; }
+}
+body.combat-route .training-panel { display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: auto; padding: 10px 14px 12px; }
+body.combat-route .training-panel[hidden] { display: none; }
+body.combat-route .training-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+body.combat-route .training-head h2 { margin: 0; color: var(--gs-gold, #d4ab5f); font: 600 12px/1 var(--gs-font-ui, 'Outfit', sans-serif); letter-spacing: 0.08em; text-transform: uppercase; }
+body.combat-route .training-totals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+body.combat-route .training-totals div { min-width: 0; padding: 6px 8px; border: 1px solid var(--gs-rule, #2d313b); border-radius: 4px; background: var(--gs-panel-raised, #232731); }
+body.combat-route .training-totals span { display: block; color: var(--gs-ash, #9c968a); font: 11px/1.2 var(--gs-font-ui, 'Outfit', sans-serif); }
+body.combat-route .training-totals b { display: block; overflow: hidden; color: var(--gs-parchment, #e8e1d2); font: 600 15px/1.3 var(--gs-font-ui, 'Outfit', sans-serif); text-overflow: ellipsis; white-space: nowrap; }
+body.combat-route .training-totals div:first-child b { color: var(--gs-gold, #d4ab5f); }
+body.combat-route .training-sources { margin: 0; color: var(--gs-ash, #9c968a); font: 12px/1.4 var(--gs-font-ui, 'Outfit', sans-serif); }
+body.combat-route .training-btn { padding: 5px 12px; border: 1px solid var(--gs-rule-strong, #3b404c); border-radius: 4px; background: var(--gs-panel-raised, #232731); color: var(--gs-parchment, #e8e1d2); font: 12px var(--gs-font-ui, 'Outfit', sans-serif); cursor: pointer; }
+body.combat-route .training-btn:hover:not(:disabled) { border-color: var(--gs-gold-line, rgba(212, 171, 95, 0.45)); color: var(--gs-gold, #d4ab5f); }
+body.combat-route .training-btn.is-primary { border-color: var(--gs-gold-line, rgba(212, 171, 95, 0.45)); color: var(--gs-gold, #d4ab5f); }
+body.combat-route .training-btn:disabled { opacity: 0.5; cursor: default; }
+body.combat-route .training-config summary { color: var(--gs-parchment, #e8e1d2); font: 12px var(--gs-font-ui, 'Outfit', sans-serif); cursor: pointer; }
+body.combat-route .training-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; margin-top: 6px; }
+body.combat-route .training-form label { display: grid; gap: 2px; color: var(--gs-ash, #9c968a); font: 11px var(--gs-font-ui, 'Outfit', sans-serif); }
+body.combat-route .training-form label small { color: var(--gs-ash-quiet, #77726a); font-size: 10px; }
+body.combat-route .training-form input { width: 100%; min-width: 0; padding: 4px 6px; border: 1px solid var(--gs-rule-strong, #3b404c); border-radius: 4px; background: var(--gs-night, #15171c); color: var(--gs-parchment, #e8e1d2); font: 12px var(--gs-font-ui, 'Outfit', sans-serif); }
+body.combat-route .training-form button { align-self: end; }
+@media (max-width: 900px) {
+  body.combat-route.is-training .lower-panels { grid-template-columns: 1fr; }
+  body.combat-route .training-totals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

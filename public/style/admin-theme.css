@@ -1,0 +1,132 @@
+/* Stervian admin — game.html theme (game-screen.css tokens) + roomier, responsive modals.
+   Loaded after admin.css; overrides only. */
+:root {
+  --gs-night: #15171c; --gs-panel: #1c1f26; --gs-panel-raised: #232731;
+  --gs-rule: #2d313b; --gs-rule-strong: #3b404c;
+  --gs-parchment: #e8e1d2; --gs-ash: #9c968a; --gs-ash-quiet: #77726a;
+  --gs-gold: #d4ab5f; --gs-gold-soft: rgba(212,171,95,.14); --gs-gold-line: rgba(212,171,95,.45);
+  --gs-ember: #d9785f; --gs-hp: #4fa77d;
+  --gs-font-title: 'Marcellus', Georgia, serif;
+  --gs-font-read: 'Lusitana', Georgia, serif;
+  --gs-font-ui: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gs-radius: 6px;
+
+  /* remap admin.css tokens */
+  --panel: var(--gs-panel); --panel-card: var(--gs-panel-raised); --panel-hover: #2a2f3a;
+  --line: var(--gs-rule); --line-light: var(--gs-rule-strong);
+  --gold: var(--gs-gold); --gold-glow: var(--gs-gold-soft);
+  --muted: var(--gs-ash); --danger: var(--gs-ember); --danger-bg: rgba(217,120,95,.14);
+  --success: var(--gs-hp); --primary-btn: var(--gs-gold); --primary-btn-hover: #e0bd78;
+  --text: var(--gs-parchment);
+  --radius-sm: var(--gs-radius); --radius-md: var(--gs-radius); --radius-lg: 10px;
+  font-family: var(--gs-font-ui);
+  color: var(--gs-parchment);
+  background: var(--gs-night);
+}
+
+body { background: var(--gs-night); background-image: none; color: var(--gs-parchment); font-family: var(--gs-font-ui); }
+:focus-visible { outline: 2px solid var(--gs-gold); outline-offset: 2px; }
+
+/* Top bar like the game */
+body > header { height: 64px; padding: 0 clamp(16px, 4vw, 48px); background: var(--gs-night); border-bottom: 1px solid var(--gs-rule); backdrop-filter: none; -webkit-backdrop-filter: none; gap: 16px; }
+body > header h1 { font: 24px/1.1 var(--gs-font-title); color: var(--gs-parchment); }
+.eyebrow { color: var(--gs-gold); font-family: var(--gs-font-ui); font-weight: 600; font-size: 11px; letter-spacing: .14em; }
+h2, h3 { font-family: var(--gs-font-title); font-weight: 400; color: var(--gs-parchment); }
+main { padding: 24px clamp(16px, 4vw, 48px); }
+
+/* Buttons & tabs */
+nav button, .ghost, .primary, .danger { border-radius: var(--gs-radius); border-color: var(--gs-rule-strong); color: var(--gs-ash); font-family: var(--gs-font-ui); font-weight: 500; }
+.ghost:hover, nav button:hover { border-color: var(--gs-gold-line); color: var(--gs-parchment); background: rgba(255,255,255,.04); }
+nav button.active { background: var(--gs-gold-soft); color: var(--gs-gold); border-color: var(--gs-gold); box-shadow: none; }
+.primary { background: var(--gs-gold); border-color: var(--gs-gold); color: var(--gs-night); font-weight: 600; }
+.primary:hover { background: #e0bd78; border-color: #e0bd78; }
+.danger { color: var(--gs-ember); border-color: rgba(217,120,95,.45); }
+.danger:hover { background: rgba(217,120,95,.14); color: #f0a08a; }
+#tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Tables & panels */
+.tableWrap, .cardSection, .worldMapRoutePanel { background: var(--gs-panel); border-color: var(--gs-rule); }
+th { background: var(--gs-panel-raised); color: var(--gs-ash); font-family: var(--gs-font-ui); }
+td { border-color: var(--gs-rule); }
+tr:hover td { background: rgba(212,171,95,.05); }
+.cardSectionTitle { font: 600 12px var(--gs-font-ui); letter-spacing: .12em; color: var(--gs-gold); }
+.invRow, .vaultRow, .skillEffectRow, .spRow, .multiItemRow, .effectItemRow, .lootItemRow, .relationCard, .statCard, .equipSlotCard, .memoryItemCard {
+  background: var(--gs-panel-raised); border-color: var(--gs-rule);
+}
+
+/* Inputs: taller, readable */
+input, select, textarea {
+  min-height: 38px; padding: 9px 12px; font-family: var(--gs-font-ui); font-size: 14px;
+  background: var(--gs-night); color: var(--gs-parchment); border: 1px solid var(--gs-rule-strong); border-radius: var(--gs-radius);
+}
+input[type="checkbox"], input[type="radio"] { min-height: 0; width: auto; }
+textarea { min-height: 110px; line-height: 1.55; font-family: var(--gs-font-read); font-size: 15px; }
+input:focus, select:focus, textarea:focus { border-color: var(--gs-gold); box-shadow: 0 0 0 3px var(--gs-gold-soft); }
+input::placeholder, textarea::placeholder { color: var(--gs-ash-quiet); }
+label { color: var(--gs-ash); font-size: 12px; font-weight: 500; letter-spacing: .02em; }
+.invRow select, .invRow input, .vaultRow select, .vaultRow input, .skillEffectRow select, .skillEffectRow input { min-height: 36px; padding: 7px 10px; font-size: 13px; }
+.statInputGroup input { min-height: 36px; }
+
+/* ===== Modal: wider, taller, responsive ===== */
+dialog {
+  width: min(1400px, 96vw); max-width: 96vw; max-height: 94vh; height: auto;
+  display: none; flex-direction: column;
+  background: var(--gs-panel); color: var(--gs-parchment);
+  border: 1px solid var(--gs-rule-strong); border-radius: 10px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 0 1px var(--gs-gold-soft);
+}
+dialog[open] { display: flex; }
+dialog > form { display: flex; flex-direction: column; min-height: 0; max-height: 94vh; }
+dialog::backdrop { background: rgba(10,11,14,.78); backdrop-filter: blur(6px); }
+.modalHead { background: var(--gs-panel-raised); border-color: var(--gs-rule); padding: 16px clamp(16px, 2.5vw, 28px); flex: 0 0 auto; }
+.modalHead h2 { font: 24px/1.15 var(--gs-font-title); }
+.modalNav { background: var(--gs-panel); border-color: var(--gs-rule); padding: 8px clamp(12px, 2.5vw, 28px) 0; flex: 0 0 auto; }
+.modalNavBtn { font-family: var(--gs-font-ui); font-weight: 500; }
+.modalNavBtn.active { background: var(--gs-panel-raised); color: var(--gs-gold); border-color: var(--gs-rule); border-bottom-color: var(--gs-gold); }
+.modalBody { flex: 1 1 auto; min-height: 0; max-height: none; overflow-y: auto; padding: 20px clamp(16px, 2.5vw, 28px); }
+.fields { max-height: none; overflow: visible; padding: 0; gap: 16px 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.modalBody > .fields, #fields.fields { padding: 20px clamp(16px, 2.5vw, 28px); }
+.actions { flex: 0 0 auto; background: var(--gs-panel-raised); border-top: 1px solid var(--gs-rule); padding: 14px clamp(16px, 2.5vw, 28px); }
+.close { color: var(--gs-ash); }
+.close:hover { color: var(--gs-parchment); }
+
+/* Grids collapse gracefully */
+.cardGrid2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.cardGrid3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.cardGrid4, .statCardGrid4 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.statCardGrid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.invRow { grid-template-columns: minmax(200px, 2.5fr) minmax(80px, .6fr) minmax(80px, .6fr) minmax(130px, 1fr) minmax(130px, 1fr) minmax(90px, .7fr) 40px; }
+.spRow { grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) 42px; }
+.relationGrid { max-height: 52vh; }
+/* No nested scroll boxes inside the modal: let the modal body scroll */
+.invList, .spGrid { max-height: none; overflow: visible; }
+
+/* Hover tooltip with the field's name (set by admin-ui.js as data-field-label) */
+.fieldHint { position: relative; }
+.adminFieldTip {
+  position: fixed; z-index: 9999; pointer-events: none;
+  padding: 5px 9px; border-radius: 5px; border: 1px solid var(--gs-gold-line);
+  background: #0f1115; color: var(--gs-gold); font: 500 12px var(--gs-font-ui); letter-spacing: .02em;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5); white-space: nowrap; opacity: 0; transition: opacity .12s ease;
+}
+.adminFieldTip.show { opacity: 1; }
+
+@media (max-width: 1100px) {
+  .invRow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .invRow > :first-child { grid-column: 1 / -1; }
+  .lootItemRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lootItemRow > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  dialog { width: 100vw; max-width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; margin: 0; }
+  dialog > form { max-height: 100dvh; height: 100%; }
+  .modalHead h2 { font-size: 20px; }
+  .actions { position: sticky; bottom: 0; }
+  .actions button { flex: 1; justify-content: center; }
+  .toolbar, .toolbarActions { flex-wrap: wrap; }
+  .vaultRow, .spRow, .multiItemRow, .effectItemRow { grid-template-columns: 1fr 1fr; }
+  .vaultRow > :first-child, .spRow > :first-child, .multiItemRow > :first-child, .effectItemRow > :first-child { grid-column: 1 / -1; }
+  .invRow { grid-template-columns: 1fr 1fr; }
+  .lootItemRow { grid-template-columns: 1fr; }
+  body > header { height: auto; min-height: 56px; padding: 10px 16px; }
+}

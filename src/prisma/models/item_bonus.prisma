@@ -1,0 +1,53 @@
+model item_bonus {
+  id                Int              @id @default(autoincrement())
+  item_id           Int              @unique
+  item_trigger_type ItemTriggerType? @default(NONE)
+  consume_bonus_mode    ConsumeBonusMode @default(NONE)
+  
+  max_hp_bonus       Int?            @default(0)
+  healing_current_hp Int?            @default(0)
+  cure_effect_type   CureEffectType? @default(NONE)
+
+  current_food_bonus  Int? @default(0)
+  current_water_bonus Int? @default(0)
+  current_energy_bonus Int? @default(0)
+
+  proficiency_bonus  Int? @default(0)
+  intelligent_bonus  Int? @default(0)
+  strength_bonus     Int? @default(0)
+  dexterity_bonus    Int? @default(0)
+  charisma_bonus     Int? @default(0)
+  constitution_bonus Int? @default(0)
+  wisdom_bonus       Int? @default(0)
+
+  physical_attack_bonus Int? @default(0)
+  magical_attack_bonus  Int? @default(0)
+
+  armor_bonus         Int? @default(0)
+  magical_armor_bonus Int? @default(0) @map("magic_armor_bonus")
+
+  effect_resistant_bonus Int? @default(0)
+
+  fire_element_resistant      Int? @default(0)
+  ice_element_resistant       Int? @default(0)
+  earth_element_resistant     Int? @default(0)
+  lightning_element_resistant Int? @default(0)
+  wind_element_resistant      Int? @default(0)
+  holy_element_resistant      Int? @default(0)
+  dark_element_resistant      Int? @default(0)
+
+  crit_chance_bonus Float? @default(0.0)
+  crit_damage_bonus Float? @default(0.0)
+
+  evade_chance_bonus Float? @default(0.0)
+  accuracy_bonus     Float? @default(0.0)
+
+  buff_duration_minutes Int?             @default(0)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+  item       items     @relation(fields: [item_id], references: [id])
+
+  itembonus_effects itembonus_effects[]
+}

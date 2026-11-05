@@ -1,0 +1,28 @@
+model sublocations {
+  id          Int    @id @default(autoincrement())
+  location_id Int?
+  name        String @db.VarChar(60)
+  description String @db.VarChar(200)
+
+  owner_id   Int?
+  long_rest_price         Int @default(350)
+  food_water_refill_price Int @default(350)
+
+  sublocation_type SubLocationType @default(DEFAULT)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+  is_sheltered Boolean @default(false)
+  characters                        characters[]
+  owner                             characters?                           @relation("SublocationOwner", fields: [owner_id], references: [id], onDelete: SetNull)
+  location                          locations?                          @relation(fields: [location_id], references: [id])
+  sublocations_items                sublocations_items[]
+  npcs_in_locations_or_sublocations npcs_in_locations_or_sublocations[]
+  npc_known_locations               npc_known_locations[]
+  ambiences                         ambiences[]
+  ambience_states                   location_ambience_states[]
+
+  @@index([location_id], map: "sublocations_location_id_fkey")
+  @@index([owner_id])
+}

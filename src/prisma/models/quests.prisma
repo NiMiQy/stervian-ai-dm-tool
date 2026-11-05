@@ -1,0 +1,30 @@
+model quests {
+  id                      Int       @id @default(autoincrement())
+  source_npc_id           Int
+  name                    String    @db.VarChar(100)
+  description             String    @db.Text
+  objective_type          QuestType
+  target_item_id          Int?
+  target_npc_character_id Int?
+  required_quantity       Int       @default(1)
+  repeatable              Boolean   @default(false)
+  gold_reward             Int       @default(0)
+  exp_reward              Int       @default(0)
+  affinity_reward         Int       @default(0)
+
+  is_nsfw                 Boolean?  @default(false)
+
+  created_at              DateTime? @default(now()) @db.DateTime(0)
+  updated_at              DateTime? @updatedAt @db.DateTime(0)
+  deleted                 Boolean?  @default(false)
+
+  source_npc   npcs             @relation("QuestSourceNpc", fields: [source_npc_id], references: [character_id], onDelete: Restrict)
+  target_item  items?           @relation("QuestTargetItem", fields: [target_item_id], references: [id], onDelete: SetNull)
+  target_npc   npcs?            @relation("QuestTargetNpc", fields: [target_npc_character_id], references: [character_id], onDelete: SetNull)
+  character_quests character_quests[]
+
+  @@unique([source_npc_id, name], map: "quests_source_npc_name_unique")
+  @@index([source_npc_id, deleted], map: "quests_source_npc_deleted_idx")
+  @@index([target_item_id], map: "quests_target_item_idx")
+  @@index([target_npc_character_id], map: "quests_target_npc_idx")
+}

@@ -1,0 +1,13 @@
+model character_vaults {
+  id           Int @id @default(autoincrement())
+  character_id Int @unique
+
+  max_slots   Int?      @default(60) // Base: 48 slots (2x player inventory)
+  tier        Int?      @default(1) // Upgrade tier for expansion
+  stored_gold Int?      @default(0) // Safe gold storage
+  created_at  DateTime? @default(now()) @db.DateTime(0)
+  updated_at  DateTime? @updatedAt @db.DateTime(0)
+  deleted     Boolean?  @default(false)
+
+  character characters @relation(fields: [character_id], references: [id])
+}

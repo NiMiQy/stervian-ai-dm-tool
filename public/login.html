@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in · Stervian AI Dungeon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lusitana:wght@400;700&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/styles.css" />
+    <link rel="stylesheet" href="./style/auth.css" />
+    <link rel="stylesheet" href="./style/ux-enhancements.css" />
+  </head>
+  <body>
+    <main class="login-screen">
+      <div class="login-backdrop"><span class="moon">☾</span><span class="mountain mountain-one"></span><span class="mountain mountain-two"></span></div>
+      <div class="login-card">
+        <a class="login-brand" href="./login.html">STERVIAN <span>AI DUNGEON</span></a>
+        <div class="auth-switch"><button class="active" type="button" data-auth-mode="login">Sign in</button><button type="button" data-auth-mode="register">Register</button></div>
+        <form class="auth-form active" id="loginForm"><div class="login-copy"><p class="eyebrow">WELCOME, TRAVELER</p><h1>Return to the story.</h1><p>Sign in to continue your adventure.</p></div><label for="loginUsername">Username</label><input id="loginUsername" name="username" autocomplete="username" placeholder="Enter your username" required /><label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required /><p class="login-error" id="loginError" role="alert"></p><button class="login-submit" type="submit">Enter Stervian <span>→</span></button></form>
+        <form class="auth-form" id="registerForm"><div class="login-copy"><p class="eyebrow">NEW TRAVELER</p><h1>Begin your legend.</h1><p>Create an account, then sign in to create your character.</p></div><label for="registerUsername">Username</label><input id="registerUsername" name="username" autocomplete="username" placeholder="3–40 letters, numbers, or _" required /><label for="registerPassword">Password</label><input id="registerPassword" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required /><label for="registerPasswordConfirm">Confirm password</label><input id="registerPasswordConfirm" name="passwordConfirm" type="password" autocomplete="new-password" placeholder="Repeat your password" required /><p class="login-error" id="registerError" role="alert"></p><button class="login-submit" type="submit">Create account <span>→</span></button><p class="auth-success" id="registerSuccess" role="status"></p></form>
+      </div>
+    </main>
+    <script type="module" src="./js/login.js"></script>
+  </body>
+</html>

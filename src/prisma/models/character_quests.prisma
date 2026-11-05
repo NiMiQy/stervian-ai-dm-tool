@@ -1,0 +1,18 @@
+model character_quests {
+  id           Int         @id @default(autoincrement())
+  character_id Int
+  quest_id     Int
+  status       QuestStatus @default(ACTIVE)
+  progress     Int         @default(0)
+  accepted_at  DateTime?   @default(now()) @db.DateTime(0)
+  completed_at DateTime?   @db.DateTime(0)
+  created_at   DateTime?   @default(now()) @db.DateTime(0)
+  updated_at   DateTime?   @updatedAt @db.DateTime(0)
+  deleted      Boolean?    @default(false)
+
+  character characters @relation(fields: [character_id], references: [id], onDelete: Cascade)
+  quest     quests     @relation(fields: [quest_id], references: [id], onDelete: Cascade)
+
+  @@index([character_id, status, deleted], map: "character_quests_character_status_idx")
+  @@index([quest_id, character_id, status], map: "character_quests_quest_character_status_idx")
+}

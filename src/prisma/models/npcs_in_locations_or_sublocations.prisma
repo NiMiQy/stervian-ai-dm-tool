@@ -1,0 +1,19 @@
+// Each appearance targets either a location or a sublocation, never both.
+model npcs_in_locations_or_sublocations {
+  id             Int       @id @default(autoincrement())
+  npc_id         Int
+  location_id    Int?
+  sublocation_id Int?
+  created_at     DateTime? @default(now()) @db.DateTime(0)
+  updated_at     DateTime? @updatedAt @db.DateTime(0)
+  deleted        Boolean?  @default(false)
+
+  npc         npcs          @relation(fields: [npc_id], references: [character_id], onDelete: Cascade, map: "npc_appearance_npc_fk")
+  location    locations?    @relation(fields: [location_id], references: [id], onDelete: Cascade, map: "npc_appearance_location_fk")
+  sublocation sublocations? @relation(fields: [sublocation_id], references: [id], onDelete: Cascade, map: "npc_appearance_sublocation_fk")
+
+  @@unique([npc_id, location_id], map: "npc_appearance_location_unique")
+  @@unique([npc_id, sublocation_id], map: "npc_appearance_sublocation_unique")
+  @@index([location_id], map: "npc_appearance_location_idx")
+  @@index([sublocation_id], map: "npc_appearance_sublocation_idx")
+}

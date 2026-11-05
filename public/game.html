@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warden's Crossing · Stervian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lusitana:wght@400;700&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/styles.css" />
+    <link rel="stylesheet" href="./style/inventory.css" />
+    <link rel="stylesheet" href="./style/equipment.css" />
+    <link rel="stylesheet" href="./style/chat.css" />
+    <link rel="stylesheet" href="./style/character-creation.css" />
+    <link rel="stylesheet" href="./style/character-sheet.css" />
+    <link rel="stylesheet" href="./style/game-ui-overrides.css" />
+    <link rel="stylesheet" href="./style/party.css" />
+    <link rel="stylesheet" href="./style/npcs.css" />
+    <link rel="stylesheet" href="./style/combat.css" />
+    <link rel="stylesheet" href="./style/game-theme.css" />
+    <link rel="stylesheet" href="./style/settings-menu.css" />
+    <link rel="stylesheet" href="./style/gathering.css" />
+    <link rel="stylesheet" href="./style/farming.css" />
+    <link rel="stylesheet" href="./style/ux-enhancements.css" />
+    <link rel="stylesheet" href="./style/game-screen.css" />
+    <link rel="stylesheet" href="./style/world-travel.css" />
+    <link rel="stylesheet" href="./style/dialogue-session.css" />
+    <link rel="stylesheet" href="./style/story-text.css" />
+    <link rel="stylesheet" href="./style/fate-scenes.css" />
+  </head>
+  <body>
+    <div class="app-shell is-visible" data-page-view="explore">
+      <header class="topbar">
+        <a class="brand" href="./game.html" aria-label="Stervian — Chapter I: A fallen son home"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">Stervian<small>CHAPTER I: “A FALLEN SON”</small></span></a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="active" id="topWorldButton" href="#storyFeed" aria-current="page">Explore</a>
+          <a id="topPartyButton" href="#partyPage">Party <span id="partyNavBadge" class="party-nav-badge hidden">0</span></a>
+          <a id="topInventoryButton" href="#inventoryPage">Inventory</a>
+          <a id="topJournalButton" href="#worldTravel" title="View the world map and connected routes">World</a>
+          <a id="topCraftingButton" href="./crafting.html">Crafting</a><a id="topShopButton" href="./shop.html">Shop</a>
+        </nav>
+        <div class="profile-tools">
+          <button class="top-icon is-quiet" type="button" title="Messages" aria-label="Messages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM4 6l8 7 8-7" /></svg></button>
+          <button class="top-icon is-quiet" type="button" title="Notifications" aria-label="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4" /></svg></button>
+          <div class="settings-menu-wrap"><button class="top-icon settings-icon" id="settingsMenuButton" type="button" title="Settings" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0-5 1.2 2.1 2.4.5 2-1.2 2.1 2.1-1.2 2 .5 2.5L21 12l-2.1 1.2-.5 2.4 1.2 2-2.1 2.1-2-1.2-2.5.5L12 23l-1.2-2.1-2.4-.5-2 1.2-2.1-2.1 1.2-2-.5-2.5L3 12l2.1-1.2.5-2.4-1.2-2 2.1-2.1 2 1.2 2.5-.5L12 3Z" /></svg></button><div class="settings-menu" id="settingsMenu" role="menu" hidden><button class="settings-menu-item" id="logoutButton" type="button" role="menuitem">logout</button></div></div>
+        </div>
+      </header>
+    <aside class="sidebar" id="characterPanel"><button class="sidebar-toggle" id="sidebarToggle" type="button" aria-expanded="false" aria-controls="sidebarDetails"><span class="sidebar-toggle-label">More</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></button><section class="character-summary"><div class="avatar">Q</div><div><p class="eyebrow">LEVEL 3 · RANGER</p><h2>Quinn Ashwood</h2><p class="muted">Human · Neutral Good</p></div></section><section class="vitals"><div><label><span>HP</span><b>28 / 34</b></label><div class="meter hp"><i style="width:82%"></i></div></div><div><label><span>ENERGY</span><b>68 / 80</b></label><div class="meter energy"><i style="width:85%"></i></div></div><div><label><span>FOOD</span><b>100 / 100</b></label><div class="meter hp"><i style="width:100%"></i></div></div><div><label><span>WATER</span><b>100 / 100</b></label><div class="meter energy"><i style="width:100%"></i></div></div></section><div class="sidebar-details" id="sidebarDetails"><nav class="nav-tabs" aria-label="Activities"><button id="vaultButton"><span>▣</span> Vault</button><button id="gatheringButton" type="button"><span>⛏️</span> Gathering</button><button id="fishingButton" type="button"><span>🎣</span> Fishing</button><button id="farmingButton" type="button" hidden><span>🌾</span> Farming</button><button id="campfireButton" type="button" hidden><span>🔥</span> Campfire</button><button id="trainingButton" type="button" hidden><span>🎯</span> Training Dummy</button><button id="npcsButton" type="button" hidden><span>♙</span> NPCs</button><button id="questsButton" type="button" hidden><span>📜</span> Quests</button><button id="shopTabButton" hidden><span>🛍</span> <span id="shopTabTitle">Shop</span></button></nav><div class="sidebar-bottom"><span>◈ 1,240</span><span id="worldWeather">--</span><span id="worldTimeClock">--</span></div></div></aside>
+      <main class="game-stage"><section class="scene-header"><div><p class="eyebrow scene-region" id="sceneRegion"></p><h1>Warden's Crossing</h1><p>A rain-darkened road winds toward the old watchtower.</p></div></section><section class="story-feed" id="storyFeed" aria-live="polite" aria-label="Story"></section><form class="action-composer" id="actionForm"><label for="actionInput">What do you do?</label><div class="npc-chat-chips-bar" id="npcChatChipsBar" hidden><span class="npc-chips-label">Target:</span><div class="npc-chat-chips" id="npcChatChips" role="radiogroup" aria-label="Target NPC for conversation"></div></div><div class="action-composer-row"><textarea id="actionInput" rows="2" placeholder="Describe an action or speak to someone…"></textarea><button type="submit" id="actionSubmitButton" class="deepseek-action-button" title="Dispatch action to DeepSeek V4 Dungeon Master"><span class="deepseek-badge">⚡ DeepSeek V4</span><span class="btn-text">Act</span><span class="key-hint">↵</span></button></div><div class="scene-support-actions" role="toolbar" aria-label="Scene tools"><button type="button" class="scene-tool" id="combatButton" title="Fight monsters or an attackable NPC here">⚔ Combat</button><button class="map-button scene-tool scene-tool-primary" id="moveButton" type="button">Move</button><button type="button" class="scene-tool" id="toolsCallButton" title="Ask the Dungeon Master to check records before your action">🧰 Tools call</button><button type="button" class="fate-check-toggle scene-tool" id="checksButton" title="Roll a skill check and/or a fate check before your action">🎲 Checks</button><button type="button" class="scenes-button scene-tool" id="scenesButton">Scenes</button><button type="button" class="scene-tool" id="observeButton" title="Watch two NPCs here talk to each other">👁 Observe</button><button type="button" class="context-check-btn scene-tool" id="contextCheckBtn" title="Inspect what the Dungeon Master can see">Context check</button><span class="ai-key-control" id="aiApiKeyControl"><button type="button" class="scene-tool ai-key-btn" id="aiApiKeyBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiApiKeyPanel" title="Enter your DeepSeek API key">🔑 Enter AI API key</button><div class="ai-key-panel" id="aiApiKeyPanel" role="dialog" aria-label="AI API key" hidden><label for="aiApiKeyInput">DeepSeek API key</label><input type="password" id="aiApiKeyInput" autocomplete="off" spellcheck="false" placeholder="sk-…" /><p class="ai-key-status" id="aiApiKeyStatus"></p><div class="ai-key-actions"><button type="button" class="ai-key-remove" id="aiApiKeyRemoveBtn">Remove</button><button type="button" class="ai-key-save" id="aiApiKeySaveBtn">Save</button></div><p class="ai-key-note">Saved only in this browser and sent with each request to the Dungeon Master.</p></div></span><button type="button" class="history-clear-btn scene-tool scene-tool-danger" id="clearHistoryBtn" title="Clear conversation history">Clear history</button></div></form><div class="fate-dice-overlay" id="fateDiceOverlay" hidden><div class="fate-dice-panel" role="status" aria-live="polite"><button type="button" class="fate-dice-close" data-close-fate-dice aria-label="Close fate check">×</button><div class="fate-dice-canvas" data-fate-dice-canvas></div><div class="fate-dice-hud" data-fate-dice-hud></div></div></div></main>
+      <main class="inventory-page hidden" id="inventoryPage" aria-label="Inventory and character sheet"></main>
+      <main class="content-page party-page hidden" id="partyPage" aria-label="Party">
+        <section class="detail-content detail-tab-content party-tab-content" id="detailTabContentParty">
+          <div class="party-tab-header">
+            <p class="eyebrow" id="partyEyebrow">ADVENTURING PARTY</p>
+            <h2 id="partyTitle">Solo Adventurer</h2>
+            <p class="muted party-subtitle" id="partySubtitle">Form a party with other players or hire companions.</p>
+          </div>
+
+          <div id="partyCreateSection" class="party-form-box">
+            <label for="partyNameInput" class="party-field-label">Create New Party</label>
+            <div class="party-input-row">
+              <input id="partyNameInput" type="text" placeholder="Party name…" maxlength="40" />
+              <button id="btnPartyCreate" type="button" class="party-btn party-btn-primary">Create</button>
+            </div>
+          </div>
+
+          <div id="partyPendingInvitesSection" class="party-invites-container hidden">
+            <p class="eyebrow party-invites-heading">PENDING INVITES</p>
+            <div id="partyPendingInvitesList"></div>
+          </div>
+
+          <div id="partyActiveSection" class="party-active-section hidden">
+            <div class="party-form-box" id="partyInviteBox">
+              <label for="partyInviteTargetInput" class="party-field-label">Invite Player to Party</label>
+              <div class="party-input-row">
+                <input id="partyInviteTargetInput" type="text" placeholder="Player username or character name…" />
+                <button id="btnPartyInviteSubmit" type="button" class="party-btn party-btn-primary">Invite</button>
+              </div>
+            </div>
+
+            <div class="party-member-toolbar">
+              <span id="partyMemberCountLabel" class="party-member-count" aria-live="polite">MEMBERS (1 / 4)</span>
+              <button id="btnPartyLeave" type="button" class="party-btn party-btn-danger party-leave-btn">Leave Party</button>
+            </div>
+
+            <div class="party-members-list" id="partyMemberList"></div>
+          </div>
+        </section>
+      </main>
+      <section class="character-modal scenes-modal" id="scenesModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="scenesModalTitle">
+        <div class="modal-backdrop" data-close-scenes></div>
+        <div class="character-sheet scenes-sheet">
+          <header class="sheet-header"><div><p class="eyebrow">YOUR STORY</p><h2 id="scenesModalTitle">Scenes</h2><p class="scenes-counter" id="scenesCounter">0/10 on-going</p></div><button type="button" class="modal-close" data-close-scenes aria-label="Close scenes">×</button></header>
+          <div class="scenes-tabs" role="tablist" aria-label="Scene filter"><button type="button" class="scenes-tab is-active" role="tab" aria-selected="true" data-scene-tab="ongoing">On-going</button><button type="button" class="scenes-tab" role="tab" aria-selected="false" data-scene-tab="solved">Solved</button></div>
+          <div class="scenes-content">
+            <ul class="scene-list" id="sceneList"></ul>
+            <form class="scene-form" id="sceneForm" hidden>
+              <h3 id="sceneFormTitle">New scene</h3>
+              <label for="sceneGoalInput">Scene goal <span class="muted">— what ends the scene</span></label>
+              <textarea id="sceneGoalInput" rows="2" required placeholder="Find out who has been stealing flour from the mill"></textarea>
+              <label for="sceneNotesInput">Scene notes</label>
+              <textarea id="sceneNotesInput" rows="4" placeholder="Hooks, people involved, what you know so far"></textarea>
+              <label for="sceneNpcSelect">Canon NPC</label>
+              <select id="sceneNpcSelect"></select>
+              <label for="sceneAffinityInput">Affinity on solve <span class="muted">— added to the canon NPC when you mark the scene solved (negative lowers it)</span></label>
+              <input id="sceneAffinityInput" type="number" step="1" value="0" inputmode="numeric" />
+              <div class="scene-form-actions"><button type="button" class="scene-delete-button" id="sceneDeleteButton" hidden>Delete scene</button><button type="button" class="scene-save-button" id="sceneSolveButton" hidden>Mark solved</button><span class="scene-form-spacer"></span><button type="button" class="scene-cancel-button" id="sceneCancelButton">Cancel</button><button type="submit" class="scene-save-button">Save scene</button></div>
+            </form>
+            <p id="storyLastUpdated" class="muted">No story saved yet.</p>
+          </div>
+          <footer class="scenes-footer"><button type="button" class="scene-new-button" id="newSceneButton">+ New scene</button></footer>
+        </div>
+      </section>
+      <section class="character-modal checks-modal" id="checksModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checksModalTitle">
+        <div class="modal-backdrop" data-close-checks></div>
+        <div class="character-sheet checks-sheet">
+          <header class="sheet-header"><div><p class="eyebrow">BEFORE YOU ACT</p><h2 id="checksModalTitle">Checks</h2><p class="checks-subtitle">Turn on the checks you need. Both roll, then your action goes to the Dungeon Master.</p></div><button type="button" class="modal-close" data-close-checks aria-label="Close checks">×</button></header>
+          <form class="checks-form" id="checksForm" novalidate>
+            <label for="checksActionInput">Your action</label>
+            <textarea id="checksActionInput" rows="2" placeholder="What does your character do or say? e.g. I lean in and threaten him until he talks."></textarea>
+            <fieldset class="check-card" id="skillCheckCard">
+              <legend><label class="check-switch"><input type="checkbox" id="skillCheckEnabled" /> 🎯 Skill check <span class="muted">D&amp;D 5e</span></label></legend>
+              <div class="check-fields">
+                <label for="skillCheckSkill">Skill</label>
+                <select id="skillCheckSkill"></select>
+                <label for="skillCheckDc">DC <span class="muted">— the number to beat</span></label>
+                <div class="dc-row"><input id="skillCheckDc" type="number" inputmode="numeric" step="1" /><div class="dc-presets" id="skillCheckDcPresets" role="group" aria-label="DC presets"></div></div>
+                <div class="roll-mode-row"><label class="check-switch"><input type="checkbox" id="skillCheckAdvantage" /> Advantage</label><label class="check-switch"><input type="checkbox" id="skillCheckDisadvantage" /> Disadvantage</label></div>
+                <p class="check-formula" id="skillCheckFormula"></p>
+              </div>
+            </fieldset>
+            <fieldset class="check-card" id="fateCheckCard">
+              <legend><label class="check-switch"><input type="checkbox" id="fateCheckEnabled" /> 🎲 Fate check <span class="muted">Mythic</span></label></legend>
+              <div class="check-fields">
+                <label for="fateQuestionInput">Yes/no question</label>
+                <input id="fateQuestionInput" type="text" placeholder="e.g. Is there a trap around here?" />
+                <div class="fate-row"><label>Odds<select id="fateOddsSelect"></select></label><label>Chaos<select id="fateChaosSelect"></select></label></div>
+              </div>
+            </fieldset>
+            <fieldset class="check-order" id="checkOrderField">
+              <legend>Order <span class="muted">— which happens first in the story</span></legend>
+              <label class="check-switch"><input type="radio" name="checkOrder" value="SKILL_FIRST" checked /> Skill check first</label>
+              <label class="check-switch"><input type="radio" name="checkOrder" value="FATE_FIRST" /> Fate check first</label>
+            </fieldset>
+            <div class="scene-form-actions"><span class="scene-form-spacer"></span><button type="button" class="scene-cancel-button" data-close-checks>Cancel</button><button type="submit" class="scene-save-button" id="checksRollButton">Roll &amp; act</button></div>
+          </form>
+        </div>
+      </section>
+      <section class="character-modal checks-modal" id="toolsCallModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="toolsCallModalTitle">
+        <div class="modal-backdrop" data-close-tools-call></div>
+        <div class="character-sheet checks-sheet">
+          <header class="sheet-header"><div><p class="eyebrow">BEFORE YOU ACT</p><h2 id="toolsCallModalTitle">Tools call</h2><p class="checks-subtitle">Choose what the Dungeon Master checks this turn. The results go with your action.</p></div><button type="button" class="modal-close" data-close-tools-call aria-label="Close tools call">×</button></header>
+          <form class="checks-form" id="toolsCallForm" novalidate>
+            <label for="toolsCallActionInput">Your action</label>
+            <textarea id="toolsCallActionInput" rows="2" placeholder="What does your character do or say? e.g. I ask her where adventurers find work."></textarea>
+            <p class="check-formula" id="toolsCallTargetNote"></p>
+            <div id="toolsCallList"></div>
+            <div class="scene-form-actions"><span class="scene-form-spacer"></span><button type="button" class="scene-cancel-button" data-close-tools-call>Cancel</button><button type="submit" class="scene-save-button" id="toolsCallSendButton">Call &amp; act</button></div>
+          </form>
+        </div>
+      </section>
+      <section class="character-modal checks-modal" id="combatSelectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="combatSelectModalTitle">
+        <div class="modal-backdrop" data-close-combat-select></div>
+        <div class="character-sheet checks-sheet">
+          <header class="sheet-header"><div><p class="eyebrow">CHOOSE YOUR FOES</p><h2 id="combatSelectModalTitle">Combat</h2><p class="checks-subtitle">Pick up to 5 monsters here, or one attackable NPC.</p></div><button type="button" class="modal-close" data-close-combat-select aria-label="Close combat">×</button></header>
+          <form class="checks-form" id="combatSelectForm" novalidate>
+            <p class="check-formula" id="combatSelectNote"></p>
+            <div id="combatSelectList"></div>
+            <div class="scene-form-actions"><span class="scene-form-spacer"></span><button type="button" class="scene-cancel-button" data-close-combat-select>Cancel</button><button type="submit" class="scene-save-button" id="combatSelectStartButton">Fight</button></div>
+          </form>
+        </div>
+      </section>
+      <section class="character-modal checks-modal" id="observeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="observeModalTitle">
+        <div class="modal-backdrop" data-close-observe></div>
+        <div class="character-sheet checks-sheet">
+          <header class="sheet-header"><div><p class="eyebrow">STAY SILENT &amp; WATCH</p><h2 id="observeModalTitle">Observe</h2><p class="checks-subtitle">Pick two NPCs here. Each one is voiced by its own roleplay agent and answers the other in turn.</p></div><button type="button" class="modal-close" data-close-observe aria-label="Close observe">×</button></header>
+          <form class="checks-form" id="observeForm" novalidate>
+            <label for="observeNpcASelect">NPC A (speaks first)</label>
+            <select id="observeNpcASelect"></select>
+            <label for="observeNpcBSelect">NPC B (answers)</label>
+            <select id="observeNpcBSelect"></select>
+            <label for="observeRepeatInput">Repeat count <span class="muted">— 1 to 3</span></label>
+            <input type="number" id="observeRepeatInput" min="1" max="3" step="1" value="1" />
+            <p class="check-formula" id="observeOrderPreview"></p>
+            <label for="observeDirectionInput">Direction for the DM <span class="muted">— optional</span></label>
+            <textarea id="observeDirectionInput" rows="2" maxlength="1000" placeholder="Leave empty and the DM decides what happens."></textarea>
+            <p class="check-formula" id="observeNote"></p>
+            <div class="scene-form-actions"><span class="scene-form-spacer"></span><button type="button" class="scene-cancel-button" data-close-observe>Cancel</button><button type="submit" class="scene-save-button" id="observeWatchButton">Watch</button></div>
+          </form>
+        </div>
+      </section>
+    </div>
+    <section class="character-creation-modal" id="characterCreationModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="characterCreationTitle">
+      <div class="modal-backdrop"></div>
+      <form class="character-creation-card" id="characterCreationForm">
+        <header class="creation-header"><p class="eyebrow">YOUR ADVENTURE BEGINS</p><h2 id="characterCreationTitle">Create your character</h2><p>Choose who enters Stervian. Your character begins in Honeywood Village with starter stats, starter weapon, inventory, spell points, equipment, and life skills.</p></header>
+        <div class="creation-grid">
+          <div class="creation-field"><label for="characterName">Name</label><input id="characterName" name="name" maxlength="20" required /></div>
+          <div class="creation-field"><label for="characterRace">Race</label><input id="characterRace" name="race" maxlength="10" placeholder="Human" required /></div>
+          <div class="creation-field"><label for="characterAge">Age</label><input id="characterAge" name="age" type="number" min="12" max="999" required /></div>
+          <div class="creation-field"><label for="characterSex">Sex</label><select id="characterSex" name="sex" required><option value="">Select</option><option value="MALE">Male</option><option value="FEMALE">Female</option><option value="OTHER">Other</option></select></div>
+          <div class="creation-field"><label for="characterJob">Class / job</label><input id="characterJob" name="job" maxlength="100" placeholder="Ranger" required /></div>
+          <div class="creation-field"><label for="characterAlignment">Alignment</label><input id="characterAlignment" name="alignment" maxlength="20" placeholder="Neutral Good" required /></div>
+          <div class="creation-field full"><label for="characterStartingWeapon">Starting Weapon</label><select id="characterStartingWeapon" name="startingWeapon" required><option value="">Select a starting weapon (Wooden)</option><option value="SWORD">Wooden Sword</option><option value="BOW">Wooden Bow</option><option value="STAFF">Wooden Staff</option><option value="QUARTERSTAFF">Wooden Quarterstaff</option><option value="AXE">Wooden Axe</option><option value="SPEAR">Wooden Spear</option><option value="GREATSWORD">Wooden GreatSword</option><option value="SHORTSWORD">Wooden Short Sword</option><option value="CLUB">Wooden Club</option><option value="KNIFE">Wooden Knife</option></select></div>
+          <div class="creation-field full"><label for="characterAppearance">Appearance</label><textarea id="characterAppearance" name="appearance" maxlength="5000" placeholder="Describe how your character looks…" required></textarea></div>
+          <div class="creation-field full"><label for="characterDescription">Background</label><textarea id="characterDescription" name="description" maxlength="5000" placeholder="Describe their history, motivations, and personality…" required></textarea></div>
+        </div>
+        <p class="login-error" id="characterCreationError" role="alert"></p><button class="creation-submit" type="submit">Begin Your Adventure →</button><p class="creation-note">Once created, your character and starting records cannot be changed from this screen.</p>
+      </form>
+    </section>
+    <section class="character-modal" id="characterModal" aria-hidden="true" role="region" aria-labelledby="characterSheetTitle">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="character-sheet">
+        <header class="sheet-header"><div><p class="eyebrow">CHARACTER SHEET</p><h2 id="characterSheetTitle">Quinn Ashwood <span>Level 3 Ranger</span></h2></div><button class="modal-close" data-close-modal aria-label="Return to Explore">←</button></header>
+        <div class="sheet-layout">
+          <section class="character-info"><div class="sheet-portrait"><span>Q</span><p>Human<br><small>Neutral Good</small></p></div><div class="sheet-resources"><div><span>HP</span><b>28 / 34</b><i class="hp" style="width:82%"></i></div><div><span>ENERGY</span><b>68 / 80</b><i class="energy" style="width:85%"></i></div><div><span>EXP</span><b>780 / 1,200</b><i class="experience" style="width:65%"></i></div><div><span>FOOD</span><b>100 / 100</b><i class="hp" style="width:100%"></i></div><div><span>WATER</span><b>100 / 100</b><i class="energy" style="width:100%"></i></div></div><div class="combat-summary"><div data-sheet-summary="attack"><span>Atk Dmg</span><b>0</b></div><div data-sheet-summary="magic-attack"><span>M. Atk Dmg</span><b>0</b></div><div data-sheet-summary="armor"><span>Armor</span><b>0</b></div><div data-sheet-summary="magic-armor"><span>M. Armor</span><b>0</b></div><div data-sheet-summary="crit-chance"><span>Crit.C</span><b>0%</b></div><div data-sheet-summary="crit-damage"><span>Crit.Dmg</span><b>0%</b></div><div data-sheet-summary="accuracy"><span>Accuracy</span><b>1%</b></div><div data-sheet-summary="evade-chance"><span>Evade</span><b>10%</b></div></div><div class="gold-summary" data-sheet-summary="gold"><span>Gold</span><b>1,240</b></div><div class="sheet-section-heading"><p class="sheet-section-title attributes-title">ATTRIBUTES <small>Click to upgrade</small></p><div class="point-spend-box"><span>POINTS LEFT</span><b>45</b></div></div><div class="stat-grid"><button type="button" data-stat="intelligent"><span>INT</span><b>8</b></button><button type="button" data-stat="strength"><span>STR</span><b>12</b></button><button type="button" data-stat="dexterity"><span>DEX</span><b>14</b></button><button type="button" data-stat="charisma"><span>CHA</span><b>9</b></button><button type="button" data-stat="constitution"><span>CON</span><b>11</b></button><button type="button" data-stat="wisdom"><span>WIS</span><b>10</b></button></div><p class="sheet-section-title resistance-title">RESISTANCES</p><div class="resistance-grid"></div><p class="sheet-section-title spellpoints-title">SPELL POINTS</p><div class="sheet-spell-points spell-points" aria-label="Spell points"></div><p class="sheet-section-title lifeskills-title">LIFE SKILLS</p><div class="lifeskill-list"><div><span>Foraging</span><b>Lv. 3 <small>340 XP</small><span class="lifeskill-bar"><i style="width:56.7%"></i></span></b></div><div><span>Tracking</span><b>Lv. 2 <small>120 XP</small><span class="lifeskill-bar"><i style="width:30%"></i></span></b></div><div><span>Cooking</span><b>Lv. 1 <small>75 XP</small><span class="lifeskill-bar"><i style="width:37.5%"></i></span></b></div></div><p class="sheet-section-title lifeskills-title" id="itemBonusTitle" hidden>ACTIVE BONUSES</p><div class="lifeskill-list" id="itemBonusList" hidden></div></section>
+           <section class="equipment-panel"><p class="sheet-section-title equipment-title">EQUIPMENT</p><div class="equipment-slots"><div class="equipment-slot helmet empty"><span>Helmet</span><b>Empty</b></div><div class="equipment-slot necklace empty"><span>Necklace</span><b>Empty</b></div><div class="equipment-slot left-earring empty"><span>Left earring</span><b>Empty</b></div><div class="equipment-slot armor empty"><span>Armor</span><b>Empty</b></div><div class="equipment-slot right-earring empty"><span>Right earring</span><b>Empty</b></div><div class="equipment-slot gloves empty"><span>Gloves</span><b>Empty</b></div><div class="equipment-slot left-hand empty"><span>Left hand</span><b>Empty</b></div><div class="equipment-slot right-hand empty"><span>Right hand</span><b>Empty</b></div><div class="equipment-slot belt empty"><span>Belt</span><b>Empty</b></div><div class="equipment-slot left-ring empty"><span>Left ring</span><b>Empty</b></div><div class="equipment-slot shoes empty"><span>Shoes</span><b>Empty</b></div><div class="equipment-slot right-ring empty"><span>Right ring</span><b>Empty</b></div></div></section>
+          <section class="inventory-panel"><div class="inventory-heading"><div><p class="sheet-section-title">INVENTORY</p><h3>Backpack <span>0 / 40 slots</span></h3></div><select class="inventory-filter" id="inventorySort" aria-label="Sort backpack"><option value="default">Sort: Default</option><option value="newest">Sort: Newest first</option><option value="name">Sort: Name A–Z</option><option value="rarity">Sort: Rarity</option><option value="type">Sort: Type</option><option value="quantity">Sort: Quantity</option></select></div><div class="inventory-toolbar"><input type="search" class="inventory-search" id="inventorySearch" placeholder="Search backpack…" aria-label="Search backpack" autocomplete="off"><div class="inventory-categories" id="inventoryCategories" role="group" aria-label="Filter backpack by type"></div><p class="inventory-result-note" id="inventoryResultNote" aria-live="polite"></p></div><div class="inventory-grid" tabindex="0" aria-label="Backpack inventory; scroll to view all slots"></div></section>
+        </div>
+      </div>
+    </section>
+
+    <section class="vault-modal" id="campfireModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="campfireTitle">
+      <div class="modal-backdrop" data-close-campfire></div><div class="vault-card"><header class="sheet-header"><div><p class="eyebrow">WILDERNESS CAMP</p><h2 id="campfireTitle">Campfire</h2><p class="muted" id="campfireStatus">Make camp and recover before moving on.</p></div><button class="modal-close" data-close-campfire aria-label="Close campfire">×</button></header>
+        <div class="vault-layout"><section><div class="vault-heading"><h3>🔥 Rest</h3><p>Sit by the fire. Restores full energy. HP is not restored.</p></div><button type="button" class="scene-tool scene-tool-primary" id="campfireRestButton" data-campfire-mode="rest">Rest</button></section><section><div class="vault-heading"><h3>⛺ Rest with tent</h3><p id="campfireTentNote">Sleep in a Camping Tent. Restores full energy and full HP.</p></div><button type="button" class="scene-tool scene-tool-primary" id="campfireTentButton" data-campfire-mode="tent">Rest with tent</button></section></div>
+      </div>
+    </section>
+    <section class="vault-modal" id="vaultModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="vaultTitle">
+      <div class="modal-backdrop" data-close-vault></div><div class="vault-card"><header class="sheet-header"><div><p class="eyebrow">SAFE ZONE STORAGE</p><h2 id="vaultTitle">Town Vault</h2><p class="muted" id="vaultLocation"></p></div><button class="modal-close" data-close-vault aria-label="Close vault">×</button></header>
+        <div class="vault-layout"><section><div class="vault-heading"><h3>Backpack <span id="vaultBackpackUsage"></span></h3><p>Click an item to deposit it.</p></div><div class="vault-grid" id="vaultBackpackGrid"></div></section><section><div class="vault-heading"><h3>Vault <span id="vaultUsage"></span></h3><p>Click an item to withdraw it.</p></div><div class="vault-grid" id="vaultItemsGrid"></div></section></div>
+        <div class="vault-footer"><span class="vault-gold-balance">Vault Gold: <b id="vaultGoldBalance">0</b></span><label>Amount <input id="vaultGoldAmount" type="number" min="1" step="1" value="100" /></label><button id="vaultDepositGold">Deposit Gold</button><button id="vaultWithdrawGold">Withdraw Gold</button></div>
+      </div>
+    </section>
+
+    <section class="npcs-modal" id="npcsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="npcsTitle">
+      <div class="modal-backdrop" data-close-npcs></div>
+      <div class="npcs-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">PEOPLE NEARBY</p>
+            <h2 id="npcsTitle">Nearby NPCs</h2>
+            <p class="muted" id="npcsSubtitle">Characters currently in your area.</p>
+          </div>
+          <button class="modal-close" type="button" data-close-npcs aria-label="Close nearby NPCs">×</button>
+        </header>
+        <div class="npcs-list" id="nearbyNpcsList"></div>
+      </div>
+    </section>
+
+    <section class="npcs-modal" id="questsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="questsTitle">
+      <div class="modal-backdrop" data-close-quests></div>
+      <div class="npcs-card quests-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">CONTRACTS &amp; TASKS</p>
+            <h2 id="questsTitle">Quests</h2>
+            <p class="muted" id="questsSubtitle">Available quests and your active work.</p>
+          </div>
+          <button class="modal-close" type="button" data-close-quests aria-label="Close quests">×</button>
+        </header>
+        <div class="npcs-list quests-columns">
+          <div class="quests-column">
+            <section><p class="eyebrow">GROUP QUESTS</p><div id="questOffersList"></div></section>
+            <section><p class="eyebrow">GROUP REPEATED QUESTS</p><div id="repeatQuestOffersList"></div></section>
+          </div>
+          <div class="quests-column">
+            <section><p class="eyebrow">ACTIVE QUESTS</p><div id="activeQuestsList"></div></section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gathering-modal" id="gatheringModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="gatheringTitle">
+      <div class="modal-backdrop" data-close-gathering></div>
+      <div class="gathering-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">LIFE SKILL · NATURE &amp; HARVEST</p>
+            <h2 id="gatheringTitle">Gathering <span class="gathering-location-tag" id="gatheringLocationBadge">Current Zone</span></h2>
+          </div>
+          <button class="modal-close" type="button" data-close-gathering aria-label="Close gathering modal">×</button>
+        </header>
+        <div class="gathering-body">
+          <div class="gathering-stats-panel">
+            <div class="gathering-stat-item">
+              <span class="stat-label">Gathering Rank</span>
+              <span class="stat-value"><span id="gatheringRankLabel">Beginner</span> <small>Lv. <b id="gatheringLevel">1</b></small></span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Energy</span>
+              <span class="stat-value">⚡ <span id="gatheringEnergy">100 / 100</span></span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Drop Bonus</span>
+              <span class="stat-value" id="gatheringRareChance" title="Bonus added to every loot group drop chance, scaled by Gathering level">+0%</span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Free Gather Chance</span>
+              <span class="stat-value" id="gatheringFreeChance" title="Chance to consume 0 energy scaled by Gathering level">0%</span>
+            </div>
+            <div class="gathering-exp-container">
+              <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted, #94a3b8);">
+                <span>PROGRESS</span>
+                <span id="gatheringExpText">0 / 200 XP</span>
+              </div>
+              <div class="gathering-exp-bar">
+                <i class="gathering-exp-fill" id="gatheringExpFill" style="width: 0%"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="gathering-timer-section">
+            <div class="gathering-timer-header">
+              <span class="gathering-status-pill" id="gatheringStatusPill">IDLE</span>
+              <span id="gatheringTimerText" style="font-size: 12px; font-weight: 500;">Take 20s per gather · Consumes 1 Energy</span>
+            </div>
+            <div class="gathering-timer-bar">
+              <i class="gathering-timer-fill" id="gatheringTimerFill"></i>
+            </div>
+            <div class="gathering-controls">
+              <button type="button" class="party-btn party-btn-primary" id="btnStartGathering">▶ Start Auto-Gather</button>
+              <button type="button" class="party-btn party-btn-danger" id="btnStopGathering" disabled>⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="gathering-loot-section">
+            <p class="eyebrow" style="margin: 0;">POTENTIAL DROPS (CURRENT ZONE)</p>
+            <div class="gathering-loot-grid" id="gatheringLootGroupsContainer"></div>
+          </div>
+
+          <div class="gathering-log-section">
+            <p class="eyebrow" style="margin: 0;">GATHERING ACTIVITY LOG</p>
+            <div class="gathering-log-list" id="gatheringLogList">
+              <div class="gathering-log-entry">Select Start Auto-Gather to begin harvesting resources every 20 seconds.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gathering-modal" id="fishingModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fishingTitle">
+      <div class="modal-backdrop" data-close-fishing></div>
+      <div class="gathering-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">LIFE SKILL · RIVERS &amp; LAKES</p>
+            <h2 id="fishingTitle">Fishing <span class="gathering-location-tag" id="fishingLocationBadge">Current Zone</span></h2>
+          </div>
+          <button class="modal-close" type="button" data-close-fishing aria-label="Close fishing modal">×</button>
+        </header>
+        <div class="gathering-body">
+          <div class="gathering-stats-panel">
+            <div class="gathering-stat-item">
+              <span class="stat-label">Fishing Rank</span>
+              <span class="stat-value"><span id="fishingRankLabel">Beginner</span> <small>Lv. <b id="fishingLevel">1</b></small></span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Energy</span>
+              <span class="stat-value">⚡ <span id="fishingEnergy">100 / 100</span></span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Drop Bonus</span>
+              <span class="stat-value" id="fishingRareChance" title="Bonus added to every loot group drop chance, scaled by Fishing level">+0%</span>
+            </div>
+            <div class="gathering-stat-item">
+              <span class="stat-label">Free Cast Chance</span>
+              <span class="stat-value" id="fishingFreeChance" title="Chance to consume 0 energy scaled by Fishing level">0%</span>
+            </div>
+            <div class="gathering-exp-container">
+              <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted, #94a3b8);">
+                <span>PROGRESS</span>
+                <span id="fishingExpText">0 / 200 XP</span>
+              </div>
+              <div class="gathering-exp-bar">
+                <i class="gathering-exp-fill" id="fishingExpFill" style="width: 0%"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="gathering-timer-section">
+            <div class="gathering-timer-header">
+              <span class="gathering-status-pill" id="fishingStatusPill">IDLE</span>
+              <span id="fishingTimerText" style="font-size: 12px; font-weight: 500;">Take 20s per cast · Consumes 1 Energy</span>
+            </div>
+            <div class="gathering-timer-bar">
+              <i class="gathering-timer-fill" id="fishingTimerFill"></i>
+            </div>
+            <div class="gathering-controls">
+              <button type="button" class="party-btn party-btn-primary" id="btnStartFishing">▶ Start Auto-Fish</button>
+              <button type="button" class="party-btn party-btn-danger" id="btnStopFishing" disabled>⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="gathering-loot-section">
+            <p class="eyebrow" style="margin: 0;">POTENTIAL CATCHES (CURRENT ZONE)</p>
+            <div class="gathering-loot-grid" id="fishingLootGroupsContainer"></div>
+          </div>
+
+          <div class="gathering-log-section">
+            <p class="eyebrow" style="margin: 0;">FISHING ACTIVITY LOG</p>
+            <div class="gathering-log-list" id="fishingLogList">
+              <div class="gathering-log-entry">Select Start Auto-Fish to cast your line every 20 seconds.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="farming-modal" id="farmingModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="farmingTitle">
+      <div class="modal-backdrop" data-close-farming></div>
+      <div class="farming-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">LIFE SKILL · AGRICULTURE &amp; CROPS</p>
+            <h2 id="farmingTitle">Farming <span class="farming-location-tag" id="farmingLocationBadge">Current Zone</span></h2>
+          </div>
+          <button class="modal-close" type="button" data-close-farming aria-label="Close farming modal">×</button>
+        </header>
+        <div class="farming-body">
+          <div class="farming-stats-panel">
+            <div class="farming-stat-item">
+              <span class="stat-label">Farming Rank</span>
+              <span class="stat-value"><span id="farmingRankLabel">Beginner</span> <small>Lv. <b id="farmingLevel">1</b></small></span>
+            </div>
+            <div class="farming-stat-item">
+              <span class="stat-label">Energy</span>
+              <span class="stat-value">⚡ <span id="farmingEnergy">100 / 100</span></span>
+            </div>
+            <div class="farming-stat-item">
+              <span class="stat-label">Bonus Yield</span>
+              <span class="stat-value" id="farmingBonusYieldChance" title="Chance to gain bonus crop output scaled by Farming level">0%</span>
+            </div>
+            <div class="farming-stat-item">
+              <span class="stat-label">Free Energy Chance</span>
+              <span class="stat-value" id="farmingFreeChance" title="Chance to consume 0 energy scaled by Farming level">0%</span>
+            </div>
+            <div class="farming-exp-container">
+              <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted, #94a3b8);">
+                <span>PROGRESS</span>
+                <span id="farmingExpText">0 / 200 XP</span>
+              </div>
+              <div class="farming-exp-bar">
+                <i class="farming-exp-fill" id="farmingExpFill" style="width: 0%"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="farming-recipes-section">
+            <p class="eyebrow" style="margin: 0;">SELECT SEED CROP TO FARM</p>
+            <div class="farming-recipes-grid" id="farmingRecipesContainer"></div>
+          </div>
+
+          <div class="farming-timer-section">
+            <div class="farming-timer-header">
+              <span class="farming-status-pill" id="farmingStatusPill">IDLE</span>
+              <span id="farmingTimerText" style="font-size: 12px; font-weight: 500;">Select a crop and press Start Auto-Farming</span>
+            </div>
+            <div class="farming-timer-bar">
+              <i class="farming-timer-fill" id="farmingTimerFill"></i>
+            </div>
+            <div class="farming-controls">
+              <button type="button" class="party-btn party-btn-primary" id="btnStartFarming">▶ Start Auto-Farming</button>
+              <button type="button" class="party-btn party-btn-danger" id="btnStopFarming" disabled>⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="farming-log-section">
+            <p class="eyebrow" style="margin: 0;">FARMING ACTIVITY LOG</p>
+            <div class="farming-log-list" id="farmingLogList">
+              <div class="farming-log-entry">Select a crop recipe and press Start Auto-Farming to begin cultivating crops.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="item-action-modal" id="itemActionModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="itemActionTitle">
+      <div class="modal-backdrop" data-close-item-action></div>
+      <div class="item-action-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow" id="itemActionEyebrow">INVENTORY</p>
+            <h2 id="itemActionTitle">Item Action</h2>
+          </div>
+          <button class="modal-close" data-close-item-action aria-label="Close action modal">×</button>
+        </header>
+        <div class="item-action-body">
+          <p id="itemActionMessage">Confirm action for this item?</p>
+          <div id="itemActionDetails" class="item-action-details"></div>
+          <div class="item-action-buttons">
+            <button type="button" class="action-btn-cancel" data-close-item-action>Cancel</button>
+            <button type="button" class="action-btn-confirm" id="itemActionConfirmButton">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="move-modal" id="moveModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="moveTitle">
+      <div class="modal-backdrop" data-close-move></div>
+      <div class="move-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow" id="moveModalEyebrow">LOCAL MOVEMENT</p>
+            <h2 id="moveTitle">Move within this location</h2>
+            <p class="muted" id="moveCurrentLocationDesc">Choose an area to explore or enter.</p>
+          </div>
+          <button class="modal-close" data-close-move aria-label="Close move modal">×</button>
+        </header>
+        <div class="move-body">
+          <div class="move-current-status" id="moveCurrentStatus"></div>
+          <section class="world-travel-panel" aria-labelledby="worldTravelTitle">
+            <div class="world-travel-heading">
+              <div><p class="eyebrow">CONNECTED ROUTES</p><h3 id="worldTravelTitle">World Travel</h3></div>
+              <span id="worldTravelResources" class="muted"></span>
+            </div>
+            <div class="world-travel-view">
+              <div class="world-travel-zoom-controls" aria-label="World map zoom controls">
+                <button id="worldTravelZoomOut" type="button" aria-label="Zoom out">−</button>
+                <span id="worldTravelZoomLevel">100%</span>
+                <button id="worldTravelZoomIn" type="button" aria-label="Zoom in">+</button>
+                <button id="worldTravelZoomReset" type="button">Reset</button>
+                <span class="world-travel-zoom-hint">Scroll to zoom · drag to pan</span>
+              </div>
+              <div id="worldTravelMap" class="world-travel-map">
+                <div id="worldTravelTransform" class="world-travel-transform">
+                  <img src="./resources/world_map/stervian_world_map.png" alt="Stervian world map" draggable="false">
+                  <svg id="worldTravelRouteLines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+                </div>
+                <div id="worldTravelPins" class="world-travel-pins"></div>
+              </div>
+            </div>
+            <div class="world-travel-footer">
+              <p id="worldTravelRouteSummary" class="muted">Loading connected locations…</p>
+              <button id="worldTravelButton" type="button" disabled>Travel</button>
+            </div>
+          </section>
+          <div class="move-sublocations-list" id="moveSublocationsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="item-action-modal dialogue-session-modal" id="dialogueLeaveModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="dialogueLeaveTitle">
+      <div class="modal-backdrop" data-dialogue-leave="STAY"></div>
+      <div class="item-action-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">CONVERSATION</p>
+            <h2 id="dialogueLeaveTitle">Leaving the conversation</h2>
+          </div>
+          <button class="modal-close" data-dialogue-leave="STAY" aria-label="Stay here">×</button>
+        </header>
+        <div class="item-action-body">
+          <p id="dialogueLeaveMessage"></p>
+          <ul class="dialogue-session-list" id="dialogueLeaveList"></ul>
+          <div class="item-action-buttons dialogue-leave-buttons">
+            <button type="button" class="action-btn-cancel" data-dialogue-leave="STAY">Stay</button>
+            <button type="button" class="action-btn-cancel" data-dialogue-leave="CLOSE">Close session</button>
+            <button type="button" class="action-btn-confirm" data-dialogue-leave="PAUSE">Pause session</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="item-action-modal dialogue-session-modal" id="dialogueResumeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="dialogueResumeTitle">
+      <div class="modal-backdrop"></div>
+      <div class="item-action-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow">CONVERSATION</p>
+            <h2 id="dialogueResumeTitle">Resuming previous session</h2>
+          </div>
+        </header>
+        <div class="item-action-body dialogue-resume-body">
+          <span class="dialogue-resume-spinner" aria-hidden="true"></span>
+          <p id="dialogueResumeMessage" role="status">The system is resuming your previous conversation…</p>
+        </div>
+      </div>
+    </section>
+    <section class="item-action-modal" id="innModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="innTitle">
+      <div class="modal-backdrop" data-close-inn></div>
+      <div class="item-action-card">
+        <header class="sheet-header">
+          <div><p class="eyebrow">INN</p><h2 id="innTitle">The Inn</h2></div>
+          <button type="button" class="modal-close" data-close-inn aria-label="Close Inn modal">×</button>
+        </header>
+        <div class="item-action-body">
+          <p>Purchase a long rest or restore food and water, or visit the shop.</p>
+          <p id="innRestStatus" role="status" aria-live="polite"></p>
+          <div class="item-action-buttons">
+            <button type="button" class="action-btn-confirm" id="innRestButton">Take a long rest</button>
+            <button type="button" class="action-btn-confirm" id="innFoodWaterButton">Restore food and water</button>
+            <button type="button" class="action-btn-cancel" id="innShopButton">SHOP</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shop-modal" id="shopModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+      <div class="modal-backdrop" data-close-shop></div>
+      <div class="shop-card">
+        <header class="sheet-header">
+          <div>
+            <p class="eyebrow" id="shopEyebrow">COMMERCE</p>
+            <h2 id="shopTitle">Merchant Shop</h2>
+            <p class="muted" id="shopSubtitle">Browse wares and purchase equipment or supplies.</p>
+          </div>
+          <button class="modal-close" data-close-shop aria-label="Close shop modal">×</button>
+        </header>
+        <div class="shop-body">
+          <div class="shop-gold-bar">
+            <span>Your Gold: <b id="shopPlayerGold">0</b></span>
+            <button type="button" class="shop-item-buy-btn" id="shopBuyMode" aria-pressed="true">Buy</button>
+            <button type="button" class="shop-item-buy-btn" id="shopSellMode" aria-pressed="false">Sell</button>
+          </div>
+          <div class="shop-items-grid" id="shopItemsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="context-check-modal" id="contextCheckModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contextCheckTitle">
+      <div class="modal-backdrop" data-close-context-check></div>
+      <div class="context-check-card">
+        <header class="sheet-header"><div><p class="eyebrow">AI DM CONTEXT</p><h2 id="contextCheckTitle">Context Check</h2></div><button type="button" class="modal-close" data-close-context-check aria-label="Close Context Check">×</button></header>
+        <div class="context-check-body">
+          <p id="contextCheckStatus" role="status" aria-live="polite">Loading context…</p>
+          <button type="button" class="context-check-btn" id="contextCheckRefreshBtn">Preview current action</button>
+          <div id="contextCheckCategories" class="context-check-categories"></div>
+          <div class="context-check-totals"><div><h3>Before sending to AI DM</h3><p id="contextCheckBeforeTotal"></p><pre id="contextCheckBeforeText"></pre></div><div><h3>After receiving from AI DM</h3><p id="contextCheckAfterTotal"></p><pre id="contextCheckAfterText"></pre></div></div>
+          <p id="contextCheckNote" class="muted"></p>
+        </div>
+      </div>
+    </section>
+    <div class="toast" id="toast" role="status"></div><script type="module" src="./js/game.js"></script>
+  </body>
+</html>

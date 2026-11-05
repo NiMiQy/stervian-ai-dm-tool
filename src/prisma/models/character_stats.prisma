@@ -1,0 +1,44 @@
+model character_stats {
+  id                          Int  @id @default(autoincrement())
+  character_id                Int  @unique
+  proficiency                 Int? @default(2)
+  intelligent                 Int? @default(5)
+  strength                    Int? @default(5)
+  dexterity                   Int? @default(5)
+  charisma                    Int? @default(5)
+  constitution                Int? @default(5)
+  wisdom                      Int? @default(5)
+
+  armor                       Int? @default(5)
+  magic_armor                 Int? @default(4)
+  
+  fire_element_resistant      Int? @default(5)
+  ice_element_resistant       Int? @default(5)
+  earth_element_resistant     Int? @default(5)
+  lightning_element_resistant Int? @default(5)
+  wind_element_resistant      Int? @default(5)
+  holy_element_resistant      Int? @default(3)
+  dark_element_resistant      Int? @default(3)
+  status_resistant            Int? @default(4)
+
+  accuracy                    Int? @default(1)
+
+  max_hp                      Int? @default(10)
+  current_hp                  Int? @default(10)
+  max_energy                  Int? @default(100)
+  current_energy              Int? @default(100)
+  max_food                    Int  @default(100)
+  current_food                Int  @default(100)
+  max_water                   Int  @default(100)
+  current_water               Int  @default(100)
+
+  base_crit_chance Float? @default(0.0)
+  base_crit_damage Float? @default(0.0)
+
+  ambush_energy_spent         Int? @default(0)
+
+  created_at DateTime?  @default(now()) @db.DateTime(0)
+  updated_at DateTime?  @updatedAt @db.DateTime(0)
+  deleted    Boolean?   @default(false)
+  character  characters @relation(fields: [character_id], references: [id])
+}

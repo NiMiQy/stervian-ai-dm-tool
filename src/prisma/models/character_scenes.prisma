@@ -1,0 +1,28 @@
+model character_scenes {
+  id               Int        @id @default(autoincrement())
+  character_id     Int
+  party_id         Int?
+  npc_character_id Int?
+  location_id      Int?
+  sublocation_id   Int?
+  scene_goal       String     @db.Text
+  scene_notes      String?    @db.Text
+  chaos_factor     Int        @default(5)
+  affinity_reward  Int        @default(0)
+  scene_stage      SceneStage @default(on_going)
+
+  is_secret        Boolean?   @default(false)
+  is_nsfw          Boolean?   @default(false)
+
+  deleted          Boolean?   @default(false)
+  created_at       DateTime?  @default(now()) @db.DateTime(0)
+  updated_at       DateTime?  @updatedAt @db.DateTime(0)
+
+  character     characters  @relation("SceneOwnerCharacter", fields: [character_id], references: [id], onDelete: Cascade)
+  npc_character characters? @relation("SceneNpcCharacter", fields: [npc_character_id], references: [id], onDelete: SetNull)
+
+  @@index([character_id, scene_stage])
+  @@index([npc_character_id])
+  @@index([party_id])
+  @@index([location_id, sublocation_id])
+}

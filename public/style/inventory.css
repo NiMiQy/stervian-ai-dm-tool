@@ -1,0 +1,51 @@
+.inventory-grid {
+  max-height: 470px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+}
+.inventory-item { position: relative; }
+.inventory-item > b { display: block; }
+.inventory-item.is-equipped .equipped-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 6px 1px 0;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(222, 192, 110, 0.7);
+}
+.inventory-tooltip {
+  position: fixed;
+  z-index: 100;
+  width: 230px;
+  padding: 10px 12px;
+  transform: translateY(4px);
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-md);
+  background: rgba(6, 16, 19, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 8px rgba(222, 192, 110, 0.2);
+  text-align: left;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.inventory-tooltip strong, .inventory-tooltip span { display: block; }
+.inventory-tooltip strong {
+  margin-bottom: 4px;
+  color: var(--gold2);
+  font-family: var(--font-lusitana);
+  font-size: 14px;
+}
+.inventory-tooltip span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.inventory-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

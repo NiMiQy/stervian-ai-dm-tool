@@ -1,0 +1,19 @@
+model stories {
+  id                      Int       @id @default(autoincrement())
+  user_id                 String    @default(uuid())
+  conversation_session_id String?
+  location_id             Int?
+  sublocation_id          Int?
+  character_id            Int
+  story                   String    @default("") @db.LongText
+  action_from_player      String    @default("") @db.LongText
+  party_turn              Json?
+  fate_check              Json?
+  skill_check             Json?
+  dialogue_session_id     Int?
+  dialogue_message_ids    Json?
+  created_at              DateTime? @default(now()) @db.DateTime(0)
+  updated_at              DateTime? @updatedAt @db.DateTime(0)
+
+  character characters @relation(fields: [character_id], references: [id])
+}

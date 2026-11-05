@@ -1,0 +1,36 @@
+model skills {
+  id     Int           @id @default(autoincrement())
+  name   String?       @db.VarChar(30)
+  type   SkillMenuType @default(ATTACK)
+  rarity Rarity        @default(NORMAL)
+
+  skill_target_rule SkillTargetRule @default(TO_ALL)
+  for_weapon_types skill_weapon_types[]
+
+  skill_damage_type SkillDamageType @default(PHYSICAL)
+
+  healing_current_hp       Int?            @default(0)
+  cure_effect_type         CureEffectType? @default(STUN)
+  attack_amplifier         Float?          @default(1.0)
+  aggro_multiplier         Float?          @default(1.0)
+  magical_attack_amplifier Float?          @default(1.0) @map("magic_attack_amplifier")
+  armor_amplifier          Float?          @default(1.0)
+  magical_armor_amplifier  Float?          @default(1.0) @map("magic_armor_amplifier")
+  fire_damage              Int?            @default(0)
+  ice_damage               Int?            @default(0)
+  earth_damage             Int?            @default(0)
+  lightning_damage         Int?            @default(0)
+  wind_damage              Int?            @default(0)
+  holy_damage              Int?            @default(0)
+  dark_damage              Int?            @default(0)
+  energy_consume_cost      Int?            @default(1)
+  duration                 Int?            @default(0)
+
+  characters      character_skills[]
+  skill_effects   skill_effects[]
+  skills_in_items skills_in_items[]
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+}

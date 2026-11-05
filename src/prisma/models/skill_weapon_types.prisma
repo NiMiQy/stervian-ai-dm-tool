@@ -1,0 +1,7 @@
+  model skill_weapon_types {
+     skill_id    Int
+     weapon_type WeaponType
+     skill       skills @relation(fields: [skill_id], references: [id])
+     
+     @@id([skill_id, weapon_type])
+   }

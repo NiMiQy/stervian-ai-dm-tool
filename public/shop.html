@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111217" />
+    <title>Merchant's Shop · Stervian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lusitana:wght@400;700&family=Marcellus&family=Outfit:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/styles.css" />
+    <link rel="stylesheet" href="./style/inventory.css" />
+    <link rel="stylesheet" href="./style/equipment.css" />
+    <link rel="stylesheet" href="./style/chat.css" />
+    <link rel="stylesheet" href="./style/character-creation.css" />
+    <link rel="stylesheet" href="./style/character-sheet.css" />
+    <link rel="stylesheet" href="./style/game-ui-overrides.css" />
+    <link rel="stylesheet" href="./style/party.css" />
+    <link rel="stylesheet" href="./style/npcs.css" />
+    <link rel="stylesheet" href="./style/combat.css" />
+    <link rel="stylesheet" href="./style/game-theme.css" />
+    <link rel="stylesheet" href="./style/settings-menu.css" />
+    <link rel="stylesheet" href="./style/ux-enhancements.css" />
+    <link rel="stylesheet" href="./style/game-screen.css" />
+    <style>@media (max-width:700px) { .main-nav { gap:4px; } .main-nav a { font-size:11px; } }</style>
+    <style>
+      .shopkeeper-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px;
+        padding: 30px 24px;
+        text-align: center;
+      }
+      .shopkeeper-portrait {
+        width: min(100%, 220px);
+        aspect-ratio: 1 / 1;
+        border: 1px solid rgba(212, 171, 95, 0.3);
+        border-radius: var(--gs-radius);
+        background: var(--gs-night);
+        box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.018), 0 14px 38px #0004;
+      }
+      .shopkeeper-panel .eyebrow { margin: 8px 0 0; }
+      .shopkeeper-panel h2 { font: 24px/1.15 var(--gs-font-title); }
+      .shopkeeper-panel .muted { max-width: 220px; margin: 0; }
+      .shopkeeper-location {
+        width: 100%;
+        margin-top: auto;
+        padding-top: 17px;
+        border-top: 1px solid var(--gs-rule);
+        color: var(--gs-ash);
+        font: 11px/1.5 var(--gs-font-ui);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .shop-stage {
+        grid-column: 2;
+        grid-row: 2;
+        display: grid;
+        grid-template-rows: auto auto minmax(0, 1fr);
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
+        background: var(--gs-night);
+      }
+      .shop-stage .scene-header { padding: 22px clamp(20px, 2.6vw, 38px) 18px; }
+      .shop-heading-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .shop-stage .scene-header h1 { margin: 3px 0 5px; font: 30px/1.15 var(--gs-font-title); }
+      .shop-stage .scene-header p:not(.eyebrow) { margin: 0; color: var(--gs-ash); }
+      .player-gold {
+        flex: 0 0 auto;
+        padding: 9px 13px;
+        border: 1px solid rgba(212, 171, 95, 0.28);
+        border-radius: var(--gs-radius);
+        background: rgba(212, 171, 95, 0.07);
+        color: var(--gs-gold);
+        font: 12px var(--gs-font-ui);
+        white-space: nowrap;
+      }
+      .player-gold b { color: var(--gs-gold); font-size: 14px; }
+      .market-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px clamp(20px, 2.6vw, 38px);
+        border-bottom: 1px solid var(--gs-rule);
+        background: var(--gs-panel);
+      }
+      .market-modes { display: flex; gap: 8px; }
+      .market-modes button { min-width: 90px; padding: 8px 16px; }
+      .market-modes button[aria-pressed='true'] { border-color: var(--gs-gold); background: rgba(212, 171, 95, 0.14); color: var(--gs-gold); }
+      .market-search {
+        width: min(310px, 40%);
+        min-width: 170px;
+        padding: 9px 12px;
+        border: 1px solid var(--gs-rule);
+        border-radius: var(--gs-radius);
+        outline: 0;
+        background: var(--gs-night);
+        color: var(--gs-parchment);
+        font: 12px var(--gs-font-ui);
+      }
+      .market-search:focus { border-color: var(--gs-gold); box-shadow: 0 0 0 2px rgba(212, 171, 95, 0.14); }
+      .market-workspace {
+        display: grid;
+        grid-template-columns: 165px minmax(260px, 1fr) minmax(245px, 300px);
+        gap: 18px;
+        min-width: 0;
+        min-height: 0;
+        overflow: auto;
+        padding: 18px clamp(18px, 2.6vw, 38px) 24px;
+      }
+      .market-categories {
+        align-self: start;
+        display: grid;
+        gap: 5px;
+        padding: 11px;
+        border: 1px solid var(--gs-rule);
+        border-radius: var(--gs-radius);
+        background: var(--gs-panel);
+      }
+      .market-categories h2, .order-card h2 {
+        margin: 1px 4px 8px;
+        color: var(--gs-gold);
+        font: 11px var(--gs-font-ui);
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+      .category-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+        padding: 9px 10px;
+        border: 1px solid transparent;
+        border-radius: var(--gs-radius);
+        background: transparent;
+        color: var(--gs-ash);
+        text-align: left;
+        font-size: 12px;
+        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      }
+      .category-button:hover { border-color: rgba(212, 171, 95, 0.2); background: rgba(212, 171, 95, 0.06); color: var(--gs-parchment); }
+      .category-button[aria-current='true'] { border-color: rgba(212, 171, 95, 0.35); background: rgba(212, 171, 95, 0.12); color: var(--gs-gold); }
+      .category-count { color: var(--gs-ash-quiet); font: 10px var(--gs-font-ui); }
+      .market-items { min-width: 0; }
+      .market-items-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 2px 0 12px;
+      }
+      .market-items-heading h2 { font: 20px var(--gs-font-title); }
+      .market-items-heading span { color: var(--gs-ash-quiet); font: 10px var(--gs-font-ui); }
+      .market-item-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); align-content: start; gap: 12px; }
+      .market-item-list .shop-item-card { min-height: 206px; border-color: var(--gs-rule); background: var(--gs-panel); }
+      .market-item-list .shop-item-card:hover { border-color: rgba(212, 171, 95, 0.8); background: var(--gs-panel-raised); }
+      .market-item-list .shop-item-desc { min-height: 31px; }
+      .shop-item-header { min-height: 41px; }
+      .shop-item-title { margin: 0; color: var(--gs-parchment); font: 16px/1.25 var(--gs-font-read); }
+      .shop-item-meta { margin-top: 4px; color: var(--gs-ash-quiet); font: 9px var(--gs-font-ui); letter-spacing: 0.04em; text-transform: uppercase; }
+      .shop-item-controls { display: flex; align-items: center; gap: 7px; }
+      .shop-quantity-input {
+        width: 68px;
+        height: 31px;
+        padding: 4px 6px;
+        border: 1px solid var(--gs-rule);
+        border-radius: var(--gs-radius);
+        outline: 0;
+        background: var(--gs-night);
+        color: var(--gs-parchment);
+        text-align: center;
+        font: 11px var(--gs-font-ui);
+      }
+      .shop-quantity-input:focus { border-color: var(--gs-gold); }
+      .shop-item-controls .shop-item-buy-btn { flex: 1; }
+      .shop-item-controls .shop-max-btn { flex: 0 0 auto; padding-left: 10px; padding-right: 10px; }
+      .market-empty {
+        grid-column: 1 / -1;
+        padding: 36px 20px;
+        border: 1px dashed var(--gs-rule);
+        border-radius: var(--gs-radius);
+        color: var(--gs-ash);
+        text-align: center;
+        font-size: 13px;
+      }
+      .order-card {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        display: flex;
+        flex-direction: column;
+        min-height: 310px;
+        max-height: calc(100vh - 215px);
+        padding: 14px;
+        border: 1px solid var(--gs-rule);
+        border-radius: var(--gs-radius);
+        background: var(--gs-panel);
+        box-shadow: 0 12px 30px #0002;
+      }
+      .order-card h2 { display: flex; justify-content: space-between; margin: 1px 0 12px; }
+      .order-count { color: var(--gs-ash); font-weight: 400; letter-spacing: 0; }
+      .order-lines { display: grid; align-content: start; gap: 9px; max-height: 44vh; overflow: auto; }
+      .order-empty { padding: 22px 9px; color: var(--gs-ash-quiet); text-align: center; font-size: 12px; }
+      .order-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 9px; padding-bottom: 9px; border-bottom: 1px solid var(--gs-rule); }
+      .order-line-name { overflow: hidden; color: var(--gs-parchment); font: 13px var(--gs-font-read); text-overflow: ellipsis; white-space: nowrap; }
+      .order-line-unit { margin-top: 3px; color: var(--gs-ash-quiet); font: 9px var(--gs-font-ui); }
+      .order-line-total { color: var(--gs-gold); font: 11px var(--gs-font-ui); white-space: nowrap; }
+      .order-line-controls { display: flex; align-items: center; gap: 6px; grid-column: 1 / -1; }
+      .order-line-controls .shop-quantity-input { width: 58px; height: 27px; }
+      .order-remove {
+        margin-left: auto;
+        padding: 4px 8px;
+        border: 1px solid var(--gs-rule);
+        border-radius: 3px;
+        background: transparent;
+        color: var(--gs-ash);
+        font-size: 10px;
+      }
+      .order-remove:hover { border-color: var(--gs-ember); color: var(--gs-ember); }
+      .order-summary { display: grid; gap: 7px; margin-top: auto; padding-top: 12px; }
+      .order-summary-row { display: flex; justify-content: space-between; gap: 10px; color: var(--gs-ash); font-size: 11px; }
+      .order-summary-row strong { color: var(--gs-gold); font: 13px var(--gs-font-ui); }
+      .order-checkout { width: 100%; margin-top: 5px; padding: 10px 12px; border: 1px solid var(--gs-gold); border-radius: var(--gs-radius); background: var(--gs-gold); color: var(--gs-night); font-weight: 700; transition: background 0.15s ease; }
+      .order-checkout:hover:not(:disabled) { background: var(--gs-gold); }
+      .order-checkout:disabled { opacity: 0.45; cursor: not-allowed; }
+      .market-status { min-height: 18px; margin: 10px 0 0; color: var(--gs-ash); font-size: 11px; line-height: 1.45; }
+      .market-status[data-kind='error'] { color: var(--gs-ember); }
+      .market-status[data-kind='success'] { color: var(--gs-hp); }
+      .shop-back-link { color: var(--gs-gold); text-decoration: none; font: 11px var(--gs-font-ui); }
+      .shop-back-link:hover { color: var(--gs-parchment); }
+      @media (max-width: 1250px) {
+        .market-workspace { grid-template-columns: 142px minmax(240px, 1fr); }
+        .order-card { grid-column: 1 / -1; max-height: none; min-height: 0; }
+        .order-lines { max-height: 250px; }
+      }
+      @media (max-width: 1000px) {
+        .shop-stage { grid-column: 2; grid-row: 2; }
+      }
+      @media (max-width: 700px) {
+        .shopkeeper-panel { display: grid; grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: auto auto; align-items: center; gap: 5px 14px; padding: 12px 16px; text-align: left; }
+        .shopkeeper-portrait { grid-row: 1 / 3; width: 72px; }
+        .shopkeeper-panel .eyebrow { margin: 0; }
+        .shopkeeper-panel h2 { font-size: 19px; }
+        .shopkeeper-panel .muted, .shopkeeper-location { display: none; }
+        .shop-stage { display: block; height: auto; min-height: 0; overflow: visible; }
+        .shop-stage .scene-header { padding: 18px 17px 15px; }
+        .shop-heading-row { gap: 10px; }
+        .shop-stage .scene-header h1 { font-size: 24px; }
+        .shop-stage .scene-header p:not(.eyebrow) { font-size: 12px; }
+        .player-gold { padding: 7px 9px; font-size: 10px; }
+        .player-gold b { font-size: 11px; }
+        .market-toolbar { padding: 10px 15px; }
+        .market-modes { gap: 5px; }
+        .market-modes button { min-width: 73px; padding: 7px 10px; }
+        .market-search { width: 43%; min-width: 110px; padding: 8px; font-size: 10px; }
+        .market-workspace { grid-template-columns: 1fr; gap: 12px; overflow: visible; padding: 14px 15px 24px; }
+        .market-categories { display: flex; gap: 5px; overflow-x: auto; padding: 8px; }
+        .market-categories h2 { display: none; }
+        .category-button { width: auto; flex: 0 0 auto; white-space: nowrap; }
+        .category-count { display: none; }
+        .market-items-heading { margin: 0 0 9px; }
+        .market-items-heading h2 { font-size: 18px; }
+        .market-item-list { grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 9px; }
+        .market-item-list .shop-item-card { min-height: 195px; padding: 11px; }
+        .order-card { grid-column: auto; }
+      }
+      @media (max-width: 380px) {
+        .shop-stage .scene-header h1 { font-size: 20px; }
+        .shop-heading-row { display: block; }
+        .player-gold { display: inline-block; margin-top: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell is-visible" data-page-view="shop">
+      <header class="topbar">
+        <a class="brand" href="./game.html" aria-label="Stervian — return to your adventure">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">Stervian<small>CHAPTER I: “A FALLEN SON”</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a id="topWorldButton" href="./game.html#storyFeed">Explore</a>
+          <a id="topPartyButton" href="./game.html#partyPage">Party <span id="partyNavBadge" class="party-nav-badge hidden">0</span></a>
+          <a id="topInventoryButton" href="./game.html#inventoryPage">Inventory</a>
+          <a id="topJournalButton" href="./game.html#worldTravel" title="World traveling is under development">World</a>
+          <a id="topCraftingButton" href="./crafting.html">Crafting</a>
+          <a class="active" id="topShopButton" href="./shop.html" aria-current="page">Shop</a>
+        </nav>
+        <div class="profile-tools">
+          <button class="top-icon is-quiet" type="button" title="Messages" aria-label="Messages"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM4 6l8 7 8-7" /></svg></button>
+          <button class="top-icon is-quiet" type="button" title="Notifications" aria-label="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4" /></svg></button>
+          <div class="settings-menu-wrap"><button class="top-icon settings-icon" id="settingsMenuButton" type="button" title="Settings" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0-5 1.2 2.1 2.4.5 2-1.2 2.1 2.1-1.2 2 .5 2.5L21 12l-2.1 1.2-.5 2.4 1.2 2-2.1 2.1-2-1.2-2.5.5L12 23l-1.2-2.1-2.4-.5-2 1.2-2 1.2-2.1-2.1 1.2-2-.5-2.5L3 12l2.1-1.2.5-2.4-1.2-2 2.1-2.1 2 1.2 2.5-.5L12 3Z" /></svg></button><div class="settings-menu" id="settingsMenu" role="menu" hidden><button class="settings-menu-item" id="logoutButton" type="button" role="menuitem">logout</button></div></div>
+        </div>
+      </header>
+      <aside class="sidebar shopkeeper-panel" aria-label="Shopkeeper">
+        <div class="shopkeeper-portrait" role="img" aria-label="Shopkeeper portrait space"></div>
+        <p class="eyebrow">SHOPKEEPER · OWNER</p>
+        <h2 id="shopkeeperName">Shopkeeper</h2>
+        <p class="muted" id="shopkeeperNote">The merchant's portrait and introduction will appear here.</p>
+        <div class="shopkeeper-location" id="shopLocation">Connecting to the market…</div>
+      </aside>
+      <main class="shop-stage" id="shopPage">
+        <header class="scene-header">
+          <div class="shop-heading-row">
+            <div>
+              <p class="eyebrow" id="shopEyebrow">MERCHANT COMMERCE</p>
+              <h1 id="shopTitle">Loading market…</h1>
+              <p id="shopSubtitle">Checking your current location and available wares.</p>
+            </div>
+          </div>
+        </header>
+        <section class="market-toolbar" aria-label="Shop controls">
+          <div class="market-modes" role="group" aria-label="Choose to buy or sell">
+            <button type="button" class="shop-item-buy-btn" id="buyModeButton" aria-pressed="true">Buy</button>
+            <button type="button" class="shop-item-buy-btn" id="sellModeButton" aria-pressed="false">Sell</button>
+          </div>
+          <input class="market-search" id="itemSearch" type="search" placeholder="Search items…" aria-label="Search shop items" autocomplete="off" />
+        </section>
+        <div class="market-workspace">
+          <nav class="market-categories" id="categoryList" aria-label="Item categories">
+            <h2>Categories</h2>
+          </nav>
+          <section class="market-items" aria-labelledby="categoryTitle">
+            <div class="market-items-heading"><h2 id="categoryTitle">All items</h2><span id="itemCount"></span></div>
+            <div class="market-item-list" id="itemList" aria-live="polite"></div>
+          </section>
+          <aside class="order-card" aria-labelledby="orderTitle">
+            <h2 id="orderTitle"><span id="orderLabel">Purchase list</span><span class="order-count" id="orderCount">0 items</span></h2>
+            <div class="player-gold" aria-live="polite">Your gold <b id="playerGold">—</b></div>
+            <div class="order-lines" id="orderLines"></div>
+            <div class="order-summary">
+              <div class="order-summary-row"><span id="orderSummaryLabel">Order total</span><strong id="orderTotal">◈ 0</strong></div>
+              <button type="button" class="order-checkout" id="checkoutButton" disabled>Finalize purchase</button>
+              <p class="market-status" id="marketStatus" role="status" aria-live="polite"></p>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+    <script type="module">
+      import { buyShopItem, getCharacter, getCurrentUser, getShop, logout, sellShopItem } from './js/logics/authApi.js';
+      import { initializeSettingsMenu } from './js/components/settingsMenu.js';
+
+      const byId = (id) => document.getElementById(id);
+      const money = (value) => '◈ ' + Number(value || 0).toLocaleString();
+      const safeText = (value, fallback = '') => typeof value === 'string' && value.trim() ? value.trim() : fallback;
+      const titleCase = (value) => String(value || 'Other').toLowerCase().split('_').map((part) => part ? part[0].toUpperCase() + part.slice(1) : '').join(' ');
+      const playerGold = () => Number(character?.player?.gold ?? 0);
+      const inventoryEntries = () => (character?.character_inventory?.item_inventory || []).filter((entry) => !entry.deleted && entry.item && !entry.item.deleted && Number(entry.quantity ?? 1) > 0 && !entry.equipped && !entry.is_equipped);
+      const carts = { buy: new Map(), sell: new Map() };
+      let currentUser = null;
+      let character = null;
+      let shop = null;
+      let mode = 'buy';
+      let category = 'ALL';
+      let busy = false;
+
+      function setStatus(message, kind = '') {
+        const status = byId('marketStatus');
+        status.textContent = message || '';
+        status.dataset.kind = kind;
+      }
+
+      function setText(id, value) {
+        byId(id).textContent = value;
+      }
+
+      function activeItems() {
+        if (mode === 'buy') return shop?.items || [];
+        return inventoryEntries();
+      }
+
+      function itemForEntry(entry) {
+        return entry.item || entry.items;
+      }
+
+      function entryName(entry) {
+        const item = itemForEntry(entry);
+        return [entry.prefix?.name, item?.name || 'Unknown item', entry.suffix?.name].filter(Boolean).join(' ') + (Number(entry.current_level_upgraded) ? ' +' + entry.current_level_upgraded : '');
+      }
+
+      function activeCategory(item) {
+        const type = mode === 'buy' ? item.type : itemForEntry(item)?.type;
+        return safeText(type, 'OTHER').toUpperCase();
+      }
+
+      function unitPrice(item) {
+        if (mode === 'buy') return Number(item.price ?? 0);
+        return Math.floor(Number(itemForEntry(item)?.price ?? 0) * 7 / 10);
+      }
+
+      function rowKey(item) {
+        return String(mode === 'buy' ? item.id : item.id);
+      }
+
+      function categoryEntries() {
+        const counts = new Map();
+        activeItems().forEach((item) => {
+          const type = activeCategory(item);
+          counts.set(type, (counts.get(type) || 0) + 1);
+        });
+        return counts;
+      }
+
+      function renderCategories() {
+        const list = byId('categoryList');
+        list.replaceChildren();
+        const heading = document.createElement('h2');
+        heading.textContent = 'Categories';
+        list.append(heading);
+
+        const counts = categoryEntries();
+        const options = [['ALL', 'All items', activeItems().length], ...[...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([key, count]) => [key, titleCase(key), count])];
+        if (!options.some(([key]) => key === category)) category = 'ALL';
+
+        options.forEach(([key, label, count]) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'category-button';
+          button.setAttribute('aria-current', String(category === key));
+          const name = document.createElement('span');
+          name.textContent = label;
+          const number = document.createElement('span');
+          number.className = 'category-count';
+          number.textContent = String(count);
+          button.append(name, number);
+          button.addEventListener('click', () => {
+            category = key;
+            renderCategories();
+            renderItems();
+          });
+          list.append(button);
+        });
+      }
+
+      function makeQuantityInput(maximum, label) {
+        const input = document.createElement('input');
+        input.className = 'shop-quantity-input';
+        input.type = 'number';
+        input.min = '1';
+        input.max = String(maximum || 2147483647);
+        input.step = '1';
+        input.value = '1';
+        input.setAttribute('aria-label', label);
+        input.disabled = busy;
+        return input;
+      }
+
+      function makeItemCard(item) {
+        const isSelling = mode === 'sell';
+        const listedItem = isSelling ? itemForEntry(item) : item;
+        const name = isSelling ? entryName(item) : safeText(item.name, 'Unknown item');
+        const price = unitPrice(item);
+        const quantityOwned = Number(item.quantity ?? 1);
+        const card = document.createElement('article');
+        card.className = 'shop-item-card';
+
+        const info = document.createElement('div');
+        const header = document.createElement('div');
+        header.className = 'shop-item-header';
+        const title = document.createElement('h3');
+        title.className = 'shop-item-title';
+        title.textContent = name;
+        const meta = document.createElement('div');
+        meta.className = 'shop-item-meta';
+        meta.textContent = [titleCase(listedItem?.type), listedItem?.weapon_type ? titleCase(listedItem.weapon_type) : '', listedItem?.rarity ? titleCase(listedItem.rarity) : ''].filter(Boolean).join(' · ');
+        header.append(title, meta);
+
+        const description = document.createElement('p');
+        description.className = 'shop-item-desc';
+        description.textContent = safeText(listedItem?.description, isSelling ? 'A tradeable item from your backpack.' : 'A useful addition to your journey.');
+        info.append(header, description);
+
+        const footer = document.createElement('div');
+        footer.className = 'shop-item-footer';
+        const priceText = document.createElement('span');
+        priceText.className = 'shop-item-price';
+        priceText.textContent = money(price) + ' each';
+        const controls = document.createElement('div');
+        controls.className = 'shop-item-controls';
+        const input = makeQuantityInput(isSelling ? quantityOwned : 2147483647, 'Quantity of ' + name);
+        if (isSelling) {
+          const owned = document.createElement('span');
+          owned.className = 'shop-item-type';
+          owned.textContent = 'Owned ×' + quantityOwned;
+          footer.append(priceText, owned);
+        } else {
+          footer.append(priceText);
+        }
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'shop-item-buy-btn';
+        add.textContent = 'Add to ' + (isSelling ? 'list' : 'cart');
+        add.disabled = busy || !shop || Boolean(shop.hostile);
+        add.addEventListener('click', () => addToCart(item, input));
+        if (isSelling) {
+          const remaining = quantityOwned - Number(carts.sell.get(rowKey(item))?.quantity || 0);
+          const max = document.createElement('button');
+          max.type = 'button';
+          max.className = 'shop-item-buy-btn shop-max-btn';
+          max.textContent = 'Max';
+          max.title = remaining > 0 ? 'Add all ' + remaining + ' remaining to the sell list' : 'Whole stack is already in the sell list';
+          max.setAttribute('aria-label', 'Add maximum quantity of ' + name + ' to sell list');
+          max.disabled = busy || !shop || Boolean(shop.hostile) || remaining < 1;
+          max.addEventListener('click', () => addMaxToSellList(item));
+          controls.append(input, max, add);
+        } else {
+          controls.append(input, add);
+        }
+        card.append(info, footer, controls);
+        return card;
+      }
+
+      function renderItems() {
+        const list = byId('itemList');
+        list.replaceChildren();
+        const search = byId('itemSearch').value.trim().toLocaleLowerCase();
+        const items = activeItems().filter((item) => {
+          const listedItem = mode === 'sell' ? itemForEntry(item) : item;
+          const name = mode === 'sell' ? entryName(item) : safeText(item.name);
+          const matchesCategory = category === 'ALL' || activeCategory(item) === category;
+          const matchesSearch = !search || (name + ' ' + (listedItem?.description || '') + ' ' + titleCase(activeCategory(item))).toLocaleLowerCase().includes(search);
+          return matchesCategory && matchesSearch;
+        });
+        setText('categoryTitle', category === 'ALL' ? 'All items' : titleCase(category));
+        setText('itemCount', items.length + (items.length === 1 ? ' item' : ' items'));
+        if (!items.length) {
+          const empty = document.createElement('p');
+          empty.className = 'market-empty';
+          empty.textContent = shop?.hostile ? 'The shopkeeper refuses to serve you.' : mode === 'sell' ? 'No backpack items match this category.' : 'No wares match this category.';
+          list.append(empty);
+          return;
+        }
+        items.forEach((item) => list.append(makeItemCard(item)));
+      }
+
+      function activeCart() {
+        return carts[mode];
+      }
+
+      function cartQuantity(line) {
+        return Number(line.quantity);
+      }
+
+      function cartLineTotal(line) {
+        return unitPrice(line.item) * cartQuantity(line);
+      }
+
+      function orderTotal() {
+        return [...activeCart().values()].reduce((total, line) => total + cartLineTotal(line), 0);
+      }
+
+      function renderCart() {
+        const lines = byId('orderLines');
+        lines.replaceChildren();
+        const cart = activeCart();
+        const entries = [...cart.entries()];
+        const count = entries.reduce((total, [, line]) => total + cartQuantity(line), 0);
+        const total = orderTotal();
+        setText('orderLabel', mode === 'buy' ? 'Purchase list' : 'Sell list');
+        setText('orderCount', count + (count === 1 ? ' item' : ' items'));
+        setText('orderSummaryLabel', mode === 'buy' ? 'Order total' : 'You receive');
+        setText('orderTotal', money(total));
+        setText('checkoutButton', mode === 'buy' ? 'Finalize purchase' : 'Finalize sale');
+
+        if (!entries.length) {
+          const empty = document.createElement('div');
+          empty.className = 'order-empty';
+          empty.textContent = mode === 'buy' ? 'Add items here to prepare your purchase.' : 'Add backpack items here to prepare your sale.';
+          lines.append(empty);
+        }
+
+        entries.forEach(([key, line]) => {
+          const selling = mode === 'sell';
+          const name = selling ? entryName(line.item) : safeText(line.item.name, 'Unknown item');
+          const price = unitPrice(line.item);
+          const maximum = selling ? Number(line.item.quantity ?? 1) : 2147483647;
+          const row = document.createElement('div');
+          row.className = 'order-line';
+          const details = document.createElement('div');
+          const title = document.createElement('div');
+          title.className = 'order-line-name';
+          title.title = name;
+          title.textContent = name;
+          const unit = document.createElement('div');
+          unit.className = 'order-line-unit';
+          unit.textContent = money(price) + ' each';
+          details.append(title, unit);
+          const lineTotal = document.createElement('strong');
+          lineTotal.className = 'order-line-total';
+          lineTotal.textContent = money(cartLineTotal(line));
+          const controls = document.createElement('div');
+          controls.className = 'order-line-controls';
+          const quantity = makeQuantityInput(maximum, 'Cart quantity for ' + name);
+          quantity.value = String(line.quantity);
+          quantity.addEventListener('change', () => {
+            const parsed = Number(quantity.value);
+            if (!Number.isSafeInteger(parsed) || parsed < 1 || parsed > maximum) {
+              quantity.value = String(line.quantity);
+              return;
+            }
+            line.quantity = parsed;
+            renderCart();
+            renderItems();
+          });
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'order-remove';
+          remove.textContent = 'Remove';
+          remove.disabled = busy;
+          remove.addEventListener('click', () => {
+            cart.delete(key);
+            renderCart();
+            renderItems();
+          });
+          controls.append(quantity, remove);
+          row.append(details, lineTotal, controls);
+          lines.append(row);
+        });
+
+        const enoughGold = mode !== 'buy' || total <= playerGold();
+        const validTotal = Number.isSafeInteger(total) && total >= 0;
+        byId('checkoutButton').disabled = busy || !shop || !entries.length || !validTotal || !enoughGold || Boolean(shop.hostile);
+        const status = byId('marketStatus');
+        if (!enoughGold && entries.length && status.textContent !== 'Your gold does not cover this purchase total.') {
+          setStatus('Your gold does not cover this purchase total.', 'error');
+        } else if (enoughGold && status.textContent === 'Your gold does not cover this purchase total.') {
+          setStatus('');
+        }
+      }
+
+      function render() {
+        setText('playerGold', Number.isFinite(playerGold()) ? playerGold().toLocaleString() : '0');
+        setText('buyModeButton', 'Buy');
+        setText('sellModeButton', 'Sell');
+        byId('buyModeButton').setAttribute('aria-pressed', String(mode === 'buy'));
+        byId('sellModeButton').setAttribute('aria-pressed', String(mode === 'sell'));
+        byId('sellModeButton').disabled = busy || !shop || Boolean(shop.hostile);
+        byId('buyModeButton').disabled = busy || !shop;
+        byId('itemSearch').disabled = busy;
+        renderCategories();
+        renderItems();
+        renderCart();
+      }
+
+      function addToCart(item, input) {
+        const quantity = Number(input.value);
+        const maximum = mode === 'sell' ? Number(item.quantity ?? 1) : 2147483647;
+        if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > maximum) {
+          setStatus('Enter a whole-number quantity within the available stack.', 'error');
+          input.focus();
+          return;
+        }
+        const key = rowKey(item);
+        const cart = activeCart();
+        const previous = cart.get(key);
+        const nextQuantity = (previous?.quantity || 0) + quantity;
+        if (nextQuantity > maximum) {
+          setStatus('The sell list cannot exceed the quantity in that stack.', 'error');
+          return;
+        }
+        if (!Number.isSafeInteger(unitPrice(item) * nextQuantity)) {
+          setStatus('That quantity produces an invalid total.', 'error');
+          return;
+        }
+        cart.set(key, { item, quantity: nextQuantity });
+        setStatus(safeText(item.name, entryName(item)) + ' added.', 'success');
+        renderCart();
+        renderItems();
+      }
+
+      function addMaxToSellList(item) {
+        if (busy || mode !== 'sell' || !shop || shop.hostile) return;
+        const maximum = Number(item.quantity ?? 1);
+        const key = rowKey(item);
+        const cart = carts.sell;
+        const previous = Number(cart.get(key)?.quantity || 0);
+        const remaining = maximum - previous;
+        if (!Number.isSafeInteger(maximum) || remaining < 1) {
+          setStatus('The whole stack is already in your sell list.', 'error');
+          return;
+        }
+        if (!Number.isSafeInteger(unitPrice(item) * maximum)) {
+          setStatus('That quantity produces an invalid total.', 'error');
+          return;
+        }
+        cart.set(key, { item, quantity: maximum });
+        setStatus(entryName(item) + ' ×' + remaining + ' added.', 'success');
+        renderCart();
+        renderItems();
+      }
+
+      async function finalizeOrder() {
+        if (busy || !activeCart().size || !shop || shop.hostile) return;
+        const lines = [...activeCart().entries()];
+        const total = orderTotal();
+        if (!Number.isSafeInteger(total) || total < 0 || (mode === 'buy' && total > playerGold())) {
+          setStatus(mode === 'buy' ? 'Your gold does not cover this purchase total.' : 'This sale total is invalid.', 'error');
+          renderCart();
+          return;
+        }
+
+        const selling = mode === 'sell';
+        const cart = activeCart();
+        busy = true;
+        setStatus(selling ? 'Completing your sale…' : 'Completing your purchase…');
+        render();
+        let completed = 0;
+        try {
+          for (const [key, line] of lines) {
+            const result = selling
+              ? await sellShopItem(currentUser.id, { sublocationId: shop.id, inventoryEntryId: line.item.id, quantity: line.quantity })
+              : await buyShopItem(currentUser.id, { sublocationId: shop.id, itemId: line.item.id, quantity: line.quantity });
+            if (result.error) throw new Error(result.error);
+            character = result.character || await getCharacter(currentUser.id);
+            cart.delete(key);
+            completed += 1;
+          }
+          setStatus(selling ? 'Sale complete. Your character and gold are up to date.' : 'Purchase complete. Your character and gold are up to date.', 'success');
+        } catch (error) {
+          const prefix = completed ? completed + ' cart line' + (completed === 1 ? ' was' : 's were') + ' completed. ' : '';
+          setStatus(prefix + (error.message || 'The order could not be completed.') + ' Remaining items are still in your list.', 'error');
+        } finally {
+          busy = false;
+          render();
+        }
+      }
+
+      function setMode(nextMode) {
+        if (busy || mode === nextMode) return;
+        mode = nextMode;
+        category = 'ALL';
+        setStatus('');
+        setText('orderLabel', mode === 'buy' ? 'Purchase list' : 'Sell list');
+        render();
+      }
+
+      function showUnavailable(message) {
+        shop = null;
+        setText('shopTitle', 'The market is unavailable');
+        setText('shopSubtitle', message);
+        setText('shopkeeperName', 'Shopkeeper');
+        setText('shopkeeperNote', 'Visit a merchant to browse goods and supplies.');
+        setText('shopLocation', 'NO ACTIVE MARKET');
+        setStatus(message, 'error');
+        render();
+      }
+
+      async function initialiseShop() {
+        try {
+          const session = await getCurrentUser();
+          currentUser = session.user;
+          if (!currentUser?.hasCharacter) {
+            showUnavailable('Create a character or return to your adventure before visiting a market.');
+            return;
+          }
+          character = await getCharacter(currentUser.id);
+          if (!character?.sublocation_id || !['SHOP', 'INN'].includes(character.sublocation?.sublocation_type)) {
+            showUnavailable('Your character is not inside a shop or inn. Enter a merchant location from your adventure first.');
+            return;
+          }
+          shop = await getShop(character.sublocation_id);
+          setText('shopEyebrow', shop.sublocation_type === 'INN' ? 'INN & TAVERN' : 'MERCHANT COMMERCE');
+          setText('shopTitle', safeText(shop.name, 'The Shop'));
+          setText('shopSubtitle', shop.hostile ? 'The shopkeeper refuses to serve you.' : 'Browse the merchant’s wares, build a list, then finalize your order.');
+          setText('shopkeeperName', safeText(shop.owner_name, 'Shopkeeper'));
+          setText('shopkeeperNote', shop.hostile ? 'This merchant will not trade with you right now.' : 'Choose goods from the market and prepare your order.');
+          setText('shopLocation', safeText(character.sublocation?.name, 'CURRENT MERCHANT'));
+          setStatus(shop.hostile ? 'The shopkeeper refuses to serve you.' : '');
+          render();
+        } catch (error) {
+          if (!currentUser) {
+            window.location.assign('./login.html');
+            return;
+          }
+          showUnavailable(error.message || 'Unable to load this market.');
+        }
+      }
+
+      byId('buyModeButton').addEventListener('click', () => setMode('buy'));
+      byId('sellModeButton').addEventListener('click', () => setMode('sell'));
+      byId('itemSearch').addEventListener('input', renderItems);
+      byId('checkoutButton').addEventListener('click', finalizeOrder);
+
+      initializeSettingsMenu(async () => { try { await logout(); } finally { window.location.assign('./login.html'); } });
+      await initialiseShop();
+    </script>
+  </body>
+</html>

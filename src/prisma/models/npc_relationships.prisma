@@ -1,0 +1,20 @@
+model npc_relationships {
+  id            Int @id @default(autoincrement())
+  source_npc_id Int
+  target_npc_id Int
+
+  relationship_type NpcRelationshipType @default(ACQUAINTANCE)
+  
+  is_nsfw      Boolean?  @default(false)
+
+  context_note String?   @db.Text
+  created_at   DateTime? @default(now()) @db.DateTime(0)
+  updated_at   DateTime? @updatedAt @db.DateTime(0)
+  deleted      Boolean?  @default(false)
+  source_npc   npcs      @relation("SourceNpcRelations", fields: [source_npc_id], references: [character_id], onDelete: Cascade)
+  target_npc   npcs      @relation("TargetNpcRelations", fields: [target_npc_id], references: [character_id], onDelete: Cascade)
+
+  @@unique([source_npc_id, target_npc_id], map: "npc_rel_unique")
+  @@index([source_npc_id])
+  @@index([target_npc_id])
+}

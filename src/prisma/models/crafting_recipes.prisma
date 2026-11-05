@@ -1,0 +1,29 @@
+model crafting_recipes {
+  id                Int                           @id @default(autoincrement())
+  name              String                        @db.VarChar(50)
+  description       String?                       @db.Text
+  lifeskill_id      Int?
+  output_item_id    Int
+  output_quantity   Int                           @default(1)
+  max_output_quantity Int?                        @default(1)   
+  
+  required_level    Int                           @default(1)
+  exp_reward        Int                           @default(0)
+  stamina_cost      Int                           @default(0)
+  success_rate      Float                         @default(1.0)
+  is_auto_unlocked  Boolean                       @default(true)
+
+
+  duration_seconds    Int?                        @default(0)   
+  
+  
+  created_at        DateTime?                     @default(now()) @db.DateTime(0)
+  updated_at        DateTime?                     @updatedAt @db.DateTime(0)
+  deleted           Boolean?                      @default(false)
+  lifeskill         lifeskills?                   @relation(fields: [lifeskill_id], references: [id])
+  output_item       items                         @relation("CraftedOutputItem", fields: [output_item_id], references: [id])
+  ingredients       crafting_recipe_ingredients[]
+  character_recipes character_recipes[]
+  @@index([lifeskill_id], map: "crafting_recipes_lifeskill_id_fkey")
+  @@index([output_item_id], map: "crafting_recipes_output_item_id_fkey")
+}

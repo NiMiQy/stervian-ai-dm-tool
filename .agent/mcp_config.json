@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "Stervian_DM": {
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "serverUrl": "http://localhost:3001/mcp"
+    }
+  }
+}

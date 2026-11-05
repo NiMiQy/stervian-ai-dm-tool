@@ -1,0 +1,31 @@
+model character_items {
+  id           Int @id @default(autoincrement())
+  character_id Int
+  item_id      Int
+
+  // Storage state
+  location               ItemLocation @default(BACKPACK)
+  equip_slot             EquipSlot? // Only populated when location == EQUIPPED
+  quantity               Int?         @default(1)
+  // Upgrade and affix tracking (preserved everywhere: backpack, vault, or equipped)
+  current_level_upgraded Int?         @default(0)
+  prefix_id              Int?
+  suffix_id              Int?
+
+  prefix_stats           Json?
+  suffix_stats           Json?
+ 
+  // Relations
+  character              characters   @relation(fields: [character_id], references: [id])
+  items                  items        @relation(fields: [item_id], references: [id])
+  prefix                 prefixes?    @relation("CharacterItemPrefix", fields: [prefix_id], references: [id])
+  suffix                 suffixes?    @relation("CharacterItemSuffix", fields: [suffix_id], references: [id])
+
+
+  created_at             DateTime?    @default(now()) @db.DateTime(0)
+  updated_at             DateTime?    @updatedAt @db.DateTime(0)
+  deleted                Boolean?     @default(false)
+
+  @@index([character_id, location], map: "character_items_character_location_idx")
+  @@index([item_id], map: "character_items_item_id_idx")
+}

@@ -1,0 +1,13 @@
+model itembonus_effects {
+  item_bonus_id Int
+  effect_id     Int
+
+  item_bonus item_bonus? @relation(fields: [item_bonus_id], references: [id])
+  effect     effects?    @relation(fields: [effect_id], references: [id])
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  @@id([item_bonus_id, effect_id])
+}

@@ -1,0 +1,15 @@
+model character_effects {
+  effect_id     Int
+  character_id  Int
+  duration_turn Int? @default(0)
+  applied_value Int? @default(0) // Accumulated Poison damage; zero for other combat effects.
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  effect    effects    @relation(fields: [effect_id], references: [id])
+  character characters @relation(fields: [character_id], references: [id])
+
+  @@id([effect_id, character_id])
+}

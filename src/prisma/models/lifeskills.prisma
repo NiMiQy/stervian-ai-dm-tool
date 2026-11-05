@@ -1,0 +1,8 @@
+model lifeskills {
+  id                   Int                    @id @default(autoincrement())
+  name                 String?
+  description          String?
+
+  character_lifeskills character_lifeskills[]
+  crafting_recipes crafting_recipes[]
+}

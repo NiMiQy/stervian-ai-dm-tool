@@ -1,0 +1,11 @@
+model npc_monsters {
+  character_id      Int @id
+  experience_reward Int @default(0)
+
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @db.DateTime(0)
+  deleted    Boolean?  @default(false)
+
+  npc                    npcs                     @relation(fields: [character_id], references: [character_id])
+  npcmonsters_lootgroups npcmonsters_lootgroups[]
+}

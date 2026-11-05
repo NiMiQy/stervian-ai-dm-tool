@@ -1,0 +1,15 @@
+model crafting_recipe_ingredients {
+  id        Int              @id @default(autoincrement())
+  recipe_id Int
+  item_id   Int
+  quantity  Int              @default(1)
+  recipe    crafting_recipes @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  item      items            @relation(fields: [item_id], references: [id])
+
+  created_at   DateTime?  @default(now()) @db.DateTime(0)
+  updated_at   DateTime?  @updatedAt @db.DateTime(0)
+  deleted      Boolean?   @default(false)
+
+  @@index([recipe_id], map: "crafting_recipe_ingredients_recipe_id_fkey")
+  @@index([item_id], map: "crafting_recipe_ingredients_item_id_fkey")
+}

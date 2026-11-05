@@ -1,0 +1,591 @@
+.app-shell .game-stage {
+  position: relative;
+}
+
+.game-stage .scene-support-actions .fate-check-toggle[aria-pressed='true'] {
+  border-color: var(--gs-gold);
+  background: var(--gs-gold-soft);
+  color: var(--gs-gold);
+  box-shadow: inset 0 0 0 1px var(--gs-gold-line);
+}
+
+.game-stage .scene-support-actions .fate-odds-select {
+  border-color: var(--gs-gold-line);
+  color: var(--gs-gold);
+  cursor: pointer;
+}
+
+.game-stage .scene-support-actions .fate-odds-select[hidden] {
+  display: none;
+}
+
+.game-stage .scene-support-actions .fate-odds-select:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.action-composer.is-fate-mode textarea {
+  border-color: var(--gs-gold-line);
+  box-shadow: 0 0 0 1px var(--gs-gold-soft);
+}
+
+.action-composer.is-fate-mode label[for='actionInput']::after {
+  content: ' · Fate check';
+  color: var(--gs-gold);
+}
+
+.fate-dice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(10, 11, 14, 0.62);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.fate-dice-overlay[hidden] {
+  display: none;
+}
+
+.fate-dice-panel {
+  position: relative;
+  width: min(460px, 100%);
+  border: 1px solid var(--gs-gold-line);
+  border-radius: 10px;
+  background: radial-gradient(ellipse at 50% 20%, rgba(212, 171, 95, 0.12), transparent 65%), var(--gs-panel);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.fate-dice-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1;
+  border: 0;
+  background: none;
+  color: var(--gs-ash);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.fate-dice-close:hover {
+  color: var(--gs-parchment);
+}
+
+.fate-dice-canvas {
+  height: 240px;
+}
+
+.fate-dice-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.fate-dice-hud {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 0 20px 20px;
+  text-align: center;
+  font-family: var(--gs-font-ui);
+  color: var(--gs-parchment);
+}
+
+.fate-dice-hud p {
+  margin: 0;
+}
+
+.fate-dice-question {
+  font-family: var(--gs-font-read);
+  font-style: italic;
+  color: var(--gs-ash);
+  overflow-wrap: anywhere;
+}
+
+.fate-dice-total {
+  font-family: var(--gs-font-title);
+  font-size: 44px;
+  line-height: 1.1;
+  color: var(--gs-parchment);
+}
+
+.fate-dice-verdict {
+  font-family: var(--gs-font-title);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fate-dice-verdict.is-exceptional-yes,
+.fate-badge.is-exceptional-yes strong {
+  color: var(--gs-gold);
+}
+
+.fate-dice-verdict.is-yes,
+.fate-badge.is-yes strong {
+  color: var(--gs-hp);
+}
+
+.fate-dice-verdict.is-no,
+.fate-badge.is-no strong {
+  color: var(--gs-ash);
+}
+
+.fate-dice-verdict.is-exceptional-no,
+.fate-badge.is-exceptional-no strong {
+  color: var(--gs-ember);
+}
+
+.fate-dice-meta {
+  font-size: 13px;
+  color: var(--gs-ash);
+}
+
+.fate-dice-event {
+  margin-top: 6px !important;
+  padding: 4px 10px;
+  border: 1px solid var(--gs-gold-line);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--gs-gold);
+}
+
+.fate-dice-overlay.is-rolling .fate-dice-meta {
+  animation: fate-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes fate-pulse {
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fate-dice-overlay.is-rolling .fate-dice-meta {
+    animation: none;
+  }
+}
+
+.fate-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 6px 0 0;
+  font-family: var(--gs-font-ui);
+  font-size: 13px;
+  color: var(--gs-ash);
+}
+
+.fate-badge-roll {
+  color: var(--gs-parchment);
+}
+
+.fate-badge-event {
+  color: var(--gs-gold);
+}
+
+.scenes-sheet {
+  display: flex;
+  flex-direction: column;
+  max-height: min(88vh, 760px);
+}
+
+.scenes-counter {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--gs-ash);
+}
+
+.scenes-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--gs-rule);
+}
+
+.scenes-tab {
+  padding: 8px 14px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--gs-ash);
+  font-family: var(--gs-font-ui);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.scenes-tab.is-active {
+  border-bottom-color: var(--gs-gold);
+  color: var(--gs-parchment);
+}
+
+.scenes-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.scene-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scene-empty {
+  color: var(--gs-ash);
+  font-style: italic;
+}
+
+.scene-card-body {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: var(--gs-radius);
+  background: var(--gs-panel-raised);
+  color: var(--gs-parchment);
+  text-align: left;
+  font: inherit;
+}
+
+button.scene-card-body {
+  cursor: pointer;
+}
+
+button.scene-card-body:hover,
+button.scene-card-body:focus-visible {
+  border-color: var(--gs-gold-line);
+  background: var(--gs-gold-soft);
+}
+
+.scene-card-goal {
+  margin: 0;
+  font-family: var(--gs-font-read);
+  font-size: 16px;
+}
+
+.scene-card-notes {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 13px;
+  color: var(--gs-ash);
+  white-space: pre-line;
+}
+
+.scene-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.scene-tag {
+  padding: 2px 8px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: 999px;
+  font-family: var(--gs-font-ui);
+  font-size: 12px;
+  color: var(--gs-ash);
+}
+
+.scene-tag-npc {
+  border-color: var(--gs-gold-line);
+  color: var(--gs-gold);
+}
+
+.scene-tag-solved {
+  color: var(--gs-hp);
+}
+
+.scene-tag-affinity.is-positive {
+  color: var(--gs-hp);
+}
+
+.scene-tag-affinity.is-negative {
+  color: var(--gs-ember);
+}
+
+.scene-form {
+  display: grid;
+  gap: 8px;
+}
+
+.scene-form h3 {
+  margin: 0 0 4px;
+  font-family: var(--gs-font-title);
+}
+
+.scene-form label {
+  font-family: var(--gs-font-ui);
+  font-size: 13px;
+  color: var(--gs-parchment);
+}
+
+.scene-form textarea,
+.scene-form select,
+.scene-form input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: var(--gs-radius);
+  background: var(--gs-night);
+  color: var(--gs-parchment);
+  font: inherit;
+}
+
+.scene-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.scene-form-spacer {
+  flex: 1;
+}
+
+.scene-form-actions button,
+.scene-new-button {
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: var(--gs-radius);
+  background: none;
+  color: var(--gs-parchment);
+  font-family: var(--gs-font-ui);
+  cursor: pointer;
+}
+
+.scene-save-button,
+.scene-new-button {
+  border-color: var(--gs-gold-line) !important;
+  color: var(--gs-gold) !important;
+}
+
+.scene-delete-button {
+  border-color: rgba(217, 120, 95, 0.5) !important;
+  color: var(--gs-ember) !important;
+}
+
+.scene-new-button:disabled,
+.scene-form-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scenes-footer {
+  padding: 12px 20px 18px;
+  border-top: 1px solid var(--gs-rule);
+}
+
+.scenes-content #storyLastUpdated {
+  display: none;
+}
+
+.scenes-modal [hidden] {
+  display: none !important;
+}
+
+.scenes-modal .scenes-sheet {
+  width: min(720px, calc(100vw - 32px));
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scenes-footer:has(> .scene-new-button[hidden]) {
+  display: none;
+}
+
+.fate-badge.is-critical-success strong {
+  color: var(--gs-gold);
+}
+
+.fate-badge.is-success strong {
+  color: var(--gs-hp);
+}
+
+.fate-badge.is-failure strong {
+  color: var(--gs-ash);
+}
+
+.fate-badge.is-critical-failure strong {
+  color: var(--gs-ember);
+}
+
+.checks-modal [hidden] {
+  display: none !important;
+}
+
+.checks-modal .checks-sheet {
+  display: flex;
+  flex-direction: column;
+  width: min(640px, calc(100vw - 32px));
+  max-width: 640px;
+  max-height: min(90vh, 820px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checks-subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--gs-ash);
+}
+
+.checks-form {
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 20px 20px;
+}
+
+.checks-form > label,
+.check-fields > label {
+  font-family: var(--gs-font-ui);
+  font-size: 13px;
+  color: var(--gs-parchment);
+}
+
+.checks-form textarea,
+.checks-form input[type="text"],
+.checks-form input[type="number"],
+.checks-form select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: var(--gs-radius);
+  background: var(--gs-night);
+  color: var(--gs-parchment);
+  font: inherit;
+}
+
+.check-card,
+.check-order {
+  margin: 0;
+  padding: 10px 14px 14px;
+  border: 1px solid var(--gs-gold-line);
+  border-radius: var(--gs-radius);
+  background: var(--gs-panel);
+  min-width: 0;
+}
+
+.check-card legend,
+.check-order legend {
+  padding: 0 6px;
+  font-family: var(--gs-font-ui);
+  font-size: 14px;
+  color: var(--gs-gold);
+}
+
+.check-card.is-off,
+.check-order.is-off {
+  border-color: var(--gs-rule);
+  background: none;
+}
+
+.check-card.is-off .check-fields,
+.check-order.is-off .check-switch {
+  opacity: 0.45;
+}
+
+.check-fields {
+  display: grid;
+  gap: 8px;
+}
+
+.check-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--gs-font-ui);
+  font-size: 14px;
+  color: var(--gs-parchment);
+  cursor: pointer;
+}
+
+.check-switch input {
+  accent-color: var(--gs-gold);
+}
+
+.dc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.dc-row input[type="number"] {
+  width: 84px;
+}
+
+.dc-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dc-preset {
+  min-width: 40px;
+  padding: 6px 8px;
+  border: 1px solid var(--gs-rule-strong);
+  border-radius: var(--gs-radius);
+  background: none;
+  color: var(--gs-ash);
+  font-family: var(--gs-font-ui);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dc-preset:hover,
+.dc-preset.is-active {
+  border-color: var(--gs-gold-line);
+  background: var(--gs-gold-soft);
+  color: var(--gs-gold);
+}
+
+.roll-mode-row,
+.fate-row,
+.check-order {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.fate-row label {
+  display: grid;
+  flex: 1 1 160px;
+  gap: 4px;
+  font-family: var(--gs-font-ui);
+  font-size: 13px;
+  color: var(--gs-parchment);
+}
+
+.check-formula {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gs-ash);
+}
+
+@media (max-width: 520px) {
+  .checks-form {
+    padding: 12px 16px 16px;
+  }
+
+  .dc-row input[type="number"] {
+    width: 100%;
+  }
+}
